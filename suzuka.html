@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SU-METAL - BABYMETAL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #000000;
+      --card-bg: #0a0a0a;
+      --red: #ff003c;
+      --red-glow: rgba(255, 0, 60, 0.3);
+      --silver: #8a8a8a;
+      --silver-light: #c0c0c0;
+      --white: #f0f0f0;
+      --line: rgba(255, 255, 255, 0.08);
+      --line-red: rgba(255, 0, 60, 0.25);
+      --font-heading: 'Cinzel', serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--white);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* HEADER */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(180deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 70%, transparent 100%);
+    }
+
+    .brand {
+      font-family: var(--font-heading);
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--white);
+      text-shadow: 0 0 20px var(--red-glow);
+    }
+
+    .brand span { color: var(--red); }
+
+    .back-btn {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--white);
+      border: 1px solid var(--line-red);
+      padding: 10px 20px;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .back-btn:hover {
+      border-color: var(--red);
+      background: rgba(255, 0, 60, 0.1);
+      box-shadow: 0 0 20px var(--red-glow);
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 140px 20px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, var(--red-glow) 0%, transparent 70%);
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+    .hero-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(48px, 10vw, 100px);
+      font-weight: 900;
+      line-height: 0.9;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .hero-sub {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--silver-light);
+      letter-spacing: 6px;
+      text-transform: uppercase;
+    }
+
+    .hero-line {
+      width: 60px;
+      height: 2px;
+      background: var(--red);
+      margin: 24px auto;
+      box-shadow: 0 0 12px var(--red-glow);
+    }
+
+    /* CONTENT */
+    .content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 40px 80px;
+    }
+
+    /* BIO */
+    .bio-section {
+      margin-bottom: 48px;
+    }
+
+    .bio-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 12px;
+    }
+
+    .bio-text {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--silver-light);
+      line-height: 1.8;
+    }
+
+    .bio-text strong {
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    /* TABLE */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+
+    .data-table tr {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .data-table tr:last-child {
+      border-bottom: none;
+    }
+
+    .data-table td {
+      padding: 16px 0;
+      font-size: 14px;
+      vertical-align: top;
+    }
+
+    .data-table td:first-child {
+      font-weight: 700;
+      color: var(--silver);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-size: 11px;
+      width: 180px;
+      padding-top: 18px;
+    }
+
+    .data-table td:last-child {
+      color: var(--white);
+      font-weight: 400;
+    }
+
+    .data-table .highlight {
+      color: var(--red);
+      font-weight: 600;
+    }
+
+    /* BOX */
+    .info-box {
+      border: 1px solid var(--line-red);
+      background: rgba(255, 0, 60, 0.03);
+      padding: 28px 32px;
+      margin-top: 48px;
+    }
+
+    .info-box h3 {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--red);
+      margin-bottom: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .info-box p {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--silver);
+      line-height: 1.7;
+    }
+
+    /* FOOTER */
+    .site-footer {
+      border-top: 1px solid var(--line);
+      padding: 40px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--silver);
+      letter-spacing: 1px;
+    }
+
+    .site-footer span { color: var(--red); }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="brand">BABY<span>METAL</span></div>
+    <a href="index.html" class="back-btn">← Volver al Inicio</a>
+  </header>
+
+  <section class="hero">
+    <div class="hero-label">Integrante &mdash; Voz Principal</div>
+    <h1>SU-METAL</h1>
+    <div class="hero-sub">Suzuka Nakamoto</div>
+  </section>
+
+  <div class="content">
+
+    <div class="bio-section">
+      <div class="bio-label">Biografía</div>
+      <p class="bio-text">
+        <strong>Suzuka Nakamoto</strong>, conocida artísticamente como <strong>SU-METAL</strong>, es una cantante y bailarina japonesa nacida el 20 de diciembre de 1997 en Hiroshima, Japón. Es la <strong>vocalista principal y bailarina líder</strong> del grupo BABYMETAL, habiendo sido seleccionada por el productor Kei Kobayashi (Kamishibai) para liderar el proyecto musical dentro de la escuela de idolos Sakura Gakuin.
+      </p>
+    </div>
+
+    <div class="bio-section">
+      <div class="bio-label">Datos Técnicos</div>
+      <table class="data-table">
+        <tr>
+          <td>Nombre Real</td>
+          <td>Suzuka Nakamoto (中元 鈴香)</td>
+        </tr>
+        <tr>
+          <td>Nombre Artístico</td>
+          <td class="highlight">SU-METAL</td>
+        </tr>
+        <tr>
+          <td>Fecha de Nacimiento</td>
+          <td>20 de diciembre de 1997 (28 años)</td>
+        </tr>
+        <tr>
+          <td>Lugar de Origen</td>
+          <td>Hiroshima, Japón</td>
+        </tr>
+        <tr>
+          <td>Géneros</td>
+          <td>Kawaii Metal, J-Pop, Heavy Metal, Power Metal</td>
+        </tr>
+        <tr>
+          <td>Instrumento</td>
+          <td>Voz</td>
+        </tr>
+        <tr>
+          <td>Activa Desde</td>
+          <td>2007 &mdash; presente</td>
+        </tr>
+        <tr>
+          <td>Grupos Anteriores</td>
+          <td>Karen Girl's (2008&ndash;2009), Sakura Gakuin (2010&ndash;2013)</td>
+        </tr>
+        <tr>
+          <td>Discográfica</td>
+          <td>Toy's Factory, Amuse Inc.</td>
+        </tr>
+        <tr>
+          <td>Sitio Oficial</td>
+          <td><a href="https://www.babymetal.com" target="_blank" rel="noopener" style="color: var(--red);">babymetal.com</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="info-box">
+      <h3>El Fox God la eligió</h3>
+      <p>
+        SU-METAL ha sido la voz que definió el sonido único de BABYMETAL: una fusión imposible entre la dulzura del J-Pop idol y la agresividad del Heavy Metal. Desde su debut en 2010, ha liderado la Metal Resistance con una presencia escénica que trasciende género y frontera, convirtiéndose en una de las figuras más icónicas del metal japonés contemporáneo.
+      </p>
+    </div>
+
+  </div>
+
+  <footer class="site-footer">
+    Fanpage no oficial &mdash; <span>BABYMETAL</span> &copy; 2026 &mdash; Todos los derechos pertenecen a Amuse Inc. y Toy's Factory
+  </footer>
+
+</body>
+</html>

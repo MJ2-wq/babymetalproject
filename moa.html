@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MOAMETAL - BABYMETAL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #000000;
+      --card-bg: #0a0a0a;
+      --red: #ff003c;
+      --red-glow: rgba(255, 0, 60, 0.3);
+      --silver: #8a8a8a;
+      --silver-light: #c0c0c0;
+      --white: #f0f0f0;
+      --line: rgba(255, 255, 255, 0.08);
+      --line-red: rgba(255, 0, 60, 0.25);
+      --font-heading: 'Cinzel', serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--white);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(180deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 70%, transparent 100%);
+    }
+
+    .brand {
+      font-family: var(--font-heading);
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--white);
+      text-shadow: 0 0 20px var(--red-glow);
+    }
+
+    .brand span { color: var(--red); }
+
+    .back-btn {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--white);
+      border: 1px solid var(--line-red);
+      padding: 10px 20px;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .back-btn:hover {
+      border-color: var(--red);
+      background: rgba(255, 0, 60, 0.1);
+      box-shadow: 0 0 20px var(--red-glow);
+    }
+
+    .hero {
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 140px 20px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, var(--red-glow) 0%, transparent 70%);
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+    .hero-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(48px, 10vw, 100px);
+      font-weight: 900;
+      line-height: 0.9;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .hero-sub {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--silver-light);
+      letter-spacing: 6px;
+      text-transform: uppercase;
+    }
+
+    .hero-line {
+      width: 60px;
+      height: 2px;
+      background: var(--red);
+      margin: 24px auto;
+      box-shadow: 0 0 12px var(--red-glow);
+    }
+
+    .content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 40px 80px;
+    }
+
+    .bio-section { margin-bottom: 48px; }
+
+    .bio-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 12px;
+    }
+
+    .bio-text {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--silver-light);
+      line-height: 1.8;
+    }
+
+    .bio-text strong {
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+
+    .data-table tr { border-bottom: 1px solid var(--line); }
+    .data-table tr:last-child { border-bottom: none; }
+
+    .data-table td {
+      padding: 16px 0;
+      font-size: 14px;
+      vertical-align: top;
+    }
+
+    .data-table td:first-child {
+      font-weight: 700;
+      color: var(--silver);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-size: 11px;
+      width: 180px;
+      padding-top: 18px;
+    }
+
+    .data-table td:last-child { color: var(--white); font-weight: 400; }
+    .data-table .highlight { color: var(--red); font-weight: 600; }
+
+    .info-box {
+      border: 1px solid var(--line-red);
+      background: rgba(255, 0, 60, 0.03);
+      padding: 28px 32px;
+      margin-top: 48px;
+    }
+
+    .info-box h3 {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--red);
+      margin-bottom: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .info-box p {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--silver);
+      line-height: 1.7;
+    }
+
+    .site-footer {
+      border-top: 1px solid var(--line);
+      padding: 40px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--silver);
+      letter-spacing: 1px;
+    }
+
+    .site-footer span { color: var(--red); }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="brand">BABY<span>METAL</span></div>
+    <a href="index.html" class="back-btn">← Volver al Inicio</a>
+  </header>
+
+  <section class="hero">
+    <div class="hero-label">Integrante &mdash; Coros y Danza</div>
+    <h1>MOAMETAL</h1>
+    <div class="hero-sub">Moa Kikuchi</div>
+  </section>
+
+  <div class="content">
+
+    <div class="bio-section">
+      <div class="bio-label">Biografía</div>
+      <p class="bio-text">
+        <strong>Moa Kikuchi</strong>, conocida artísticamente como <strong>MOAMETAL</strong>, es una cantante y bailarina japonesa nacida el 4 de julio de 1999 en Nagoya, Japón. Es la <strong>segunda integrante</strong> de BABYMETAL y miembro original del grupo desde su formación en 2010. Inicialmente formó parte de la unidad de danza "Babymetal Dance Team" antes de ser confirmada como vocalista de apoyo y bailarina principal junto a SU-METAL.
+      </p>
+    </div>
+
+    <div class="bio-section">
+      <div class="bio-label">Datos Técnicos</div>
+      <table class="data-table">
+        <tr>
+          <td>Nombre Real</td>
+          <td>Moa Kikuchi (菊地 最愛)</td>
+        </tr>
+        <tr>
+          <td>Nombre Artístico</td>
+          <td class="highlight">MOAMETAL</td>
+        </tr>
+        <tr>
+          <td>Fecha de Nacimiento</td>
+          <td>4 de julio de 1999 (26 años)</td>
+        </tr>
+        <tr>
+          <td>Lugar de Origen</td>
+          <td>Nagoya, Japón</td>
+        </tr>
+        <tr>
+          <td>Géneros</td>
+          <td>Kawaii Metal, J-Pop, Heavy Metal</td>
+        </tr>
+        <tr>
+          <td>Instrumento</td>
+          <td>Voz, Guitarra (en presentaciones en vivo)</td>
+        </tr>
+        <tr>
+          <td>Activa Desde</td>
+          <td>2010 &mdash; presente</td>
+        </tr>
+        <tr>
+          <td>Grupo Anterior</td>
+          <td>Sakura Gakuin (2010&ndash;2015)</td>
+        </tr>
+        <tr>
+          <td>Discográfica</td>
+          <td>Toy's Factory, Amuse Inc.</td>
+        </tr>
+        <tr>
+          <td>Sitio Oficial</td>
+          <td><a href="https://www.babymetal.com" target="_blank" rel="noopener" style="color: var(--red);">babymetal.com</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="info-box">
+      <h3>El Ángel de la Sonrisa de Metal</h3>
+      <p>
+        MOAMETAL es conocida por su energía explosiva en el escenario y su sonrisa contagiosa que ha conquistado a millones de fans en todo el mundo. Junto a SU-METAL, ha mantenido viva la llama de la Metal Resistance a lo largo de más de una década, demostrando una lealtad y dedicación inquebrantables al proyecto. Su habilidad para combinar coreografías complejas con actuaciones vocales en vivo la convierte en una de las artistas más completas del J-Pop contemporáneo.
+      </p>
+    </div>
+
+  </div>
+
+  <footer class="site-footer">
+    Fanpage no oficial &mdash; <span>BABYMETAL</span> &copy; 2026 &mdash; Todos los derechos pertenecen a Amuse Inc. y Toy's Factory
+  </footer>
+
+</body>
+</html>
