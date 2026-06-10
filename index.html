@@ -1,0 +1,1180 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BABYMETAL - Sitio Fan Conceptual</title>
+  <style>
+    :root {
+      --black: #040404;
+      --paper: #f5f2ea;
+      --silver: #cfd8dd;
+      --steel: #7d8b92;
+      --red: #c9102e;
+      --cyan: #35d7ff;
+      --line: rgba(245, 242, 234, .18);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--paper);
+      background:
+        radial-gradient(circle at 18% 18%, rgba(201, 16, 46, .18), transparent 28rem),
+        radial-gradient(circle at 82% 28%, rgba(53, 215, 255, .13), transparent 24rem),
+        var(--black);
+      font-family: Arial, Helvetica, sans-serif;
+      letter-spacing: 0;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .site-header {
+      position: fixed;
+      z-index: 20;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 18px clamp(18px, 4vw, 56px);
+      background: linear-gradient(180deg, rgba(0, 0, 0, .88), rgba(0, 0, 0, .24), transparent);
+    }
+
+    .brand {
+      display: inline-grid;
+      gap: 2px;
+      text-transform: uppercase;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 21px;
+      font-weight: 700;
+      line-height: .9;
+      text-shadow: 0 0 12px rgba(255, 255, 255, .34);
+    }
+
+    .brand span {
+      font-size: 11px;
+      color: var(--silver);
+      font-family: Arial, sans-serif;
+      font-weight: 700;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 16px;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .nav a {
+      border-bottom: 1px solid transparent;
+      padding-bottom: 4px;
+    }
+
+    .nav a:hover { border-color: var(--paper); }
+
+    .hero {
+      min-height: 96vh;
+      position: relative;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      isolation: isolate;
+      padding: 120px 20px 56px;
+      background: #030303;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, .08), rgba(0, 0, 0, .62) 74%, #040404 100%),
+        url("crystal-stage-hero.png") center / cover no-repeat;
+      transform: scale(1.04);
+      filter: saturate(1.1) contrast(1.08);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        linear-gradient(90deg, rgba(0, 0, 0, .8), transparent 28%, transparent 72%, rgba(0, 0, 0, .8)),
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, .03) 0 1px, transparent 1px 130px);
+      mix-blend-mode: screen;
+      opacity: .62;
+    }
+
+    .hero-inner {
+      width: min(1120px, 100%);
+      display: grid;
+      gap: clamp(26px, 4vw, 46px);
+      align-items: end;
+    }
+
+    .hero-title {
+      margin: 0;
+      text-align: center;
+      font-family: "Trajan Pro", "Trajan Pro 3", "Times New Roman", Georgia, serif;
+      font-size: clamp(48px, 10.5vw, 150px);
+      font-weight: 400;
+      line-height: .88;
+      text-transform: uppercase;
+      font-variant: small-caps;
+      filter: drop-shadow(0 0 10px rgba(255, 255, 255, .22)) drop-shadow(0 22px 34px rgba(0, 0, 0, .95));
+      text-shadow:
+        0 1px 0 #fff,
+        0 2px 0 #2c3439,
+        0 3px 0 #f7fbff,
+        0 4px 0 #1a1d20,
+        0 9px 18px rgba(255, 255, 255, .2),
+        0 28px 58px rgba(0, 0, 0, .95);
+    }
+
+    .hero-title span {
+      display: block;
+      position: relative;
+      background:
+        linear-gradient(180deg, #ffffff 0%, #c8d1d7 12%, #ffffff 24%, #414b52 39%, #f8fdff 51%, #7e8c95 66%, #ffffff 82%, #b6c5cc 100%),
+        linear-gradient(105deg, #ffffff 0%, #7f8c91 16%, #ffffff 30%, #32393f 44%, #e9f6ff 58%, #7b1c2c 72%, #ffffff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-stroke: .7px rgba(255, 255, 255, .86);
+    }
+
+    .hero-title span::after {
+      content: attr(data-title);
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      color: rgba(0, 0, 0, .9);
+      -webkit-text-stroke: 5px rgba(0, 0, 0, .72);
+      transform: translate(4px, 5px);
+    }
+
+    .hero-title span::before {
+      content: attr(data-title);
+      position: absolute;
+      inset: 0;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(16, 22, 25, .9);
+      text-shadow:
+        0 -1px 0 rgba(255, 255, 255, .9),
+        0 0 14px rgba(255, 255, 255, .28),
+        0 0 26px rgba(53, 215, 255, .18);
+      pointer-events: none;
+    }
+
+    .hero-subtitle {
+      margin: -18px 0 0;
+      color: rgba(245, 242, 234, .86);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(22px, 4vw, 54px);
+      text-align: center;
+      text-transform: uppercase;
+      text-shadow:
+        0 0 10px rgba(255, 255, 255, .38),
+        0 14px 26px rgba(0, 0, 0, .94);
+    }
+
+    .hero-meta {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 18px;
+      color: var(--silver);
+      font-size: clamp(13px, 1.6vw, 18px);
+      font-weight: 800;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .hero-meta::before,
+    .hero-meta::after {
+      content: "";
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--line), var(--silver));
+    }
+
+    .hero-meta::after {
+      background: linear-gradient(90deg, var(--silver), var(--line), transparent);
+    }
+
+    .actions,
+    .quiz-options,
+    .music-links,
+    .mini-controls {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .button,
+    .choice {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(245, 242, 234, .58);
+      background: rgba(0, 0, 0, .48);
+      color: var(--paper);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .button { padding: 0 20px; }
+    .choice { padding: 0 14px; }
+
+    .button.primary {
+      background: linear-gradient(90deg, rgba(201, 16, 46, .92), rgba(53, 215, 255, .62));
+      border-color: transparent;
+    }
+
+    .choice:hover,
+    .choice.is-active {
+      border-color: var(--cyan);
+      box-shadow: 0 0 18px rgba(53, 215, 255, .22);
+    }
+
+    main { background: linear-gradient(180deg, #040404, #090909 38%, #030303); }
+
+    section { padding: clamp(54px, 8vw, 104px) clamp(18px, 5vw, 72px); }
+
+    .section-head {
+      width: min(1180px, 100%);
+      margin: 0 auto 26px;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 14px;
+    }
+
+    h2 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(34px, 5vw, 74px);
+      line-height: .88;
+      text-transform: uppercase;
+    }
+
+    .kicker {
+      margin: 0;
+      color: var(--steel);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .news-grid,
+    .store-grid {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .news-card,
+    .store-card {
+      min-height: 260px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #090909;
+    }
+
+    .news-card {
+      color: inherit;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform .28s ease, border-color .28s ease, box-shadow .28s ease;
+    }
+
+    .news-card:hover,
+    .news-card:focus-visible,
+    .news-card.is-active {
+      transform: translateY(-6px);
+      border-color: rgba(245, 242, 234, .52);
+      box-shadow: 0 18px 46px rgba(0, 0, 0, .62), 0 0 26px rgba(201, 16, 46, .18);
+      outline: none;
+    }
+
+    .news-card::before,
+    .store-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, transparent, rgba(0, 0, 0, .92)),
+        var(--art, linear-gradient(135deg, rgba(201, 16, 46, .72), rgba(53, 215, 255, .28)));
+      opacity: .95;
+    }
+
+    .news-thumb {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: .48;
+      filter: saturate(1.05) contrast(1.08);
+      transform: scale(1.02);
+      transition: opacity .28s ease, transform .28s ease;
+    }
+
+    .news-card:hover .news-thumb,
+    .news-card:focus-visible .news-thumb {
+      opacity: .64;
+      transform: scale(1.06);
+    }
+
+    .news-card:nth-child(2) { --art: linear-gradient(135deg, #1a1d22, #c9102e 54%, #f5f2ea); }
+    .news-card:nth-child(3) { --art: linear-gradient(135deg, #040404, #223c45 42%, #d6e4ea); }
+    .store-card:nth-child(1) { --art: linear-gradient(135deg, #111, #c9102e 52%, #222); }
+    .store-card:nth-child(2) { --art: linear-gradient(135deg, #111, #f5f2ea 48%, #35d7ff); }
+    .store-card:nth-child(3) { --art: linear-gradient(135deg, #111, #474f55 48%, #c9102e); }
+
+    .card-content {
+      position: absolute;
+      inset: auto 0 0;
+      display: grid;
+      gap: 10px;
+      padding: 22px;
+      z-index: 1;
+    }
+
+    .date {
+      color: var(--cyan);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    h3 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(24px, 2.8vw, 38px);
+      line-height: .95;
+      text-transform: uppercase;
+    }
+
+    .card-content p,
+    .quiz-question,
+    .song-note,
+    .quiz-result,
+    .memory-status {
+      margin: 0;
+      color: rgba(245, 242, 234, .78);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 4px;
+    }
+
+    .card-tags span {
+      border: 1px solid rgba(245, 242, 234, .22);
+      color: var(--silver);
+      background: rgba(0, 0, 0, .32);
+      padding: 6px 8px;
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .tour,
+    .fan-zone {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(201, 16, 46, .12), transparent 38%),
+        #050505;
+    }
+
+    .tour-list {
+      width: min(980px, 100%);
+      margin: 0 auto;
+      border-top: 1px solid var(--line);
+    }
+
+    .tour-row {
+      display: grid;
+      grid-template-columns: 120px 1fr auto;
+      gap: 18px;
+      align-items: center;
+      min-height: 74px;
+      border-bottom: 1px solid var(--line);
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .tour-row strong {
+      color: var(--paper);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 25px;
+    }
+
+    .tour-row span {
+      color: var(--steel);
+      font-size: 12px;
+    }
+
+    .store-card {
+      aspect-ratio: 1 / 1;
+      min-height: 0;
+    }
+
+    .fan-zone {
+      background:
+        linear-gradient(180deg, rgba(53, 215, 255, .09), transparent 34%),
+        linear-gradient(135deg, rgba(201, 16, 46, .14), transparent 44%),
+        #060606;
+    }
+
+    .fan-layout {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, .7fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .fan-panel {
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, .08), transparent 34%),
+        rgba(0, 0, 0, .48);
+      padding: 22px;
+      min-height: 260px;
+    }
+
+    .fan-panel h3 { margin-bottom: 14px; }
+
+    .quiz-box,
+    .music-box {
+      display: grid;
+      gap: 14px;
+    }
+
+    .quiz-question { min-height: 54px; font-size: 16px; }
+    .quiz-result,
+    .song-note,
+    .memory-status { min-height: 24px; }
+
+    .memory-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .memory-card {
+      aspect-ratio: 1 / 1;
+      border: 1px solid rgba(245, 242, 234, .2);
+      background:
+        linear-gradient(135deg, rgba(201, 16, 46, .55), rgba(53, 215, 255, .25)),
+        #111;
+      color: transparent;
+      cursor: pointer;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(24px, 4vw, 44px);
+      font-weight: 900;
+    }
+
+    .memory-card.is-open,
+    .memory-card.is-found {
+      color: var(--paper);
+      background:
+        radial-gradient(circle at 50% 28%, rgba(255, 255, 255, .42), transparent 28%),
+        #151515;
+      border-color: var(--silver);
+    }
+
+    .fan-disclaimer {
+      width: min(1180px, 100%);
+      margin: 18px auto 0;
+      color: var(--steel);
+      font-size: 12px;
+      line-height: 1.5;
+      text-transform: uppercase;
+    }
+
+    .news-detail {
+      width: min(1180px, 100%);
+      margin: 28px auto 0;
+      padding: clamp(24px, 4vw, 38px);
+      border: 1px solid rgba(245, 242, 234, .16);
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, .06), transparent 30%),
+        linear-gradient(180deg, #0b0c0f, #030303);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, .64);
+    }
+
+    .news-detail.fade-in {
+      animation: fadeIn .42s ease both;
+    }
+
+    .detail-label {
+      color: var(--cyan);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .news-detail h3 {
+      margin: 12px 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(32px, 5vw, 64px);
+      line-height: .95;
+      text-transform: uppercase;
+    }
+
+    .news-detail p {
+      margin: 0;
+      max-width: 900px;
+      color: rgba(245, 242, 234, .82);
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    .members-section {
+      background:
+        linear-gradient(90deg, rgba(255, 255, 255, .05) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(201, 16, 46, .08), transparent 22%),
+        #000000;
+      border-top: 1px solid rgba(201, 16, 46, .24);
+      border-bottom: 1px solid rgba(245, 242, 234, .15);
+    }
+
+    .member-grid {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .member-card {
+      border: 1px solid rgba(245, 242, 234, .16);
+      background: #08080a;
+      overflow: hidden;
+      min-height: 690px;
+      display: grid;
+      grid-template-rows: 370px 1fr;
+      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .85);
+    }
+
+    .member-photo {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 16%, rgba(255, 255, 255, .2), transparent 9rem),
+        linear-gradient(135deg, rgba(201, 16, 46, .2), transparent 38%),
+        linear-gradient(180deg, #11171b, #020202);
+    }
+
+    .member-photo::before {
+      content: attr(data-mark);
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: rgba(245, 242, 234, .12);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(78px, 11vw, 150px);
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .member-photo img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(1.08) contrast(1.04);
+    }
+
+    .member-photo::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(115deg, transparent 0 28%, rgba(255, 255, 255, .18) 29%, transparent 31% 100%),
+        repeating-linear-gradient(120deg, transparent 0 34px, rgba(53, 215, 255, .08) 35px, transparent 37px),
+        linear-gradient(180deg, transparent 52%, rgba(0, 0, 0, .82));
+      mix-blend-mode: screen;
+      opacity: .68;
+    }
+
+    .member-card:nth-child(2) .member-photo {
+      background:
+        radial-gradient(circle at 50% 16%, rgba(255, 255, 255, .18), transparent 9rem),
+        linear-gradient(135deg, rgba(53, 215, 255, .16), transparent 38%),
+        linear-gradient(180deg, #171319, #020202);
+    }
+
+    .member-card:nth-child(3) .member-photo {
+      background:
+        radial-gradient(circle at 50% 16%, rgba(255, 255, 255, .18), transparent 9rem),
+        linear-gradient(135deg, rgba(126, 138, 144, .34), transparent 42%),
+        linear-gradient(180deg, #0f181b, #020202);
+    }
+
+    .member-body {
+      display: grid;
+      align-content: start;
+      gap: 16px;
+      padding: 26px;
+      border-top: 1px solid rgba(245, 242, 234, .12);
+    }
+
+    .member-body h3 {
+      color: #ff1f35;
+      font-size: clamp(30px, 3vw, 42px);
+      text-shadow: 0 0 18px rgba(201, 16, 46, .18);
+    }
+
+    .member-role {
+      color: rgba(245, 242, 234, .86);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .member-facts {
+      display: grid;
+      gap: 9px;
+      border-top: 1px solid rgba(245, 242, 234, .12);
+      border-bottom: 1px solid rgba(245, 242, 234, .12);
+      padding: 16px 0;
+    }
+
+    .member-fact {
+      display: grid;
+      grid-template-columns: 124px 1fr;
+      gap: 14px;
+      color: rgba(245, 242, 234, .84);
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .member-fact strong {
+      color: #ffd45a;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .member-summary {
+      margin: 0;
+      color: rgba(245, 242, 234, .82);
+      font-size: 15px;
+      line-height: 1.62;
+    }
+
+    .member-source {
+      color: #ff1f35;
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .site-footer {
+      padding: 34px clamp(18px, 5vw, 72px);
+      border-top: 1px solid var(--line);
+      color: var(--steel);
+      background: #020202;
+      font-size: 12px;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 820px) {
+      .site-header {
+        position: absolute;
+        align-items: flex-start;
+      }
+
+      .nav {
+        gap: 10px;
+        font-size: 11px;
+      }
+
+      .hero {
+        min-height: 88vh;
+        padding-top: 112px;
+      }
+
+      .hero-meta { grid-template-columns: 1fr; }
+      .hero-meta::before,
+      .hero-meta::after { display: none; }
+
+      .section-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .news-grid,
+      .store-grid,
+      .member-grid,
+      .fan-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .tour-row {
+        grid-template-columns: 1fr;
+        gap: 6px;
+        padding: 18px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header" aria-label="Cabecera principal">
+    <a class="brand" href="#top" aria-label="BABYMETAL inicio">
+      BABYMETAL
+      <span>Sitio fan independiente</span>
+    </a>
+    <nav class="nav" aria-label="Navegacion">
+      <a href="#news">Noticias</a>
+      <a href="#members">Integrantes</a>
+      <a href="#tour">Gira</a>
+      <a href="#store">Tienda</a>
+      <a href="#fans">Fans</a>
+      <a href="#club">Club</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-label="Presentacion">
+      <div class="hero-inner">
+        <h1 class="hero-title"><span class="none" data-title="BABYMETAL">BABYMETAL</span></h1>
+        <p class="hero-subtitle">Fan Experience 2026</p>
+        <div class="hero-meta">Una nueva era comienza en 2026</div>
+        <div class="actions">
+          <a class="button primary" href="#tour">Ver fechas</a>
+          <a class="button" href="#fans">Zona fan</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="news" aria-labelledby="news-title">
+      <div class="section-head">
+        <h2 id="news-title">Noticias</h2>
+        <p class="kicker">Actualizaciones para fans de BABYMETAL</p>
+      </div>
+      <div class="news-grid">
+        <a class="news-card" href="noticia-metal-futura.html" data-news="metalFutura" aria-label="Abrir noticia Metal Futura">
+          <img class="news-thumb" src="assets/su-metal.webp" alt="SU-METAL en concierto">
+          <div class="card-content">
+            <div class="date">2026.06.26</div>
+            <h3>Metal Futura</h3>
+            <p>Nuevo capitulo conceptual con sonido pesado, coros brillantes y visuales de cristal.</p>
+            <div class="card-tags">
+              <span>Nuevo sonido</span>
+              <span>Metal</span>
+              <span>Cristal</span>
+            </div>
+          </div>
+        </a>
+        <a class="news-card" href="noticia-circuito-mundial.html" data-news="circuitoMundial" aria-label="Abrir noticia Circuito Mundial">
+          <img class="news-thumb" src="assets/moametal.jpg" alt="MOAMETAL en concierto">
+          <div class="card-content">
+            <div class="date">2026.08.12</div>
+            <h3>Circuito Mundial</h3>
+            <p>La gira suma escenarios en America, Europa y Asia con produccion renovada.</p>
+            <div class="card-tags">
+              <span>Gira</span>
+              <span>Setlist</span>
+              <span>Arenas</span>
+            </div>
+          </div>
+        </a>
+        <a class="news-card" href="noticia-archivo-en-vivo.html" data-news="archivoEnVivo" aria-label="Abrir noticia Archivo en Vivo">
+          <img class="news-thumb" src="assets/momometal.webp" alt="MOMOMETAL en concierto">
+          <div class="card-content">
+            <div class="date">2026.12.19</div>
+            <h3>Archivo en Vivo</h3>
+            <p>Edicion limitada con audio en vivo, libreto fotografico y empaque de lujo.</p>
+            <div class="card-tags">
+              <span>Live</span>
+              <span>Coleccion</span>
+              <span>Edicion limitada</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section id="members" class="members-section" aria-labelledby="members-title">
+      <div class="section-head">
+        <h2 id="members-title">Integrantes</h2>
+        <p class="kicker">Datos resumidos desde Wikipedia</p>
+      </div>
+      <div class="member-grid">
+        <article class="member-card">
+          <div class="member-photo" data-mark="SU"><img src="assets/su-metal.webp" alt="SU-METAL en concierto"></div>
+          <div class="member-body">
+            <h3>SU-METAL</h3>
+            <div class="member-role">Voz principal y danza</div>
+            <div class="member-facts">
+              <div class="member-fact"><strong>Nombre real</strong><span>Suzuka Nakamoto</span></div>
+              <div class="member-fact"><strong>Nacimiento</strong><span>20 de diciembre de 1997</span></div>
+              <div class="member-fact"><strong>Lugar</strong><span>Hiroshima, Japon</span></div>
+              <div class="member-fact"><strong>Activa</strong><span>2007-presente</span></div>
+            </div>
+            <p class="member-summary">Cantante japonesa conocida como Su-metal; integrante de BABYMETAL y exintegrante de Karen Girl's y Sakura Gakuin.</p>
+            <a class="member-source" href="https://en.wikipedia.org/wiki/Suzuka_Nakamoto" target="_blank" rel="noopener">Fuente: Wikipedia</a>
+          </div>
+        </article>
+
+        <article class="member-card">
+          <div class="member-photo" data-mark="MOA"><img src="assets/moametal.jpg" alt="MOAMETAL en concierto"></div>
+          <div class="member-body">
+            <h3>MOAMETAL</h3>
+            <div class="member-role">Voces de apoyo y danza</div>
+            <div class="member-facts">
+              <div class="member-fact"><strong>Nombre real</strong><span>Moa Kikuchi</span></div>
+              <div class="member-fact"><strong>Nacimiento</strong><span>4 de julio de 1999</span></div>
+              <div class="member-fact"><strong>Lugar</strong><span>Nagoya, Japon</span></div>
+              <div class="member-fact"><strong>Activa</strong><span>2010-presente</span></div>
+            </div>
+            <p class="member-summary">Cantante y bailarina japonesa conocida como Moametal; integrante de BABYMETAL y exmiembro de Sakura Gakuin.</p>
+            <a class="member-source" href="https://en.wikipedia.org/wiki/Moa_Kikuchi" target="_blank" rel="noopener">Fuente: Wikipedia</a>
+          </div>
+        </article>
+
+        <article class="member-card">
+          <div class="member-photo" data-mark="MOMO"><img src="assets/momometal.webp" alt="MOMOMETAL en concierto"></div>
+          <div class="member-body">
+            <h3>MOMOMETAL</h3>
+            <div class="member-role">Voces de apoyo y danza</div>
+            <div class="member-facts">
+              <div class="member-fact"><strong>Nombre real</strong><span>Momoko Okazaki</span></div>
+              <div class="member-fact"><strong>Nacimiento</strong><span>3 de marzo de 2003</span></div>
+              <div class="member-fact"><strong>Lugar</strong><span>Fukuoka, Japon</span></div>
+              <div class="member-fact"><strong>Oficial</strong><span>Desde 2023</span></div>
+            </div>
+            <p class="member-summary">Cantante y bailarina japonesa conocida como Momometal; fue anunciada como tercera integrante oficial de BABYMETAL en 2023.</p>
+            <a class="member-source" href="https://en.wikipedia.org/wiki/Momoko_Okazaki" target="_blank" rel="noopener">Fuente: Wikipedia</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="tour" class="tour" aria-labelledby="tour-title">
+      <div class="section-head">
+        <h2 id="tour-title">Gira</h2>
+        <p class="kicker">Fechas ficticias para maqueta visual</p>
+      </div>
+      <div class="tour-list">
+        <div class="tour-row"><strong>Jun</strong><div>Recorrido de arenas por Reino Unido y Europa</div><span>Pronto</span></div>
+        <div class="tour-row"><strong>Ago</strong><div>Noches de festival en Japon</div><span>Anunciado</span></div>
+        <div class="tour-row"><strong>Oct</strong><div>Tormenta por Norteamerica</div><span>Preventa</span></div>
+        <div class="tour-row"><strong>Dic</strong><div>Final en Latinoamerica</div><span>Proximamente</span></div>
+      </div>
+    </section>
+
+    <section id="store" aria-labelledby="store-title">
+      <div class="section-head">
+        <h2 id="store-title">Tienda</h2>
+        <p class="kicker">Banners originales, sin logos oficiales</p>
+      </div>
+      <div class="store-grid">
+        <article class="store-card">
+          <div class="card-content">
+            <h3>Camiseta Fragmento Rojo</h3>
+            <p>Camiseta negra con grafica abstracta de fragmentos rojos.</p>
+          </div>
+        </article>
+        <article class="store-card">
+          <div class="card-content">
+            <h3>Vinilo Prisma</h3>
+            <p>Edicion coleccionista con portada cromada y libreto visual.</p>
+          </div>
+        </article>
+        <article class="store-card">
+          <div class="card-content">
+            <h3>Blu-ray de Escenario</h3>
+            <p>Concierto ficticio presentado como producto de muestra.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="fans" class="fan-zone" aria-labelledby="fans-title">
+      <div class="section-head">
+        <h2 id="fans-title">Zona Fan</h2>
+        <p class="kicker">Especial para fans de BABYMETAL</p>
+      </div>
+      <div class="fan-layout">
+        <article class="fan-panel">
+          <h3>Trivia del Zorro</h3>
+          <div class="quiz-box">
+            <div class="quiz-question" id="quiz-question">Pulsa iniciar para jugar.</div>
+            <div class="quiz-options" id="quiz-options"></div>
+            <div class="quiz-result" id="quiz-result"></div>
+            <button class="choice" type="button" id="next-question">Iniciar trivia</button>
+          </div>
+        </article>
+
+        <article class="fan-panel">
+          <h3>Radio Fan</h3>
+          <div class="music-box">
+            <p class="quiz-question">Escucha BABYMETAL desde plataformas oficiales o activa un riff ambiental original para navegar con energia.</p>
+            <div class="music-links">
+              <a class="button primary" href="https://www.youtube.com/@BABYMETAL/search?query=official%20music%20video" target="_blank" rel="noopener">YouTube oficial</a>
+              <a class="button" href="https://open.spotify.com/search/BABYMETAL" target="_blank" rel="noopener">Spotify</a>
+              <a class="button" href="https://music.apple.com/search?term=BABYMETAL" target="_blank" rel="noopener">Apple Music</a>
+            </div>
+            <div class="mini-controls">
+              <button class="choice" type="button" id="play-riff">Riff fan</button>
+              <button class="choice" type="button" id="stop-riff">Silencio</button>
+            </div>
+            <div class="song-note" id="song-note">El riff local es original y no reproduce canciones oficiales.</div>
+          </div>
+        </article>
+
+        <article class="fan-panel">
+          <h3>Memoria Metal</h3>
+          <p class="quiz-question">Encuentra las parejas de simbolos inspirados en conciertos, luces y cristales.</p>
+          <div class="memory-status" id="memory-status">Intentos: 0</div>
+          <div class="memory-grid" id="memory-grid" aria-label="Juego de memoria"></div>
+        </article>
+
+        <article class="fan-panel">
+          <h3>Setlist Bingo</h3>
+          <p class="quiz-question">Pulsa para crear una tarjeta fan con canciones conocidas. Marcala mientras escuchas una playlist oficial.</p>
+          <button class="choice" type="button" id="make-bingo">Crear tarjeta</button>
+          <div class="tour-list" id="bingo-list" aria-live="polite"></div>
+        </article>
+      </div>
+      <p class="fan-disclaimer">Fanpage no oficial. Los enlaces de musica llevan a plataformas externas; esta pagina no aloja canciones, videos, logos ni material oficial de la banda.</p>
+    </section>
+
+    <section id="club" aria-labelledby="club-title">
+      <div class="section-head">
+        <h2 id="club-title">Club</h2>
+        <p class="kicker">Comunidad conceptual</p>
+      </div>
+      <div class="tour-list">
+        <div class="tour-row"><strong>01</strong><div>Acceso anticipado a anuncios y visuales</div><span>Miembro</span></div>
+        <div class="tour-row"><strong>02</strong><div>Archivo de shows, fotos y disenos</div><span>Archivo</span></div>
+        <div class="tour-row"><strong>03</strong><div>Merch exclusivo con estetica prisma</div><span>Limitado</span></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    Sitio fan conceptual original inspirado en estetica metal/cristal. No afiliado con marcas, bandas o paginas oficiales.
+  </footer>
+
+  <script>
+    const quizData = [
+      {
+        q: "En la comunidad fan, que animal representa el famoso gesto de manos asociado a BABYMETAL?",
+        options: ["Zorro", "Lobo", "Dragon"],
+        answer: "Zorro"
+      },
+      {
+        q: "Que mezcla musical hizo famosa a BABYMETAL ante muchos fans nuevos?",
+        options: ["Metal y pop japones", "Jazz y reggae", "Country y salsa"],
+        answer: "Metal y pop japones"
+      },
+      {
+        q: "Cual de estas canciones es una de las mas conocidas por los fans?",
+        options: ["Gimme Chocolate!!", "Crystal Highway", "Silver Arena"],
+        answer: "Gimme Chocolate!!"
+      },
+      {
+        q: "Que palabra japonesa suele aparecer en el universo fan de la banda?",
+        options: ["Kitsune", "Sakura", "Hikari"],
+        answer: "Kitsune"
+      }
+    ];
+
+    const quizQuestion = document.querySelector("#quiz-question");
+    const quizOptions = document.querySelector("#quiz-options");
+    const quizResult = document.querySelector("#quiz-result");
+    const nextQuestion = document.querySelector("#next-question");
+    let quizIndex = -1;
+    let score = 0;
+
+    function showQuestion() {
+      quizIndex = (quizIndex + 1) % quizData.length;
+      const item = quizData[quizIndex];
+      quizQuestion.textContent = item.q;
+      quizOptions.innerHTML = "";
+      quizResult.textContent = "Puntaje: " + score + " / " + quizData.length;
+      nextQuestion.textContent = "Siguiente";
+
+      item.options.forEach((option) => {
+        const button = document.createElement("button");
+        button.className = "choice";
+        button.type = "button";
+        button.textContent = option;
+        button.addEventListener("click", () => {
+          const ok = option === item.answer;
+          if (ok) score += 1;
+          quizResult.textContent = ok ? "Correcto. El espiritu fan sigue encendido." : "Casi. La respuesta era: " + item.answer + ".";
+          [...quizOptions.children].forEach((child) => child.disabled = true);
+        });
+        quizOptions.appendChild(button);
+      });
+    }
+
+    nextQuestion.addEventListener("click", showQuestion);
+
+    const symbols = ["X", "V", "III", "K", "X", "V", "III", "K"];
+    const memoryGrid = document.querySelector("#memory-grid");
+    const memoryStatus = document.querySelector("#memory-status");
+    let openCards = [];
+    let found = 0;
+    let attempts = 0;
+
+    function shuffle(items) {
+      return items
+        .map((value) => ({ value, sort: Math.random() }))
+        .sort((a, b) => a.sort - b.sort)
+        .map((item) => item.value);
+    }
+
+    function buildMemory() {
+      memoryGrid.innerHTML = "";
+      openCards = [];
+      found = 0;
+      attempts = 0;
+      memoryStatus.textContent = "Intentos: 0";
+
+      shuffle(symbols).forEach((symbol) => {
+        const card = document.createElement("button");
+        card.className = "memory-card";
+        card.type = "button";
+        card.textContent = symbol;
+        card.addEventListener("click", () => flipCard(card, symbol));
+        memoryGrid.appendChild(card);
+      });
+    }
+
+    function flipCard(card, symbol) {
+      if (card.classList.contains("is-open") || card.classList.contains("is-found") || openCards.length === 2) return;
+      card.classList.add("is-open");
+      openCards.push({ card, symbol });
+
+      if (openCards.length === 2) {
+        attempts += 1;
+        const match = openCards[0].symbol === openCards[1].symbol;
+        setTimeout(() => {
+          if (match) {
+            openCards.forEach((item) => item.card.classList.add("is-found"));
+            found += 1;
+          } else {
+            openCards.forEach((item) => item.card.classList.remove("is-open"));
+          }
+          openCards = [];
+          memoryStatus.textContent = found === 4 ? "Completado en " + attempts + " intentos." : "Intentos: " + attempts;
+        }, 520);
+      }
+    }
+
+    buildMemory();
+
+    const songs = [
+      "Gimme Chocolate!!",
+      "Karate",
+      "Megitsune",
+      "Road of Resistance",
+      "Pa Pa Ya!!",
+      "Monochrome",
+      "Distortion",
+      "Metal Kingdom",
+      "BxMxC",
+      "Headbangeeeeerrrrr!!!!!"
+    ];
+    const bingoList = document.querySelector("#bingo-list");
+
+    document.querySelector("#make-bingo").addEventListener("click", () => {
+      bingoList.innerHTML = "";
+      shuffle(songs).slice(0, 5).forEach((song, index) => {
+        const row = document.createElement("div");
+        row.className = "tour-row";
+        row.innerHTML = "<strong>" + String(index + 1).padStart(2, "0") + "</strong><div>" + song + "</div><span>Marcar</span>";
+        row.addEventListener("click", () => row.classList.toggle("is-active"));
+        bingoList.appendChild(row);
+      });
+    });
+
+    let audioContext;
+    let riffTimer;
+    const songNote = document.querySelector("#song-note");
+
+    function playTone(freq, start, duration, gainValue) {
+      const osc = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+      osc.type = "sawtooth";
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0.0001, start);
+      gain.gain.exponentialRampToValueAtTime(gainValue, start + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+      osc.connect(gain).connect(audioContext.destination);
+      osc.start(start);
+      osc.stop(start + duration + 0.02);
+    }
+
+    function playRiff() {
+      audioContext = audioContext || new (window.AudioContext || window.webkitAudioContext)();
+      const notes = [82.41, 98, 110, 123.47, 110, 98];
+      const run = () => {
+        const now = audioContext.currentTime;
+        notes.forEach((note, index) => playTone(note, now + index * 0.16, 0.12, 0.045));
+      };
+      run();
+      clearInterval(riffTimer);
+      riffTimer = setInterval(run, 1160);
+      songNote.textContent = "Riff fan activado. Es audio sintetico original, no una cancion oficial.";
+    }
+
+    function stopRiff() {
+      clearInterval(riffTimer);
+      riffTimer = null;
+      songNote.textContent = "Silencio activado. Usa los enlaces oficiales para escuchar la musica real de BABYMETAL.";
+    }
+
+    document.querySelector("#play-riff").addEventListener("click", playRiff);
+    document.querySelector("#stop-riff").addEventListener("click", stopRiff);
+  </script>
+</body>
+</html>

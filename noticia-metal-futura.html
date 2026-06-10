@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Metal Futura - BABYMETAL Fan</title>
+  <style>
+    :root {
+      --black: #000000;
+      --panel: #08080a;
+      --paper: #f5f2ea;
+      --muted: #9aa3a8;
+      --line: rgba(245, 242, 234, .16);
+      --red: #c9102e;
+      --cyan: #35d7ff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--paper);
+      background:
+        radial-gradient(circle at 18% 10%, rgba(201, 16, 46, .18), transparent 24rem),
+        radial-gradient(circle at 82% 22%, rgba(53, 215, 255, .12), transparent 22rem),
+        var(--black);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      width: min(1180px, calc(100% - 36px));
+      margin: 0 auto;
+      padding: 34px 0 72px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      border-bottom: 1px solid rgba(201, 16, 46, .28);
+      padding-bottom: 18px;
+      margin-bottom: 28px;
+    }
+
+    .brand {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(28px, 4vw, 52px);
+      line-height: .9;
+      text-transform: uppercase;
+      text-shadow: 0 0 18px rgba(255, 255, 255, .22);
+    }
+
+    .back {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(245, 242, 234, .34);
+      background: linear-gradient(90deg, rgba(201, 16, 46, .72), rgba(53, 215, 255, .18));
+      padding: 0 18px;
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    }
+
+    .back:hover {
+      transform: translateY(-2px);
+      border-color: rgba(245, 242, 234, .72);
+      box-shadow: 0 0 26px rgba(201, 16, 46, .18);
+    }
+
+    .article {
+      display: grid;
+      grid-template-columns: minmax(280px, .92fr) minmax(0, 1fr);
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .cover {
+      min-height: 620px;
+      border: 1px solid var(--line);
+      background: #08080a;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(1.05) contrast(1.08);
+    }
+
+    .cover::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, transparent 52%, rgba(0, 0, 0, .82)),
+        linear-gradient(90deg, rgba(201, 16, 46, .14), transparent 44%, rgba(53, 215, 255, .12));
+      pointer-events: none;
+    }
+
+    .content {
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, .06), transparent 28%),
+        linear-gradient(180deg, #101114, #030303);
+      padding: clamp(24px, 4vw, 44px);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, .62);
+    }
+
+    .date {
+      color: var(--cyan);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 14px 0 20px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(48px, 7vw, 92px);
+      line-height: .88;
+      text-transform: uppercase;
+    }
+
+    .lead {
+      margin: 0 0 22px;
+      color: rgba(245, 242, 234, .88);
+      font-size: 18px;
+      line-height: 1.65;
+    }
+
+    p {
+      color: rgba(245, 242, 234, .78);
+      font-size: 16px;
+      line-height: 1.75;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 24px 0;
+    }
+
+    .meta span {
+      border: 1px solid rgba(245, 242, 234, .2);
+      background: rgba(0, 0, 0, .36);
+      color: var(--muted);
+      padding: 7px 9px;
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .note {
+      border-top: 1px solid var(--line);
+      margin-top: 24px;
+      padding-top: 18px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 860px) {
+      .topbar,
+      .article {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .cover {
+        min-height: 420px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="topbar">
+      <div class="brand">BABYMETAL Fan</div>
+      <a class="back" href="index.html">← Volver</a>
+    </header>
+
+    <article class="article">
+      <figure class="cover">
+        <img src="assets/su-metal.webp" alt="SU-METAL en concierto">
+      </figure>
+
+      <section class="content">
+        <div class="date">2026.06.26</div>
+        <h1>Metal Futura</h1>
+        <p class="lead">Una noticia fan inspirada en la energia visual de BABYMETAL: metal, brillo, coreografia y una puesta en escena oscura con detalles cristalinos.</p>
+
+        <p>METAL FUTURA imagina una nueva etapa para el universo fan: guitarras densas, coros luminosos, visuales con reflejos rojos y plateados, y una narrativa de escenario que mezcla fuerza, precision y teatralidad.</p>
+
+        <p>La propuesta esta pensada como una pagina interna local, similar a una navegacion de publicacion individual: la tarjeta principal del inicio abre esta ruta relativa y mantiene una experiencia continua sin depender de servidores externos.</p>
+
+        <div class="meta">
+          <span>Nuevo sonido</span>
+          <span>Premium Dark UI</span>
+          <span>Metal</span>
+          <span>Cristal</span>
+        </div>
+
+        <p class="note">Fanpage no oficial. Imagen proporcionada por el usuario para uso local del proyecto.</p>
+      </section>
+    </article>
+  </main>
+</body>
+</html>
