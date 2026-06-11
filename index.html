@@ -882,7 +882,7 @@
         time: "Hace 12 min",
         text: "Bienvenidos al muro FanVerse. Comparte teorias, canciones favoritas, recuerdos de shows y contenido para la comunidad.",
         media: ["assets/su-metal.webp", "assets/moametal.jpg", "assets/momometal.webp"],
-        reactions: { like: 36, fire: 51, fox: 72 },
+        reactions: { like: 0, fire: 0, fox: 0 },
         comments: ["El diseño quedo brutal.", "Necesitamos torneo de setlists."]
       },
       {
@@ -892,7 +892,7 @@
         time: "Hace 48 min",
         text: "Pregunta del dia: que cancion pondrias como cierre perfecto para una noche de arena? Road of Resistance, The One o Monochrome?",
         media: [],
-        reactions: { like: 24, fire: 38, fox: 19 },
+        reactions: { like: 0, fire: 0, fox: 0 },
         comments: ["Road of Resistance siempre.", "The One para cerrar con emocion."]
       },
       {
@@ -902,13 +902,14 @@
         time: "Ayer",
         text: "Nuevo tablero para registrar colecciones: camisetas, blu-rays, posters, vinilos, ediciones limitadas y recuerdos de concierto.",
         media: ["crystal-stage-hero.png"],
-        reactions: { like: 18, fire: 20, fox: 27 },
+        reactions: { like: 0, fire: 0, fox: 0 },
         comments: ["Agreguen checklist de albumes.", "Buenisimo para coleccionistas."]
       }
     ];
 
     const state = {
-      posts: JSON.parse(localStorage.getItem("bm_posts") || "null") || defaultPosts,
+      posts: JSON.parse(localStorage.getItem("bm_posts_zero_reactions_v1") || "null") || defaultPosts,
+      userReactions: JSON.parse(localStorage.getItem("bm_user_reactions_v1") || "null") || {},
       game: JSON.parse(localStorage.getItem("bm_game") || "null") || {
         energy: 0,
         crystals: 0,
@@ -927,7 +928,8 @@
     const fanCount = document.querySelector("#fanCount");
 
     function savePosts() {
-      localStorage.setItem("bm_posts", JSON.stringify(state.posts));
+      localStorage.setItem("bm_posts_zero_reactions_v1", JSON.stringify(state.posts));
+      localStorage.setItem("bm_user_reactions_v1", JSON.stringify(state.userReactions));
     }
 
     function saveGame() {
@@ -954,9 +956,9 @@
           ${post.media.length ? `<div class="post-media">${post.media.map((src) => `<img src="${src}" alt="Imagen de publicacion fan">`).join("")}</div>` : ""}
           <div class="post-actions">
             <div class="reaction-row">
-              <button class="react" type="button" data-reaction="like">Me gusta <span>${post.reactions.like}</span></button>
-              <button class="react" type="button" data-reaction="fire">Fuego <span>${post.reactions.fire}</span></button>
-              <button class="react" type="button" data-reaction="fox">Kitsune <span>${post.reactions.fox}</span></button>
+              <button class="react ${state.userReactions[post.id] === "like" ? "is-on" : ""}" type="button" data-reaction="like">Me gusta <span>${post.reactions.like}</span></button>
+              <button class="react ${state.userReactions[post.id] === "fire" ? "is-on" : ""}" type="button" data-reaction="fire">Fuego <span>${post.reactions.fire}</span></button>
+              <button class="react ${state.userReactions[post.id] === "fox" ? "is-on" : ""}" type="button" data-reaction="fox">Kitsune <span>${post.reactions.fox}</span></button>
             </div>
             <span class="muted">${post.comments.length} comentarios</span>
           </div>
@@ -979,10 +981,19 @@
         postEl.querySelectorAll(".react").forEach((button) => {
           button.addEventListener("click", () => {
             const key = button.dataset.reaction;
-            post.reactions[key] += 1;
-            button.classList.add("is-on");
-            button.querySelector("span").textContent = post.reactions[key];
+            const previous = state.userReactions[post.id];
+
+            if (previous === key) {
+              post.reactions[key] = Math.max(0, post.reactions[key] - 1);
+              delete state.userReactions[post.id];
+            } else {
+              if (previous) post.reactions[previous] = Math.max(0, post.reactions[previous] - 1);
+              post.reactions[key] += 1;
+              state.userReactions[post.id] = key;
+            }
+
             savePosts();
+            renderPosts(searchInput.value);
           });
         });
 
