@@ -548,6 +548,30 @@
       padding: 12px;
     }
 
+    .group-form {
+      display: grid;
+      gap: 8px;
+      border: 1px solid rgba(247, 242, 232, .12);
+      background: rgba(0, 0, 0, .28);
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+
+    .group-form input,
+    .group-form textarea {
+      width: 100%;
+      border: 1px solid rgba(247, 242, 232, .14);
+      outline: none;
+      color: var(--paper);
+      background: #050505;
+      padding: 10px;
+    }
+
+    .group-form textarea {
+      min-height: 70px;
+      resize: vertical;
+    }
+
     .group-card strong,
     .event-card strong {
       text-transform: uppercase;
@@ -727,9 +751,9 @@
             <h1>Metal Galaxy Club</h1>
             <p class="muted">Comunidad fan no oficial con feed, noticias, juegos, grupos, eventos y archivo de informacion para fans de BABYMETAL.</p>
             <div class="stats">
-              <div class="stat"><strong id="fanCount">969</strong><span>Fans</span></div>
-              <div class="stat"><strong>12</strong><span>Grupos</span></div>
-              <div class="stat"><strong id="postCount">6</strong><span>Posts</span></div>
+              <div class="stat"><strong id="fanCount">0</strong><span>Fans</span></div>
+              <div class="stat"><strong id="groupsCount">0</strong><span>Grupos</span></div>
+              <div class="stat"><strong id="postCount">0</strong><span>Posts</span></div>
             </div>
           </div>
         </section>
@@ -826,23 +850,12 @@
 
         <section class="panel" id="groups">
           <h2>Grupos</h2>
-          <div class="info-list">
-            <div class="group-card">
-              <strong>Kitsune Latinoamerica</strong>
-              <span class="muted">Debates, memes, noticias y reuniones fan.</span>
-              <button class="ghost-btn join-btn" type="button">Unirme</button>
-            </div>
-            <div class="group-card">
-              <strong>Setlist Hunters</strong>
-              <span class="muted">Predicciones de canciones y ranking de shows.</span>
-              <button class="ghost-btn join-btn" type="button">Unirme</button>
-            </div>
-            <div class="group-card">
-              <strong>Merch Collectors</strong>
-              <span class="muted">Coleccionismo, ediciones limitadas y guias.</span>
-              <button class="ghost-btn join-btn" type="button">Unirme</button>
-            </div>
+          <div class="group-form">
+            <input id="groupName" type="text" placeholder="Nombre del grupo fan">
+            <textarea id="groupDescription" placeholder="Descripcion del grupo, reglas o tema principal"></textarea>
+            <button class="primary-btn" type="button" id="createGroup">Crear grupo</button>
           </div>
+          <div class="info-list" id="groupList"></div>
         </section>
 
         <section class="panel" id="events">
@@ -910,6 +923,7 @@
     const state = {
       posts: JSON.parse(localStorage.getItem("bm_posts_zero_reactions_v1") || "null") || defaultPosts,
       userReactions: JSON.parse(localStorage.getItem("bm_user_reactions_v1") || "null") || {},
+      groups: JSON.parse(localStorage.getItem("bm_groups_zero_v1") || "null") || [],
       game: JSON.parse(localStorage.getItem("bm_game") || "null") || {
         energy: 0,
         crystals: 0,
@@ -926,6 +940,11 @@
     const searchInput = document.querySelector("#searchInput");
     const postCount = document.querySelector("#postCount");
     const fanCount = document.querySelector("#fanCount");
+    const groupsCount = document.querySelector("#groupsCount");
+    const groupList = document.querySelector("#groupList");
+    const groupName = document.querySelector("#groupName");
+    const groupDescription = document.querySelector("#groupDescription");
+    const createGroup = document.querySelector("#createGroup");
 
     function savePosts() {
       localStorage.setItem("bm_posts_zero_reactions_v1", JSON.stringify(state.posts));
@@ -934,6 +953,27 @@
 
     function saveGame() {
       localStorage.setItem("bm_game", JSON.stringify(state.game));
+    }
+
+    function saveGroups() {
+      localStorage.setItem("bm_groups_zero_v1", JSON.stringify(state.groups));
+    }
+
+    function escapeHTML(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function updateCounters() {
+      const joinedGroups = state.groups.filter((group) => group.joined).length;
+      const userPosts = state.posts.filter((post) => post.user === "Tu perfil fan").length;
+      fanCount.textContent = String(joinedGroups);
+      groupsCount.textContent = String(state.groups.length);
+      postCount.textContent = String(userPosts);
     }
 
     function renderPosts(filter = "") {
@@ -952,7 +992,7 @@
             </div>
             <span class="chip">Fan post</span>
           </header>
-          <div class="post-body">${post.text}</div>
+          <div class="post-body">${escapeHTML(post.text)}</div>
           ${post.media.length ? `<div class="post-media">${post.media.map((src) => `<img src="${src}" alt="Imagen de publicacion fan">`).join("")}</div>` : ""}
           <div class="post-actions">
             <div class="reaction-row">
@@ -963,13 +1003,13 @@
             <span class="muted">${post.comments.length} comentarios</span>
           </div>
           <div class="comment-box">
-            <div class="comment-list">${post.comments.map((comment) => `<div class="comment">${comment}</div>`).join("")}</div>
+            <div class="comment-list">${post.comments.map((comment) => `<div class="comment">${escapeHTML(comment)}</div>`).join("")}</div>
             <input class="comment-input" type="text" placeholder="Escribe un comentario y pulsa Enter">
           </div>
         </article>
       `).join("");
 
-      postCount.textContent = String(state.posts.length);
+      updateCounters();
       bindPostEvents();
     }
 
@@ -1041,17 +1081,61 @@
 
     searchInput.addEventListener("input", () => renderPosts(searchInput.value));
 
-    document.querySelectorAll(".join-btn").forEach((button) => {
-      button.addEventListener("click", () => {
-        if (button.dataset.joined) return;
-        button.dataset.joined = "true";
-        button.textContent = "Unido";
-        state.game.joined += 1;
-        state.game.energy += 10;
-        fanCount.textContent = String(Number(fanCount.textContent) + 1);
-        saveGame();
-        renderGame();
+    function renderGroups() {
+      if (!state.groups.length) {
+        groupList.innerHTML = `
+          <div class="group-card">
+            <strong>Aun no hay grupos</strong>
+            <span class="muted">Crea el primer grupo fan para activar la comunidad.</span>
+          </div>
+        `;
+      } else {
+        groupList.innerHTML = state.groups.map((group) => `
+          <div class="group-card" data-id="${group.id}">
+            <strong>${escapeHTML(group.name)}</strong>
+            <span class="muted">${escapeHTML(group.description)}</span>
+            <span class="chip">${group.members} miembros</span>
+            <button class="ghost-btn join-btn" type="button">${group.joined ? "Salir" : "Unirme"}</button>
+          </div>
+        `).join("");
+      }
+
+      groupList.querySelectorAll(".group-card[data-id]").forEach((card) => {
+        const group = state.groups.find((item) => item.id === card.dataset.id);
+        const button = card.querySelector(".join-btn");
+        button.addEventListener("click", () => {
+          group.joined = !group.joined;
+          group.members += group.joined ? 1 : -1;
+          group.members = Math.max(0, group.members);
+          state.game.joined = state.groups.filter((item) => item.joined).length;
+          if (group.joined) state.game.energy += 10;
+          saveGroups();
+          saveGame();
+          renderGroups();
+          renderGame();
+        });
       });
+
+      updateCounters();
+    }
+
+    createGroup.addEventListener("click", () => {
+      const name = groupName.value.trim();
+      const description = groupDescription.value.trim();
+      if (!name) return;
+
+      state.groups.unshift({
+        id: "g" + Date.now(),
+        name,
+        description: description || "Grupo creado por fans para conversar, organizar contenido y compartir novedades.",
+        members: 0,
+        joined: false
+      });
+
+      groupName.value = "";
+      groupDescription.value = "";
+      saveGroups();
+      renderGroups();
     });
 
     const stageGrid = document.querySelector("#stageGrid");
@@ -1118,6 +1202,7 @@
 
     buildStageGrid();
     renderPosts();
+    renderGroups();
     renderGame();
   </script>
 </body>
