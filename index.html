@@ -1,42 +1,43 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BABYMETAL - Portal de Fans</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BABYMETAL FanVerse - Red Social Fan</title>
   <style>
     :root {
-      --bg: #000000;
-      --card-bg: #0a0a0a;
-      --card-hover: #111111;
-      --red: #ff003c;
-      --red-glow: rgba(255, 0, 60, 0.3);
-      --red-dark: #cc0030;
-      --silver: #8a8a8a;
-      --silver-light: #c0c0c0;
-      --white: #f0f0f0;
-      --line: rgba(255, 255, 255, 0.08);
-      --line-hover: rgba(255, 0, 60, 0.4);
-      --font-heading: 'Cinzel', serif;
-      --font-body: 'Inter', sans-serif;
+      --black: #000000;
+      --panel: #08090b;
+      --panel-2: #101114;
+      --paper: #f7f2e8;
+      --muted: #9aa3a8;
+      --line: rgba(247, 242, 232, .14);
+      --red: #d60d24;
+      --red-dark: #740817;
+      --cyan: #32d7ff;
+      --gold: #ffd45a;
+      --green: #40d884;
     }
 
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
-      font-family: var(--font-body);
-      background: var(--bg);
-      color: var(--white);
+      margin: 0;
       min-height: 100vh;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      color: var(--paper);
+      background:
+        radial-gradient(circle at 14% 8%, rgba(214, 13, 36, .18), transparent 24rem),
+        radial-gradient(circle at 92% 18%, rgba(50, 215, 255, .11), transparent 22rem),
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, .025) 0 1px, transparent 1px 120px),
+        #000000;
+      font-family: Arial, Helvetica, sans-serif;
+      letter-spacing: 0;
     }
 
     a {
@@ -44,387 +45,1069 @@
       text-decoration: none;
     }
 
-    /* HEADER */
-    .site-header {
-      position: fixed;
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    .app-shell {
+      min-height: 100vh;
+    }
+
+    .topbar {
+      position: sticky;
       top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 100;
-      padding: 20px 40px;
+      z-index: 30;
+      display: grid;
+      grid-template-columns: 260px 1fr auto;
+      gap: 18px;
+      align-items: center;
+      min-height: 66px;
+      padding: 10px clamp(14px, 3vw, 34px);
+      border-bottom: 1px solid rgba(214, 13, 36, .32);
+      background: rgba(0, 0, 0, .92);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 18px 50px rgba(0, 0, 0, .52);
+    }
+
+    .logo {
+      display: grid;
+      gap: 2px;
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: .9;
+      text-transform: uppercase;
+    }
+
+    .logo strong {
+      font-size: 28px;
+      background: linear-gradient(180deg, #fff, #8c979d 48%, #fff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-stroke: .4px rgba(255, 255, 255, .8);
+      text-shadow: 0 0 18px rgba(255, 255, 255, .18);
+    }
+
+    .logo span {
+      color: var(--red);
+      font-size: 11px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 900;
+    }
+
+    .search {
+      min-height: 42px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      background: linear-gradient(180deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 70%, transparent 100%);
-    }
-
-    .brand {
-      font-family: var(--font-heading);
-      font-size: 24px;
-      font-weight: 900;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--white);
-      text-shadow: 0 0 20px var(--red-glow);
-    }
-
-    .brand span {
-      color: var(--red);
-    }
-
-    .header-tag {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--silver);
+      gap: 10px;
       border: 1px solid var(--line);
-      padding: 6px 14px;
+      background: #070707;
+      padding: 0 14px;
     }
 
-    /* HERO */
-    .hero {
-      min-height: 70vh;
+    .search input {
+      width: 100%;
+      border: 0;
+      outline: 0;
+      color: var(--paper);
+      background: transparent;
+    }
+
+    .top-actions {
       display: flex;
-      flex-direction: column;
+      gap: 8px;
+    }
+
+    .icon-btn,
+    .primary-btn,
+    .ghost-btn {
+      min-height: 40px;
+      border: 1px solid rgba(247, 242, 232, .22);
+      color: var(--paper);
+      background: rgba(255, 255, 255, .05);
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+
+    .icon-btn {
+      width: 42px;
+      font-size: 17px;
+    }
+
+    .primary-btn,
+    .ghost-btn {
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      padding: 140px 20px 60px;
-      position: relative;
-      overflow: hidden;
+      padding: 0 14px;
     }
 
-    .hero::before {
-      content: '';
+    .primary-btn {
+      border-color: transparent;
+      background: linear-gradient(90deg, var(--red), rgba(50, 215, 255, .48));
+    }
+
+    .icon-btn:hover,
+    .primary-btn:hover,
+    .ghost-btn:hover {
+      transform: translateY(-2px);
+      border-color: rgba(247, 242, 232, .52);
+      box-shadow: 0 0 24px rgba(214, 13, 36, .18);
+    }
+
+    .layout {
+      width: min(1480px, 100%);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr) 330px;
+      gap: 18px;
+      padding: 18px;
+    }
+
+    .rail,
+    .feed,
+    .right-rail {
+      display: grid;
+      align-content: start;
+      gap: 18px;
+    }
+
+    .panel,
+    .post,
+    .mini-card,
+    .game-card {
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, .055), transparent 30%),
+        linear-gradient(180deg, var(--panel), #030303);
+      box-shadow: 0 18px 46px rgba(0, 0, 0, .46);
+    }
+
+    .profile-cover {
+      min-height: 130px;
+      background:
+        linear-gradient(180deg, transparent, rgba(0, 0, 0, .72)),
+        url("crystal-stage-hero.png") center / cover no-repeat;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .profile-body {
+      padding: 16px;
+      display: grid;
+      gap: 12px;
+      justify-items: start;
+    }
+
+    .avatar {
+      width: 76px;
+      height: 76px;
+      border: 2px solid #000;
+      outline: 1px solid rgba(247, 242, 232, .22);
+      background:
+        radial-gradient(circle at 50% 28%, rgba(255, 255, 255, .5), transparent 24%),
+        linear-gradient(135deg, var(--red-dark), #20242a 55%, #d7e6ec);
+      display: grid;
+      place-items: center;
+      margin-top: -52px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 28px;
+      font-weight: 900;
+    }
+
+    .profile-body h1,
+    .panel h2,
+    .post h2,
+    .game-card h2 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      text-transform: uppercase;
+      line-height: .95;
+    }
+
+    .profile-body h1 {
+      font-size: 24px;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .stats {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .stat {
+      border: 1px solid rgba(247, 242, 232, .1);
+      background: rgba(255, 255, 255, .04);
+      padding: 10px;
+      text-align: center;
+    }
+
+    .stat strong {
+      display: block;
+      color: var(--cyan);
+      font-size: 18px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .side-nav {
+      display: grid;
+      gap: 8px;
+      padding: 12px;
+    }
+
+    .side-nav a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 42px;
+      padding: 0 10px;
+      border: 1px solid transparent;
+      color: rgba(247, 242, 232, .86);
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .side-nav a:hover {
+      border-color: var(--line);
+      background: rgba(255, 255, 255, .05);
+    }
+
+    .hero-social {
+      min-height: 420px;
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      align-items: end;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, .04), rgba(0, 0, 0, .88)),
+        url("crystal-stage-hero.png") center / cover no-repeat;
+    }
+
+    .hero-social::after {
+      content: "";
       position: absolute;
-      top: -50%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 800px;
-      height: 800px;
-      background: radial-gradient(circle, var(--red-glow) 0%, transparent 70%);
-      opacity: 0.15;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(0, 0, 0, .78), transparent 30%, rgba(0, 0, 0, .62)),
+        repeating-linear-gradient(120deg, transparent 0 38px, rgba(255, 255, 255, .035) 39px, transparent 41px);
       pointer-events: none;
     }
 
-    .hero h1 {
-      font-family: var(--font-heading);
-      font-size: clamp(48px, 10vw, 120px);
-      font-weight: 900;
-      line-height: 0.9;
-      letter-spacing: 6px;
-      text-transform: uppercase;
-      margin-bottom: 16px;
+    .hero-copy {
       position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 12px;
+      padding: clamp(24px, 4vw, 44px);
     }
 
-    .hero h1 span {
-      display: block;
-      font-size: clamp(14px, 2.5vw, 22px);
-      font-family: var(--font-body);
-      font-weight: 300;
-      letter-spacing: 8px;
-      color: var(--silver-light);
-      margin-top: 12px;
-    }
-
-    .hero-line {
-      width: 60px;
-      height: 2px;
-      background: var(--red);
-      margin: 24px auto;
-      box-shadow: 0 0 12px var(--red-glow);
-    }
-
-    .hero-sub {
-      font-size: 16px;
-      font-weight: 300;
-      color: var(--silver);
-      max-width: 500px;
-      line-height: 1.7;
-    }
-
-    /* SECTION */
-    .section {
-      padding: 40px 40px 80px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .section-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 4px;
+    .hero-copy h2 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(46px, 7vw, 96px);
+      line-height: .86;
       text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 8px;
+      background: linear-gradient(180deg, #fff, #9ca7ad 48%, #fff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 28px 55px rgba(0, 0, 0, .85);
     }
 
-    .section-title {
-      font-family: var(--font-heading);
-      font-size: clamp(28px, 4vw, 42px);
-      font-weight: 700;
-      margin-bottom: 40px;
-      color: var(--white);
+    .composer {
+      padding: 16px;
+      display: grid;
+      gap: 12px;
     }
 
-    /* GRID */
-    .members-grid {
+    .composer-row {
+      display: grid;
+      grid-template-columns: 46px 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .small-avatar {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(247, 242, 232, .2);
+      background: linear-gradient(135deg, var(--red-dark), #111, #34434a);
+      font-weight: 900;
+    }
+
+    textarea {
+      min-height: 92px;
+      resize: vertical;
+      border: 1px solid rgba(247, 242, 232, .16);
+      outline: none;
+      color: var(--paper);
+      background: #050505;
+      padding: 13px;
+      line-height: 1.45;
+    }
+
+    .composer-actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      border: 1px solid rgba(247, 242, 232, .14);
+      color: var(--muted);
+      background: rgba(255, 255, 255, .04);
+      padding: 7px 9px;
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .post {
+      overflow: hidden;
+    }
+
+    .post-head {
+      display: grid;
+      grid-template-columns: 50px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 16px;
+    }
+
+    .post-name {
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .post-time {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .post-body {
+      padding: 0 16px 16px;
+      color: rgba(247, 242, 232, .84);
+      line-height: 1.62;
+    }
+
+    .post-media {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
+      gap: 1px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: var(--line);
     }
 
-    @media (max-width: 900px) {
-      .members-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
-    }
-
-    /* CARD */
-    .member-card {
+    .post-media img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
       display: block;
-      background: var(--card-bg);
-      border: 1px solid var(--line);
-      border-radius: 4px;
-      overflow: hidden;
-      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      position: relative;
     }
 
-    .member-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, var(--red), transparent);
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-
-    .member-card:hover {
-      border-color: var(--line-hover);
-      background: var(--card-hover);
-      transform: translateY(-4px);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 30px var(--red-glow);
-    }
-
-    .member-card:hover::before {
-      opacity: 1;
-    }
-
-    .card-image {
-      width: 100%;
-      height: 320px;
-      background-size: cover;
-      background-position: center top;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card-image::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 60%;
-      background: linear-gradient(to top, var(--card-bg), transparent);
-    }
-
-    .member-card:hover .card-image::after {
-      background: linear-gradient(to top, var(--card-hover), transparent);
-    }
-
-    .card-image .mark {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-family: var(--font-heading);
-      font-size: 72px;
-      font-weight: 900;
-      color: rgba(255, 255, 255, 0.06);
-      z-index: 1;
-      letter-spacing: 4px;
-    }
-
-    .card-body {
-      padding: 24px 28px 28px;
-    }
-
-    .card-name {
-      font-family: var(--font-heading);
-      font-size: 26px;
-      font-weight: 700;
-      color: var(--red);
-      margin-bottom: 4px;
-      letter-spacing: 1px;
-    }
-
-    .card-realname {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--silver);
-      margin-bottom: 16px;
-      letter-spacing: 0.5px;
-    }
-
-    .card-role {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--silver-light);
-      border: 1px solid var(--line);
-      display: inline-block;
-      padding: 5px 12px;
-      margin-bottom: 16px;
-    }
-
-    .card-desc {
-      font-size: 14px;
-      font-weight: 300;
-      color: var(--silver);
-      line-height: 1.65;
-    }
-
-    .card-footer {
-      padding: 0 28px 24px;
+    .post-actions {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 10px;
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(247, 242, 232, .09);
     }
 
-    .card-link {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--red);
+    .reaction-row {
       display: flex;
-      align-items: center;
       gap: 8px;
-      transition: gap 0.3s ease;
+      flex-wrap: wrap;
     }
 
-    .member-card:hover .card-link {
-      gap: 14px;
-    }
-
-    .card-link .arrow {
-      font-size: 16px;
-      transition: transform 0.3s ease;
-    }
-
-    .member-card:hover .card-link .arrow {
-      transform: translateX(4px);
-    }
-
-    /* FOOTER */
-    .site-footer {
-      border-top: 1px solid var(--line);
-      padding: 40px;
-      text-align: center;
+    .react {
+      min-height: 34px;
+      border: 1px solid rgba(247, 242, 232, .14);
+      background: rgba(255, 255, 255, .04);
+      color: var(--paper);
+      cursor: pointer;
+      padding: 0 10px;
       font-size: 12px;
-      color: var(--silver);
-      letter-spacing: 1px;
+      font-weight: 900;
     }
 
-    .site-footer span {
-      color: var(--red);
+    .react.is-on {
+      border-color: rgba(50, 215, 255, .56);
+      color: var(--cyan);
+      box-shadow: 0 0 20px rgba(50, 215, 255, .12);
+    }
+
+    .comment-box {
+      display: grid;
+      gap: 10px;
+      padding: 14px 16px 16px;
+    }
+
+    .comment-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .comment {
+      border: 1px solid rgba(247, 242, 232, .1);
+      background: rgba(255, 255, 255, .035);
+      padding: 9px 10px;
+      color: rgba(247, 242, 232, .82);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .comment-input {
+      min-height: 38px;
+      border: 1px solid rgba(247, 242, 232, .14);
+      background: #050505;
+      color: var(--paper);
+      outline: none;
+      padding: 0 11px;
+    }
+
+    .panel {
+      padding: 16px;
+    }
+
+    .panel h2,
+    .game-card h2 {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .info-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .info-item {
+      border-top: 1px solid rgba(247, 242, 232, .1);
+      padding-top: 10px;
+      color: rgba(247, 242, 232, .82);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .info-item strong {
+      color: var(--gold);
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .gallery img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border: 1px solid rgba(247, 242, 232, .12);
+    }
+
+    .group-card,
+    .event-card {
+      display: grid;
+      gap: 8px;
+      border: 1px solid rgba(247, 242, 232, .1);
+      background: rgba(255, 255, 255, .035);
+      padding: 12px;
+    }
+
+    .group-card strong,
+    .event-card strong {
+      text-transform: uppercase;
+      color: var(--paper);
+    }
+
+    .progress {
+      height: 9px;
+      border: 1px solid rgba(247, 242, 232, .16);
+      background: #000;
+      overflow: hidden;
+    }
+
+    .progress span {
+      display: block;
+      height: 100%;
+      width: var(--value, 40%);
+      background: linear-gradient(90deg, var(--red), var(--cyan));
+    }
+
+    .game-card {
+      padding: 16px;
+      background:
+        linear-gradient(135deg, rgba(214, 13, 36, .16), transparent 34%),
+        linear-gradient(180deg, #101114, #030303);
+    }
+
+    .game-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin: 12px 0;
+    }
+
+    .game-stat {
+      border: 1px solid rgba(247, 242, 232, .12);
+      padding: 10px;
+      text-align: center;
+      background: rgba(0, 0, 0, .36);
+    }
+
+    .game-stat strong {
+      display: block;
+      color: var(--cyan);
+      font-size: 20px;
+    }
+
+    .stage-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin: 12px 0;
+    }
+
+    .stage-tile {
+      aspect-ratio: 1;
+      border: 1px solid rgba(247, 242, 232, .14);
+      background:
+        radial-gradient(circle at 50% 28%, rgba(255, 255, 255, .18), transparent 20%),
+        linear-gradient(135deg, #19040a, #111921);
+      color: var(--paper);
+      cursor: pointer;
+      font-size: 22px;
+      font-weight: 900;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+
+    .stage-tile:hover {
+      transform: translateY(-3px);
+      border-color: rgba(50, 215, 255, .45);
+      box-shadow: 0 0 18px rgba(50, 215, 255, .12);
+    }
+
+    .mission-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .mission {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+      border: 1px solid rgba(247, 242, 232, .12);
+      padding: 10px;
+      background: rgba(255, 255, 255, .035);
+      font-size: 13px;
+    }
+
+    .mission.done {
+      border-color: rgba(64, 216, 132, .4);
+      color: var(--green);
+    }
+
+    .leaderboard {
+      display: grid;
+      gap: 8px;
+    }
+
+    .rank {
+      display: grid;
+      grid-template-columns: 28px 1fr auto;
+      gap: 8px;
+      align-items: center;
+      border-top: 1px solid rgba(247, 242, 232, .1);
+      padding-top: 8px;
+      font-size: 13px;
+    }
+
+    .footer {
+      padding: 28px 18px 42px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 1180px) {
+      .layout {
+        grid-template-columns: 240px minmax(0, 1fr);
+      }
+
+      .right-rail {
+        grid-column: 1 / -1;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 820px) {
+      .topbar,
+      .layout,
+      .right-rail {
+        grid-template-columns: 1fr;
+      }
+
+      .top-actions {
+        justify-content: start;
+      }
+
+      .post-media {
+        grid-template-columns: 1fr;
+      }
+
+      .post-media img {
+        height: 320px;
+      }
     }
   </style>
 </head>
 <body>
-
-  <header class="site-header">
-    <div class="brand">BABY<span>METAL</span></div>
-    <div class="header-tag">Portal de Fans 2026</div>
-  </header>
-
-  <section class="hero">
-    <h1>
-      BABYMETAL
-      <span>Metal Resistance Experience</span>
-    </h1>
-    <div class="hero-line"></div>
-    <p class="hero-sub">
-      Explora el universo de las tres guerreras sagradas del Dios Zorro.
-      Descubre su historia, datos y la energia que mueve al metal mundial.
-    </p>
-  </section>
-
-  <section class="section">
-    <div class="section-label">Integrantes</div>
-    <h2 class="section-title">La Trinidad Sagrada</h2>
-
-    <div class="members-grid">
-
-      <!-- TARJETA 1: SU-METAL -->
-      <a href="suzuka.html" class="member-card">
-        <div class="card-image" style="background-image: url('assets/su-metal.webp');"></div>
-        <div class="card-body">
-          <div class="card-name">SU-METAL</div>
-          <div class="card-realname">Suzuka Nakamoto</div>
-          <div class="card-role">Voz Principal & Danza</div>
-          <p class="card-desc">
-            La voz divina de la resistencia. Con una potencia vocal inigualable y una presencia escénica majestuosa, canaliza el poder del Dios Zorro en cada actuación.
-          </p>
-        </div>
-        <div class="card-footer">
-          <div class="card-link">
-            Ver perfil completo <span class="arrow">→</span>
-          </div>
-        </div>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="logo" href="#inicio" aria-label="Inicio FanVerse">
+        <strong>BABYMETAL</strong>
+        <span>FanVerse Social</span>
       </a>
 
-      <!-- TARJETA 2: MOAMETAL -->
-      <a href="moa.html" class="member-card">
-        <div class="card-image" style="background-image: url('assets/moametal.jpg');"></div>
-        <div class="card-body">
-          <div class="card-name">MOAMETAL</div>
-          <div class="card-realname">Moa Kikuchi</div>
-          <div class="card-role">Coros & Danza</div>
-          <p class="card-desc">
-            El ángel de la sonrisa de metal. Llena de energía y carisma inagotable, sus coreografías dinámicas encienden el pogo de la Metal Resistance en cada show.
-          </p>
-        </div>
-        <div class="card-footer">
-          <div class="card-link">
-            Ver perfil completo <span class="arrow">→</span>
+      <label class="search">
+        <span>Buscar</span>
+        <input id="searchInput" type="search" placeholder="Canciones, miembros, grupos, publicaciones...">
+      </label>
+
+      <div class="top-actions">
+        <button class="icon-btn" type="button" title="Notificaciones">!</button>
+        <button class="icon-btn" type="button" title="Mensajes">#</button>
+        <button class="primary-btn" type="button" id="newPostTop">Publicar</button>
+      </div>
+    </header>
+
+    <main class="layout" id="inicio">
+      <aside class="rail">
+        <section class="panel profile">
+          <div class="profile-cover"></div>
+          <div class="profile-body">
+            <div class="avatar">BM</div>
+            <h1>Metal Galaxy Club</h1>
+            <p class="muted">Comunidad fan no oficial con feed, noticias, juegos, grupos, eventos y archivo de informacion para fans de BABYMETAL.</p>
+            <div class="stats">
+              <div class="stat"><strong id="fanCount">969</strong><span>Fans</span></div>
+              <div class="stat"><strong>12</strong><span>Grupos</span></div>
+              <div class="stat"><strong id="postCount">6</strong><span>Posts</span></div>
+            </div>
           </div>
-        </div>
-      </a>
+        </section>
 
-      <!-- TARJETA 3: MOMOMETAL -->
-      <a href="momoko.html" class="member-card">
-        <div class="card-image" style="background-image: url('assets/momometal.webp');"></div>
-        <div class="card-body">
-          <div class="card-name">MOMOMETAL</div>
-          <div class="card-realname">Momoko Okazaki</div>
-          <div class="card-role">Coros & Danza</div>
-          <p class="card-desc">
-            La guerrera del brillo rosado. Se unió oficialmente al grupo para consolidar la trinidad sagrada, aportando una destreza de danza asombrosa y un brillo celestial.
-          </p>
-        </div>
-        <div class="card-footer">
-          <div class="card-link">
-            Ver perfil completo <span class="arrow">→</span>
+        <nav class="panel side-nav" aria-label="Navegacion social">
+          <a href="#feed">Inicio social</a>
+          <a href="#game">Kitsune Quest</a>
+          <a href="#members">Integrantes</a>
+          <a href="#groups">Grupos</a>
+          <a href="#events">Eventos</a>
+          <a href="#archive">Archivo fan</a>
+          <a href="noticia-metal-futura.html">Primera noticia</a>
+        </nav>
+
+        <section class="panel" id="archive">
+          <h2>Archivo Fan</h2>
+          <div class="info-list">
+            <div class="info-item"><strong>Origen</strong>BABYMETAL combina elementos del metal con pop japones, coreografia y una estetica teatral.</div>
+            <div class="info-item"><strong>Formacion actual</strong>SU-METAL, MOAMETAL y MOMOMETAL.</div>
+            <div class="info-item"><strong>Comunidad</strong>Los fans suelen usar referencias a Kitsune, Metalverse, mosh pits y shows de arena.</div>
           </div>
-        </div>
-      </a>
+        </section>
+      </aside>
 
-    </div>
-  </section>
+      <section class="feed" id="feed">
+        <section class="hero-social">
+          <div class="hero-copy">
+            <h2>FanVerse 2012 Reloaded</h2>
+            <p class="muted">Una red social fan con energia de Facebook clasico: muro, comentarios, grupos, eventos, colecciones y un juego social para subir tu poder Kitsune.</p>
+            <div class="chip-row">
+              <span class="chip">Fanpage no oficial</span>
+              <span class="chip">Premium Dark UI</span>
+              <span class="chip">Juego social</span>
+            </div>
+          </div>
+        </section>
 
-  <footer class="site-footer">
-    Fanpage no oficial &mdash; <span>BABYMETAL</span> &copy; 2026 &mdash; Todos los derechos pertenecen a Amuse Inc. y Toy's Factory
-  </footer>
+        <section class="post composer" id="composer">
+          <div class="composer-row">
+            <div class="small-avatar">TU</div>
+            <textarea id="composerText" placeholder="Comparte una teoria, setlist, recuerdo de concierto o cancion favorita..."></textarea>
+          </div>
+          <div class="composer-actions">
+            <div class="chip-row">
+              <button class="ghost-btn tag-btn" type="button" data-tag="Setlist">Setlist</button>
+              <button class="ghost-btn tag-btn" type="button" data-tag="Merch">Merch</button>
+              <button class="ghost-btn tag-btn" type="button" data-tag="Kitsune">Kitsune</button>
+            </div>
+            <button class="primary-btn" type="button" id="publishPost">Publicar en el muro</button>
+          </div>
+        </section>
 
+        <div id="postList"></div>
+
+        <section class="game-card" id="game">
+          <h2>Kitsune Quest</h2>
+          <p class="muted">Juego social estilo 2012: toca luces del escenario, gana energia, completa misiones y sube en el ranking local.</p>
+          <div class="game-stats">
+            <div class="game-stat"><strong id="energy">0</strong><span>Energia</span></div>
+            <div class="game-stat"><strong id="crystals">0</strong><span>Cristales</span></div>
+            <div class="game-stat"><strong id="level">1</strong><span>Nivel</span></div>
+          </div>
+          <div class="progress" aria-label="Progreso de nivel"><span id="levelProgress"></span></div>
+          <div class="stage-grid" id="stageGrid"></div>
+          <div class="composer-actions">
+            <button class="primary-btn" type="button" id="collectBonus">Cobrar bonus diario</button>
+            <button class="ghost-btn" type="button" id="resetGame">Reiniciar juego</button>
+          </div>
+          <div class="mission-list" id="missionList"></div>
+        </section>
+      </section>
+
+      <aside class="right-rail">
+        <section class="panel" id="members">
+          <h2>Integrantes</h2>
+          <div class="info-list">
+            <div class="info-item"><strong>SU-METAL</strong>Voz principal y danza. Nombre real: Suzuka Nakamoto. Nacida en Hiroshima, Japon.</div>
+            <div class="info-item"><strong>MOAMETAL</strong>Voces de apoyo y danza. Nombre real: Moa Kikuchi. Nacida en Nagoya, Japon.</div>
+            <div class="info-item"><strong>MOMOMETAL</strong>Voces de apoyo y danza. Nombre real: Momoko Okazaki. Integrante oficial desde 2023.</div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Galeria</h2>
+          <div class="gallery">
+            <img src="assets/su-metal.webp" alt="SU-METAL en concierto">
+            <img src="assets/moametal.jpg" alt="MOAMETAL en concierto">
+            <img src="assets/momometal.webp" alt="MOMOMETAL en concierto">
+            <img src="crystal-stage-hero.png" alt="Escenario de cristales">
+            <img src="assets/su-metal.webp" alt="Foto fan 1">
+            <img src="assets/momometal.webp" alt="Foto fan 2">
+          </div>
+        </section>
+
+        <section class="panel" id="groups">
+          <h2>Grupos</h2>
+          <div class="info-list">
+            <div class="group-card">
+              <strong>Kitsune Latinoamerica</strong>
+              <span class="muted">Debates, memes, noticias y reuniones fan.</span>
+              <button class="ghost-btn join-btn" type="button">Unirme</button>
+            </div>
+            <div class="group-card">
+              <strong>Setlist Hunters</strong>
+              <span class="muted">Predicciones de canciones y ranking de shows.</span>
+              <button class="ghost-btn join-btn" type="button">Unirme</button>
+            </div>
+            <div class="group-card">
+              <strong>Merch Collectors</strong>
+              <span class="muted">Coleccionismo, ediciones limitadas y guias.</span>
+              <button class="ghost-btn join-btn" type="button">Unirme</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" id="events">
+          <h2>Eventos</h2>
+          <div class="info-list">
+            <div class="event-card">
+              <strong>Noche de videos oficiales</strong>
+              <span class="muted">Viernes, 21:00 - playlist compartida.</span>
+              <div class="progress"><span style="--value: 72%"></span></div>
+            </div>
+            <div class="event-card">
+              <strong>Bingo de setlist</strong>
+              <span class="muted">Domingo, 18:00 - tarjeta fan interactiva.</span>
+              <div class="progress"><span style="--value: 48%"></span></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Ranking</h2>
+          <div class="leaderboard" id="leaderboard"></div>
+        </section>
+      </aside>
+    </main>
+
+    <footer class="footer">
+      FanVerse no oficial. Esta pagina no representa a BABYMETAL, Amuse, Toy's Factory ni sellos oficiales. Imagenes proporcionadas por el usuario para uso local del proyecto.
+    </footer>
+  </div>
+
+  <script>
+    const defaultPosts = [
+      {
+        id: "p1",
+        user: "Kitsune News",
+        avatar: "KN",
+        time: "Hace 12 min",
+        text: "Bienvenidos al muro FanVerse. Comparte teorias, canciones favoritas, recuerdos de shows y contenido para la comunidad.",
+        media: ["assets/su-metal.webp", "assets/moametal.jpg", "assets/momometal.webp"],
+        reactions: { like: 36, fire: 51, fox: 72 },
+        comments: ["El diseño quedo brutal.", "Necesitamos torneo de setlists."]
+      },
+      {
+        id: "p2",
+        user: "Setlist Hunters",
+        avatar: "SH",
+        time: "Hace 48 min",
+        text: "Pregunta del dia: que cancion pondrias como cierre perfecto para una noche de arena? Road of Resistance, The One o Monochrome?",
+        media: [],
+        reactions: { like: 24, fire: 38, fox: 19 },
+        comments: ["Road of Resistance siempre.", "The One para cerrar con emocion."]
+      },
+      {
+        id: "p3",
+        user: "Merch Collectors",
+        avatar: "MC",
+        time: "Ayer",
+        text: "Nuevo tablero para registrar colecciones: camisetas, blu-rays, posters, vinilos, ediciones limitadas y recuerdos de concierto.",
+        media: ["crystal-stage-hero.png"],
+        reactions: { like: 18, fire: 20, fox: 27 },
+        comments: ["Agreguen checklist de albumes.", "Buenisimo para coleccionistas."]
+      }
+    ];
+
+    const state = {
+      posts: JSON.parse(localStorage.getItem("bm_posts") || "null") || defaultPosts,
+      game: JSON.parse(localStorage.getItem("bm_game") || "null") || {
+        energy: 0,
+        crystals: 0,
+        level: 1,
+        clicks: 0,
+        joined: 0,
+        bonus: false
+      }
+    };
+
+    const postList = document.querySelector("#postList");
+    const composerText = document.querySelector("#composerText");
+    const publishPost = document.querySelector("#publishPost");
+    const searchInput = document.querySelector("#searchInput");
+    const postCount = document.querySelector("#postCount");
+    const fanCount = document.querySelector("#fanCount");
+
+    function savePosts() {
+      localStorage.setItem("bm_posts", JSON.stringify(state.posts));
+    }
+
+    function saveGame() {
+      localStorage.setItem("bm_game", JSON.stringify(state.game));
+    }
+
+    function renderPosts(filter = "") {
+      const query = filter.trim().toLowerCase();
+      const posts = state.posts.filter((post) => {
+        return !query || post.text.toLowerCase().includes(query) || post.user.toLowerCase().includes(query);
+      });
+
+      postList.innerHTML = posts.map((post) => `
+        <article class="post" data-id="${post.id}">
+          <header class="post-head">
+            <div class="small-avatar">${post.avatar}</div>
+            <div>
+              <div class="post-name">${post.user}</div>
+              <div class="post-time">${post.time}</div>
+            </div>
+            <span class="chip">Fan post</span>
+          </header>
+          <div class="post-body">${post.text}</div>
+          ${post.media.length ? `<div class="post-media">${post.media.map((src) => `<img src="${src}" alt="Imagen de publicacion fan">`).join("")}</div>` : ""}
+          <div class="post-actions">
+            <div class="reaction-row">
+              <button class="react" type="button" data-reaction="like">Me gusta <span>${post.reactions.like}</span></button>
+              <button class="react" type="button" data-reaction="fire">Fuego <span>${post.reactions.fire}</span></button>
+              <button class="react" type="button" data-reaction="fox">Kitsune <span>${post.reactions.fox}</span></button>
+            </div>
+            <span class="muted">${post.comments.length} comentarios</span>
+          </div>
+          <div class="comment-box">
+            <div class="comment-list">${post.comments.map((comment) => `<div class="comment">${comment}</div>`).join("")}</div>
+            <input class="comment-input" type="text" placeholder="Escribe un comentario y pulsa Enter">
+          </div>
+        </article>
+      `).join("");
+
+      postCount.textContent = String(state.posts.length);
+      bindPostEvents();
+    }
+
+    function bindPostEvents() {
+      document.querySelectorAll(".post").forEach((postEl) => {
+        const post = state.posts.find((item) => item.id === postEl.dataset.id);
+        if (!post) return;
+
+        postEl.querySelectorAll(".react").forEach((button) => {
+          button.addEventListener("click", () => {
+            const key = button.dataset.reaction;
+            post.reactions[key] += 1;
+            button.classList.add("is-on");
+            button.querySelector("span").textContent = post.reactions[key];
+            savePosts();
+          });
+        });
+
+        const input = postEl.querySelector(".comment-input");
+        input.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" && input.value.trim()) {
+            post.comments.push(input.value.trim());
+            input.value = "";
+            savePosts();
+            renderPosts(searchInput.value);
+          }
+        });
+      });
+    }
+
+    publishPost.addEventListener("click", () => {
+      const text = composerText.value.trim();
+      if (!text) return;
+      state.posts.unshift({
+        id: "p" + Date.now(),
+        user: "Tu perfil fan",
+        avatar: "TU",
+        time: "Ahora",
+        text,
+        media: [],
+        reactions: { like: 0, fire: 0, fox: 0 },
+        comments: []
+      });
+      composerText.value = "";
+      savePosts();
+      renderPosts(searchInput.value);
+    });
+
+    document.querySelector("#newPostTop").addEventListener("click", () => {
+      document.querySelector("#composer").scrollIntoView({ behavior: "smooth", block: "center" });
+      composerText.focus();
+    });
+
+    document.querySelectorAll(".tag-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        composerText.value = (composerText.value + " #" + button.dataset.tag + " ").trim() + " ";
+        composerText.focus();
+      });
+    });
+
+    searchInput.addEventListener("input", () => renderPosts(searchInput.value));
+
+    document.querySelectorAll(".join-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        if (button.dataset.joined) return;
+        button.dataset.joined = "true";
+        button.textContent = "Unido";
+        state.game.joined += 1;
+        state.game.energy += 10;
+        fanCount.textContent = String(Number(fanCount.textContent) + 1);
+        saveGame();
+        renderGame();
+      });
+    });
+
+    const stageGrid = document.querySelector("#stageGrid");
+    const missions = [
+      { id: "clicks", text: "Activa 12 luces de escenario", done: (game) => game.clicks >= 12 },
+      { id: "crystals", text: "Recolecta 40 cristales", done: (game) => game.crystals >= 40 },
+      { id: "groups", text: "Unete a 2 grupos fan", done: (game) => game.joined >= 2 }
+    ];
+
+    function renderGame() {
+      document.querySelector("#energy").textContent = state.game.energy;
+      document.querySelector("#crystals").textContent = state.game.crystals;
+      state.game.level = Math.max(1, Math.floor(state.game.energy / 100) + 1);
+      document.querySelector("#level").textContent = state.game.level;
+      document.querySelector("#levelProgress").style.setProperty("--value", (state.game.energy % 100) + "%");
+
+      document.querySelector("#missionList").innerHTML = missions.map((mission) => {
+        const done = mission.done(state.game);
+        return `<div class="mission ${done ? "done" : ""}"><span>${mission.text}</span><strong>${done ? "Listo" : "Pendiente"}</strong></div>`;
+      }).join("");
+
+      document.querySelector("#leaderboard").innerHTML = [
+        ["1", "Metal Galaxy Club", state.game.energy + state.game.crystals],
+        ["2", "Kitsune Peru", 420],
+        ["3", "Road Crew", 360],
+        ["4", "Tu perfil fan", state.game.energy]
+      ].map((rank) => `<div class="rank"><strong>${rank[0]}</strong><span>${rank[1]}</span><b>${rank[2]}</b></div>`).join("");
+    }
+
+    function buildStageGrid() {
+      stageGrid.innerHTML = "";
+      const icons = ["X", "V", "K", "M", "B", "R", "S", "F"];
+      icons.forEach((icon, index) => {
+        const tile = document.createElement("button");
+        tile.className = "stage-tile";
+        tile.type = "button";
+        tile.textContent = icon;
+        tile.addEventListener("click", () => {
+          const gain = (index % 3) + 3;
+          state.game.energy += gain;
+          state.game.crystals += index % 2 === 0 ? 2 : 1;
+          state.game.clicks += 1;
+          saveGame();
+          renderGame();
+        });
+        stageGrid.appendChild(tile);
+      });
+    }
+
+    document.querySelector("#collectBonus").addEventListener("click", () => {
+      if (state.game.bonus) return;
+      state.game.bonus = true;
+      state.game.energy += 50;
+      state.game.crystals += 15;
+      saveGame();
+      renderGame();
+    });
+
+    document.querySelector("#resetGame").addEventListener("click", () => {
+      state.game = { energy: 0, crystals: 0, level: 1, clicks: 0, joined: 0, bonus: false };
+      saveGame();
+      renderGame();
+    });
+
+    buildStageGrid();
+    renderPosts();
+    renderGame();
+  </script>
 </body>
 </html>
