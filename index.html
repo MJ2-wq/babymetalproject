@@ -1196,6 +1196,319 @@
         right: 16px;
       }
     }
+
+    /* ========== AUTH MODAL ========== */
+    .auth-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .auth-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .auth-modal {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      width: 420px;
+      max-width: 95vw;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+      transform: scale(0.9) translateY(20px);
+      transition: transform 0.3s ease;
+    }
+
+    .auth-overlay.active .auth-modal {
+      transform: scale(1) translateY(0);
+    }
+
+    .auth-header {
+      text-align: center;
+      padding: 32px 24px 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .auth-logo {
+      font-size: 48px;
+      margin-bottom: 8px;
+    }
+
+    .auth-title {
+      font-family: 'Cinzel', serif;
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .auth-subtitle {
+      font-size: 13px;
+      color: var(--silver);
+    }
+
+    .auth-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .auth-tab {
+      flex: 1;
+      padding: 14px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--silver);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border-bottom: 2px solid transparent;
+    }
+
+    .auth-tab:hover {
+      color: var(--white);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .auth-tab.active {
+      color: var(--red);
+      border-bottom-color: var(--red);
+    }
+
+    .auth-form {
+      padding: 24px;
+      display: none;
+    }
+
+    .auth-form.active {
+      display: block;
+    }
+
+    .auth-field {
+      margin-bottom: 16px;
+    }
+
+    .auth-field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--silver-light);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .auth-field input {
+      width: 100%;
+      padding: 12px 14px;
+      background: var(--bg-card);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      color: var(--white);
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.2s ease;
+      box-sizing: border-box;
+    }
+
+    .auth-field input:focus {
+      outline: none;
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px rgba(255, 0, 60, 0.15);
+    }
+
+    .auth-field input::placeholder {
+      color: var(--silver);
+    }
+
+    .auth-btn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-top: 8px;
+    }
+
+    .auth-btn-primary {
+      background: linear-gradient(135deg, var(--red), #cc0030);
+      color: white;
+    }
+
+    .auth-btn-primary:hover {
+      background: linear-gradient(135deg, #e60035, var(--red));
+      box-shadow: 0 4px 20px rgba(255, 0, 60, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .auth-divider {
+      text-align: center;
+      padding: 16px 0;
+      color: var(--silver);
+      font-size: 12px;
+      position: relative;
+    }
+
+    .auth-divider::before,
+    .auth-divider::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 40%;
+      height: 1px;
+      background: var(--line);
+    }
+
+    .auth-divider::before { left: 0; }
+    .auth-divider::after { right: 0; }
+
+    .auth-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: var(--white);
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .auth-close:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .auth-error {
+      background: rgba(255, 0, 60, 0.1);
+      border: 1px solid rgba(255, 0, 60, 0.3);
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: #ff6b6b;
+      font-size: 13px;
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    .auth-error.show {
+      display: block;
+    }
+
+    .auth-success {
+      background: rgba(0, 200, 83, 0.1);
+      border: 1px solid rgba(0, 200, 83, 0.3);
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: #69f0ae;
+      font-size: 13px;
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    .auth-success.show {
+      display: block;
+    }
+
+    .auth-user-menu {
+      position: relative;
+    }
+
+    .auth-user-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .auth-user-btn:hover {
+      border-color: var(--red);
+      box-shadow: 0 0 12px rgba(255, 0, 60, 0.2);
+    }
+
+    .auth-dropdown {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin-top: 8px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      min-width: 200px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-8px);
+      transition: all 0.2s ease;
+      z-index: 100;
+    }
+
+    .auth-dropdown.active {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0);
+    }
+
+    .auth-dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      color: var(--white);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .auth-dropdown-item:first-child {
+      border-radius: 12px 12px 0 0;
+    }
+
+    .auth-dropdown-item:last-child {
+      border-radius: 0 0 12px 12px;
+    }
+
+    .auth-dropdown-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .auth-dropdown-item.danger {
+      color: #ff6b6b;
+    }
+
+    .auth-dropdown-divider {
+      height: 1px;
+      background: var(--line);
+    }
   </style>
 </head>
 <body>
@@ -1219,7 +1532,32 @@
         <span class="badge"></span>
       </button>
       <button class="nav-btn" title="Mensajes">✉️</button>
-      <div class="header-avatar" title="Mi perfil">🦊</div>
+      
+      <!-- Auth: Not logged in -->
+      <div id="authButtons">
+        <button class="auth-btn-header" id="btnShowLogin" style="padding:6px 16px;border-radius:20px;font-size:12px;font-weight:700;background:transparent;border:1px solid #ff003c;color:#ff003c;cursor:pointer;transition:all 0.2s ease;">Iniciar Sesión</button>
+        <button class="auth-btn-header" id="btnShowRegister" style="padding:6px 16px;border-radius:20px;font-size:12px;font-weight:700;background:#ff003c;border:none;color:#fff;cursor:pointer;margin-left:6px;transition:all 0.2s ease;">Registrarse</button>
+      </div>
+
+      <!-- Auth: Logged in -->
+      <div class="auth-user-menu" id="authUserMenu" style="display:none;">
+        <button class="auth-user-btn" id="authUserBtn">
+          <span id="authUserAvatar">🦊</span>
+          <span id="authUserName">Usuario</span>
+        </button>
+        <div class="auth-dropdown" id="authDropdown">
+          <div class="auth-dropdown-item" id="authProfile">
+            <span>👤</span> Mi Perfil
+          </div>
+          <div class="auth-dropdown-item" id="authSettings">
+            <span>⚙️</span> Configuración
+          </div>
+          <div class="auth-dropdown-divider"></div>
+          <div class="auth-dropdown-item danger" id="authLogout">
+            <span>🚪</span> Cerrar Sesión
+          </div>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -1686,6 +2024,63 @@
 
   </div>
 
+  <!-- ========== AUTH MODAL ========== -->
+  <div class="auth-overlay" id="authOverlay">
+    <div class="auth-modal" style="position:relative;">
+      <button class="auth-close" id="authClose">✕</button>
+      
+      <div class="auth-header">
+        <div class="auth-logo">🦊</div>
+        <div class="auth-title">Fox Net</div>
+        <div class="auth-subtitle">Únete a la Metal Resistance</div>
+      </div>
+
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-tab="login">Iniciar Sesión</button>
+        <button class="auth-tab" data-tab="register">Registrarse</button>
+      </div>
+
+      <!-- Login Form -->
+      <form class="auth-form active" id="loginForm" data-form="login">
+        <div class="auth-error" id="loginError"></div>
+        <div class="auth-field">
+          <label>Correo Electrónico</label>
+          <input type="email" id="loginEmail" placeholder="tu@email.com" required>
+        </div>
+        <div class="auth-field">
+          <label>Contraseña</label>
+          <input type="password" id="loginPassword" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="auth-btn auth-btn-primary">Iniciar Sesión</button>
+        <div class="auth-divider">o</div>
+        <button type="button" class="auth-btn" id="loginDemo" style="background:var(--bg-card);border:1px solid var(--line);color:var(--white);">🦊 Entrar como Demo (Kitsune)</button>
+      </form>
+
+      <!-- Register Form -->
+      <form class="auth-form" id="registerForm" data-form="register">
+        <div class="auth-error" id="registerError"></div>
+        <div class="auth-success" id="registerSuccess"></div>
+        <div class="auth-field">
+          <label>Nombre de Usuario</label>
+          <input type="text" id="registerName" placeholder="KitsuneMetalero" required>
+        </div>
+        <div class="auth-field">
+          <label>Correo Electrónico</label>
+          <input type="email" id="registerEmail" placeholder="tu@email.com" required>
+        </div>
+        <div class="auth-field">
+          <label>Contraseña</label>
+          <input type="password" id="registerPassword" placeholder="Mínimo 6 caracteres" required minlength="6">
+        </div>
+        <div class="auth-field">
+          <label>Confirmar Contraseña</label>
+          <input type="password" id="registerConfirm" placeholder="Repite tu contraseña" required>
+        </div>
+        <button type="submit" class="auth-btn auth-btn-primary">Crear Cuenta</button>
+      </form>
+    </div>
+  </div>
+
   <!-- ========== CHATBOT AI ========== -->
   <button class="chatbot-fab" id="chatFab" title="Kitsune AI">🦊</button>
 
@@ -1953,6 +2348,215 @@
         ring.style.background = 'linear-gradient(135deg, var(--red), #ff6b6b, var(--red))';
       });
     });
+
+    // ========== AUTH SYSTEM ==========
+    var authOverlay = document.getElementById('authOverlay');
+    var authClose = document.getElementById('authClose');
+    var authButtons = document.getElementById('authButtons');
+    var authUserMenu = document.getElementById('authUserMenu');
+    var authUserBtn = document.getElementById('authUserBtn');
+    var authDropdown = document.getElementById('authDropdown');
+    var authUserName = document.getElementById('authUserName');
+    var authUserAvatar = document.getElementById('authUserAvatar');
+    var loginForm = document.getElementById('loginForm');
+    var registerForm = document.getElementById('registerForm');
+    var loginError = document.getElementById('loginError');
+    var registerError = document.getElementById('registerError');
+    var registerSuccess = document.getElementById('registerSuccess');
+
+    function getUsers() {
+      return JSON.parse(localStorage.getItem('foxnet_users') || '{}');
+    }
+
+    function saveUsers(users) {
+      localStorage.setItem('foxnet_users', JSON.stringify(users));
+    }
+
+    function getCurrentUser() {
+      var email = localStorage.getItem('foxnet_current');
+      if (!email) return null;
+      var users = getUsers();
+      return users[email] || null;
+    }
+
+    function setCurrentUser(email) {
+      localStorage.setItem('foxnet_current', email);
+    }
+
+    function logoutUser() {
+      localStorage.removeItem('foxnet_current');
+      updateAuthUI();
+      authDropdown.classList.remove('active');
+    }
+
+    function updateAuthUI() {
+      var user = getCurrentUser();
+      if (user) {
+        authButtons.style.display = 'none';
+        authUserMenu.style.display = 'block';
+        authUserName.textContent = user.name;
+        authUserAvatar.textContent = '🦊';
+        var profileName = document.querySelector('.profile-name');
+        var profileHandle = document.querySelector('.profile-handle');
+        var profileBio = document.querySelector('.profile-bio');
+        if (profileName) profileName.textContent = user.name;
+        if (profileHandle) profileHandle.textContent = '@' + user.name.toLowerCase().replace(/\s+/g, '_');
+        if (profileBio) profileBio.textContent = 'Fan de BABYMETAL 🤘 | ' + user.email;
+      } else {
+        authButtons.style.display = 'flex';
+        authUserMenu.style.display = 'none';
+      }
+    }
+
+    // Open auth modal
+    document.getElementById('btnShowLogin').addEventListener('click', function() {
+      authOverlay.classList.add('active');
+      document.querySelector('.auth-tab[data-tab="login"]').click();
+    });
+
+    document.getElementById('btnShowRegister').addEventListener('click', function() {
+      authOverlay.classList.add('active');
+      document.querySelector('.auth-tab[data-tab="register"]').click();
+    });
+
+    // Close auth modal
+    authClose.addEventListener('click', function() {
+      authOverlay.classList.remove('active');
+    });
+
+    authOverlay.addEventListener('click', function(e) {
+      if (e.target === authOverlay) authOverlay.classList.remove('active');
+    });
+
+    // Auth tabs
+    document.querySelectorAll('.auth-tab').forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.auth-tab').forEach(function(t) { t.classList.remove('active'); });
+        document.querySelectorAll('.auth-form').forEach(function(f) { f.classList.remove('active'); });
+        tab.classList.add('active');
+        var formName = tab.dataset.tab;
+        document.querySelector('.auth-form[data-form="' + formName + '"]').classList.add('active');
+        loginError.classList.remove('show');
+        registerError.classList.remove('show');
+        registerSuccess.classList.remove('show');
+      });
+    });
+
+    // Login
+    loginForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var email = document.getElementById('loginEmail').value.trim().toLowerCase();
+      var password = document.getElementById('loginPassword').value;
+      var users = getUsers();
+
+      if (!users[email]) {
+        loginError.textContent = 'No existe una cuenta con este correo.';
+        loginError.classList.add('show');
+        return;
+      }
+
+      if (users[email].password !== password) {
+        loginError.textContent = 'Contraseña incorrecta.';
+        loginError.classList.add('show');
+        return;
+      }
+
+      setCurrentUser(email);
+      updateAuthUI();
+      authOverlay.classList.remove('active');
+      loginForm.reset();
+      loginError.classList.remove('show');
+    });
+
+    // Demo login
+    document.getElementById('loginDemo').addEventListener('click', function() {
+      var demoEmail = 'kitsune@foxnet.com';
+      var users = getUsers();
+      if (!users[demoEmail]) {
+        users[demoEmail] = {
+          name: 'Kitsune Metalero',
+          email: demoEmail,
+          password: 'demo123',
+          created: new Date().toISOString()
+        };
+        saveUsers(users);
+      }
+      setCurrentUser(demoEmail);
+      updateAuthUI();
+      authOverlay.classList.remove('active');
+    });
+
+    // Register
+    registerForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var name = document.getElementById('registerName').value.trim();
+      var email = document.getElementById('registerEmail').value.trim().toLowerCase();
+      var password = document.getElementById('registerPassword').value;
+      var confirm = document.getElementById('registerConfirm').value;
+
+      if (name.length < 2) {
+        registerError.textContent = 'El nombre debe tener al menos 2 caracteres.';
+        registerError.classList.add('show');
+        return;
+      }
+
+      if (password.length < 6) {
+        registerError.textContent = 'La contraseña debe tener al menos 6 caracteres.';
+        registerError.classList.add('show');
+        return;
+      }
+
+      if (password !== confirm) {
+        registerError.textContent = 'Las contraseñas no coinciden.';
+        registerError.classList.add('show');
+        return;
+      }
+
+      var users = getUsers();
+      if (users[email]) {
+        registerError.textContent = 'Ya existe una cuenta con este correo.';
+        registerError.classList.add('show');
+        return;
+      }
+
+      users[email] = {
+        name: name,
+        email: email,
+        password: password,
+        created: new Date().toISOString()
+      };
+      saveUsers(users);
+      setCurrentUser(email);
+      updateAuthUI();
+      authOverlay.classList.remove('active');
+      registerForm.reset();
+      registerError.classList.remove('show');
+    });
+
+    // User dropdown toggle
+    authUserBtn.addEventListener('click', function() {
+      authDropdown.classList.toggle('active');
+    });
+
+    document.addEventListener('click', function(e) {
+      if (!authUserBtn.contains(e.target) && !authDropdown.contains(e.target)) {
+        authDropdown.classList.remove('active');
+      }
+    });
+
+    // Logout
+    document.getElementById('authLogout').addEventListener('click', logoutUser);
+
+    // Profile/Settings (placeholder)
+    document.getElementById('authProfile').addEventListener('click', function() {
+      authDropdown.classList.remove('active');
+    });
+    document.getElementById('authSettings').addEventListener('click', function() {
+      authDropdown.classList.remove('active');
+    });
+
+    // Initialize auth state
+    updateAuthUI();
     });
   </script>
 
