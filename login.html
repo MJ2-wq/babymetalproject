@@ -92,17 +92,15 @@
     .auth-error.show { display: block; }
 
     .auth-field {
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
     .auth-field label {
       display: block;
-      font-size: 12px;
-      font-weight: 700;
+      font-size: 13px;
+      font-weight: 500;
       color: var(--silver-light);
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      margin-bottom: 6px;
     }
 
     .auth-field input {
@@ -129,14 +127,14 @@
 
     .auth-btn {
       width: 100%;
-      padding: 15px;
+      padding: 14px;
       border: none;
       border-radius: 10px;
       font-size: 15px;
       font-weight: 800;
       cursor: pointer;
       transition: all 0.2s ease;
-      margin-top: 4px;
+      margin-top: 8px;
     }
 
     .auth-btn-primary {
@@ -150,16 +148,16 @@
       transform: translateY(-1px);
     }
 
-    .auth-btn-demo {
-      background: var(--surface-2);
+    .auth-btn-secondary {
+      background: transparent;
       border: 1px solid var(--line);
       color: var(--white);
       margin-top: 12px;
     }
 
-    .auth-btn-demo:hover {
-      border-color: var(--red);
-      box-shadow: 0 0 16px rgba(255, 0, 60, 0.15);
+    .auth-btn-secondary:hover {
+      border-color: var(--silver);
+      background: var(--surface-2);
     }
 
     .auth-divider {
@@ -199,6 +197,7 @@
       font-weight: 700;
       cursor: pointer;
       transition: color 0.2s ease;
+      text-decoration: none;
     }
 
     .auth-footer-link:hover {
@@ -213,6 +212,7 @@
       color: var(--silver);
       cursor: pointer;
       transition: color 0.2s ease;
+      text-decoration: none;
     }
 
     .back-link:hover {
@@ -232,7 +232,7 @@
       <div class="auth-header">
         <div class="auth-logo">🦊</div>
         <div class="auth-title">Fox Net</div>
-        <div class="auth-subtitle">Inicia sesión en la Metal Resistance</div>
+        <div class="auth-subtitle">Inicia sesión para ver conciertos, fotos y momentos de tus fans favoritos.</div>
       </div>
 
       <div class="auth-body">
@@ -240,26 +240,25 @@
 
         <form id="loginForm">
           <div class="auth-field">
-            <label>Correo Electrónico</label>
-            <input type="email" id="loginEmail" placeholder="tu@email.com" required>
+            <label>Correo electrónico o nombre de usuario</label>
+            <input type="text" id="loginEmail" placeholder="Correo electrónico o usuario" required>
           </div>
 
           <div class="auth-field">
             <label>Contraseña</label>
-            <input type="password" id="loginPassword" placeholder="••••••••" required>
+            <input type="password" id="loginPassword" placeholder="Contraseña" required>
           </div>
 
           <button type="submit" class="auth-btn auth-btn-primary">Iniciar Sesión</button>
 
           <div class="auth-divider">o</div>
 
-          <button type="button" class="auth-btn auth-btn-demo" id="loginDemo">🦊 Entrar como Demo (Kitsune)</button>
+          <button type="button" class="auth-btn auth-btn-demo" id="loginDemo" style="background:var(--surface-2);border:1px solid var(--line);color:var(--white);margin-top:0;">🦊 Entrar como Demo (Kitsune)</button>
         </form>
       </div>
 
       <div class="auth-footer">
-        <span class="auth-footer-text">¿No tienes cuenta? </span>
-        <a href="register.html" class="auth-footer-link">Regístrate aquí</a>
+        <a href="register.html" class="auth-btn auth-btn-secondary" style="display:block;text-decoration:none;">No tengo una cuenta</a>
       </div>
     </div>
 
@@ -287,7 +286,7 @@
       loginError.classList.remove('show');
     }
 
-    // Check if already logged in — show message instead of silent redirect
+    // Check if already logged in
     (function() {
       var currentEmail = localStorage.getItem('foxnet_current');
       if (currentEmail) {
@@ -309,28 +308,42 @@
 
     loginForm.addEventListener('submit', function(e) {
       e.preventDefault();
-      hideError(loginError);
+      hideError();
 
-      var email = document.getElementById('loginEmail').value.trim().toLowerCase();
+      var emailOrUser = document.getElementById('loginEmail').value.trim().toLowerCase();
       var password = document.getElementById('loginPassword').value;
       var users = getUsers();
 
-      if (!users[email]) {
-        showError('No existe una cuenta con este correo. Regístrate primero.');
+      // Find user by email or username
+      var foundEmail = null;
+      if (users[emailOrUser]) {
+        foundEmail = emailOrUser;
+      } else {
+        var keys = Object.keys(users);
+        for (var i = 0; i < keys.length; i++) {
+          if (users[keys[i]].username === emailOrUser) {
+            foundEmail = keys[i];
+            break;
+          }
+        }
+      }
+
+      if (!foundEmail) {
+        showError('No existe una cuenta con este correo o usuario. Regístrate primero.');
         return;
       }
 
-      if (users[email].verified === false) {
+      if (users[foundEmail].verified === false) {
         showError('Tu cuenta no está verificada. Revisa tu correo para el código de verificación.');
         return;
       }
 
-      if (users[email].password !== password) {
+      if (users[foundEmail].password !== password) {
         showError('Contraseña incorrecta. Intenta de nuevo.');
         return;
       }
 
-      setCurrentUser(email);
+      setCurrentUser(foundEmail);
       window.location.href = 'index.html';
     });
 
@@ -340,8 +353,10 @@
       if (!users[demoEmail]) {
         users[demoEmail] = {
           name: 'Kitsune Metalero',
+          username: 'kitsune_metal',
           email: demoEmail,
           password: 'demo123',
+          verified: true,
           created: new Date().toISOString()
         };
         localStorage.setItem('foxnet_users', JSON.stringify(users));

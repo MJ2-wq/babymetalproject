@@ -92,20 +92,19 @@
     .auth-error.show { display: block; }
 
     .auth-field {
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
     .auth-field label {
       display: block;
-      font-size: 12px;
-      font-weight: 700;
+      font-size: 13px;
+      font-weight: 500;
       color: var(--silver-light);
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      margin-bottom: 6px;
     }
 
-    .auth-field input {
+    .auth-field input,
+    .auth-field select {
       width: 100%;
       padding: 14px 16px;
       background: var(--surface-2);
@@ -115,9 +114,12 @@
       font-size: 15px;
       font-family: var(--font-body);
       transition: all 0.2s ease;
+      appearance: none;
+      -webkit-appearance: none;
     }
 
-    .auth-field input:focus {
+    .auth-field input:focus,
+    .auth-field select:focus {
       outline: none;
       border-color: var(--red);
       box-shadow: 0 0 0 3px rgba(255, 0, 60, 0.15);
@@ -127,16 +129,57 @@
       color: var(--silver);
     }
 
+    .auth-field select {
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b6b6b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+      color: var(--silver-light);
+    }
+
+    .auth-field select:valid {
+      color: var(--white);
+    }
+
+    .auth-field select option {
+      background: var(--surface-2);
+      color: var(--white);
+    }
+
+    .date-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+    }
+
+    .auth-info {
+      font-size: 12px;
+      color: var(--silver);
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .auth-info a {
+      color: var(--red);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .auth-info a:hover {
+      text-decoration: underline;
+    }
+
     .auth-btn {
       width: 100%;
-      padding: 15px;
+      padding: 14px;
       border: none;
       border-radius: 10px;
       font-size: 15px;
       font-weight: 800;
       cursor: pointer;
       transition: all 0.2s ease;
-      margin-top: 4px;
+      margin-top: 8px;
     }
 
     .auth-btn-primary {
@@ -148,6 +191,18 @@
       background: linear-gradient(135deg, #e60035, var(--red));
       box-shadow: 0 4px 20px rgba(255, 0, 60, 0.4);
       transform: translateY(-1px);
+    }
+
+    .auth-btn-secondary {
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--white);
+      margin-top: 12px;
+    }
+
+    .auth-btn-secondary:hover {
+      border-color: var(--silver);
+      background: var(--surface-2);
     }
 
     .auth-footer {
@@ -166,6 +221,7 @@
       font-weight: 700;
       cursor: pointer;
       transition: color 0.2s ease;
+      text-decoration: none;
     }
 
     .auth-footer-link:hover {
@@ -180,6 +236,7 @@
       color: var(--silver);
       cursor: pointer;
       transition: color 0.2s ease;
+      text-decoration: none;
     }
 
     .back-link:hover {
@@ -321,7 +378,7 @@
       <div class="auth-header">
         <div class="auth-logo">🦊</div>
         <div class="auth-title">Fox Net</div>
-        <div class="auth-subtitle">Únete a la Metal Resistance</div>
+        <div class="auth-subtitle">Regístrate para ver conciertos, fotos y momentos de tus fans favoritos.</div>
       </div>
 
       <div class="auth-body">
@@ -331,26 +388,57 @@
 
           <form id="registerForm">
             <div class="auth-field">
-              <label>Nombre de Usuario</label>
-              <input type="text" id="registerName" placeholder="KitsuneMetalero" required minlength="2">
+              <label>Correo electrónico o número de celular</label>
+              <input type="text" id="registerEmail" placeholder="Correo electrónico o celular" required>
             </div>
 
             <div class="auth-field">
-              <label>Correo Electrónico</label>
-              <input type="email" id="registerEmail" placeholder="tu@gmail.com" required>
+              <label>Nombre completo</label>
+              <input type="text" id="registerName" placeholder="Nombre completo" required minlength="2">
+            </div>
+
+            <div class="auth-field">
+              <label>Nombre de usuario</label>
+              <input type="text" id="registerUsername" placeholder="Nombre de usuario" required minlength="3">
             </div>
 
             <div class="auth-field">
               <label>Contraseña</label>
-              <input type="password" id="registerPassword" placeholder="Mínimo 6 caracteres" required minlength="6">
+              <input type="password" id="registerPassword" placeholder="Contraseña" required minlength="6">
             </div>
 
             <div class="auth-field">
-              <label>Confirmar Contraseña</label>
-              <input type="password" id="registerConfirm" placeholder="Repite tu contraseña" required>
+              <label>Fecha de nacimiento</label>
+              <div class="date-row">
+                <select id="regDay" required>
+                  <option value="" disabled selected>Día</option>
+                </select>
+                <select id="regMonth" required>
+                  <option value="" disabled selected>Mes</option>
+                  <option value="1">Enero</option>
+                  <option value="2">Febrero</option>
+                  <option value="3">Marzo</option>
+                  <option value="4">Abril</option>
+                  <option value="5">Mayo</option>
+                  <option value="6">Junio</option>
+                  <option value="7">Julio</option>
+                  <option value="8">Agosto</option>
+                  <option value="9">Septiembre</option>
+                  <option value="10">Octubre</option>
+                  <option value="11">Noviembre</option>
+                  <option value="12">Diciembre</option>
+                </select>
+                <select id="regYear" required>
+                  <option value="" disabled selected>Año</option>
+                </select>
+              </div>
             </div>
 
-            <button type="submit" class="auth-btn auth-btn-primary">Crear Cuenta</button>
+            <div class="auth-info">
+              Es posible que te enviemos notificaciones de correo electrónico. <a href="#">Por qué solicitamos tu información de contacto</a>
+            </div>
+
+            <button type="submit" class="auth-btn auth-btn-primary">Enviar</button>
           </form>
         </div>
 
@@ -403,8 +491,7 @@
       </div>
 
       <div class="auth-footer" id="authFooter">
-        <span class="auth-footer-text">¿Ya tienes cuenta? </span>
-        <a href="login.html" class="auth-footer-link">Inicia sesión</a>
+        <a href="login.html" class="auth-btn auth-btn-secondary" style="display:block;text-decoration:none;">Ya tengo una cuenta</a>
       </div>
     </div>
 
@@ -423,6 +510,25 @@
     var verifyCodeInput = document.getElementById('verifyCodeInput');
     var verifyBtn = document.getElementById('verifyBtn');
     var authFooter = document.getElementById('authFooter');
+
+    // Populate date dropdowns
+    (function() {
+      var daySelect = document.getElementById('regDay');
+      var yearSelect = document.getElementById('regYear');
+      for (var d = 1; d <= 31; d++) {
+        var opt = document.createElement('option');
+        opt.value = d;
+        opt.textContent = d;
+        daySelect.appendChild(opt);
+      }
+      var currentYear = new Date().getFullYear();
+      for (var y = currentYear; y >= 1920; y--) {
+        var opt = document.createElement('option');
+        opt.value = y;
+        opt.textContent = y;
+        yearSelect.appendChild(opt);
+      }
+    })();
 
     function getUsers() {
       return JSON.parse(localStorage.getItem('foxnet_users') || '{}');
@@ -477,13 +583,26 @@
       e.preventDefault();
       hideError(registerError);
 
+      var emailOrPhone = document.getElementById('registerEmail').value.trim();
       var name = document.getElementById('registerName').value.trim();
-      var email = document.getElementById('registerEmail').value.trim().toLowerCase();
+      var username = document.getElementById('registerUsername').value.trim().toLowerCase().replace(/[^a-z0-9._]/g, '');
       var password = document.getElementById('registerPassword').value;
-      var confirm = document.getElementById('registerConfirm').value;
+      var day = document.getElementById('regDay').value;
+      var month = document.getElementById('regMonth').value;
+      var year = document.getElementById('regYear').value;
+
+      if (!emailOrPhone) {
+        showError(registerError, 'Ingresa tu correo electrónico o número de celular.');
+        return;
+      }
 
       if (name.length < 2) {
         showError(registerError, 'El nombre debe tener al menos 2 caracteres.');
+        return;
+      }
+
+      if (username.length < 3) {
+        showError(registerError, 'El nombre de usuario debe tener al menos 3 caracteres.');
         return;
       }
 
@@ -492,10 +611,13 @@
         return;
       }
 
-      if (password !== confirm) {
-        showError(registerError, 'Las contraseñas no coinciden.');
+      if (!day || !month || !year) {
+        showError(registerError, 'Selecciona tu fecha de nacimiento.');
         return;
       }
+
+      // Normalize email
+      var email = emailOrPhone.toLowerCase();
 
       var users = getUsers();
       if (users[email]) {
@@ -503,12 +625,21 @@
         return;
       }
 
+      // Check username uniqueness
+      var usernameTaken = Object.values(users).some(function(u) { return u.username === username; });
+      if (usernameTaken) {
+        showError(registerError, 'Este nombre de usuario ya está en uso.');
+        return;
+      }
+
       // Generate verification code
       var code = generateCode();
       saveUnverified({
         name: name,
+        username: username,
         email: email,
         password: password,
+        birthday: day + '/' + month + '/' + year,
         code: code,
         created: new Date().toISOString()
       });
@@ -538,8 +669,10 @@
       var users = getUsers();
       users[unverified.email] = {
         name: unverified.name,
+        username: unverified.username,
         email: unverified.email,
         password: unverified.password,
+        birthday: unverified.birthday,
         verified: true,
         created: unverified.created
       };
