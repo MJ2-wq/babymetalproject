@@ -327,6 +327,177 @@
       background: var(--red-dim);
     }
 
+    /* ========== AUTH - TWITTER/X STYLE ========== */
+    .auth-user-menu {
+      position: relative;
+    }
+
+    .auth-user-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 8px;
+      border-radius: 9999px;
+      border: none;
+      background: transparent;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .auth-user-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .auth-user-avatar-wrap {
+      flex-shrink: 0;
+    }
+
+    .auth-user-avatar-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1a1a2e, #0a0a0a);
+      border: 1px solid #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .auth-user-info {
+      text-align: left;
+      line-height: 1.2;
+    }
+
+    .auth-user-display-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .auth-user-handle {
+      font-size: 12px;
+      color: #888;
+    }
+
+    .auth-user-more {
+      font-size: 16px;
+      color: #fff;
+      letter-spacing: 2px;
+      margin-left: 4px;
+    }
+
+    /* Dropdown */
+    .auth-dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin-top: 4px;
+      width: 300px;
+      background: #000;
+      border: 1px solid #333;
+      border-radius: 12px;
+      box-shadow: 0 8px 28px rgba(255, 255, 255, 0.1);
+      z-index: 1000;
+      overflow: hidden;
+    }
+
+    .auth-dropdown.show {
+      display: block;
+      animation: dropIn 0.15s ease-out;
+    }
+
+    .auth-dropdown-header {
+      padding: 12px 16px 8px;
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .auth-dropdown-user-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      transition: background 0.2s;
+      cursor: pointer;
+    }
+
+    .auth-dropdown-user-row:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .auth-dropdown-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1a1a2e, #0a0a0a);
+      border: 1px solid #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .auth-dropdown-user-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .auth-dropdown-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .auth-dropdown-handle {
+      font-size: 13px;
+      color: #888;
+    }
+
+    .auth-dropdown-check {
+      color: #ff003c;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .auth-dropdown-divider {
+      height: 1px;
+      background: #333;
+    }
+
+    .auth-dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      font-size: 15px;
+      font-weight: 500;
+      color: #fff;
+      transition: background 0.2s;
+      cursor: pointer;
+    }
+
+    .auth-dropdown-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .auth-dropdown-item.danger {
+      color: #ff003c;
+    }
+
+    .auth-dropdown-item.danger:hover {
+      background: rgba(255, 0, 60, 0.1);
+    }
+
+    .auth-dropdown-logout-handle {
+      color: #888;
+      font-weight: 400;
+    }
+
     /* ========== MAIN FEED ========== */
     .main-feed {
       min-width: 0;
@@ -1226,22 +1397,35 @@
         <a href="register.html" style="padding:6px 16px;border-radius:20px;font-size:12px;font-weight:700;background:#ff003c;border:none;color:#fff;text-decoration:none;transition:all 0.2s ease;">Registrarse</a>
       </div>
 
-      <!-- Logged in -->
-      <div class="auth-user-menu" id="authUserMenu" style="display:none;">
+      <!-- Logged in - Twitter/X style -->
+      <div class="auth-user-menu" id="authUserMenu" style="display:none;position:relative;">
         <button class="auth-user-btn" id="authUserBtn">
-          <span id="authUserAvatar">🦊</span>
-          <span id="authUserName">Usuario</span>
+          <div class="auth-user-avatar-wrap">
+            <div class="auth-user-avatar-circle">🦊</div>
+          </div>
+          <div class="auth-user-info">
+            <div class="auth-user-display-name" id="authUserName">Usuario</div>
+            <div class="auth-user-handle" id="authUserHandle">@usuario</div>
+          </div>
+          <div class="auth-user-more">•••</div>
         </button>
         <div class="auth-dropdown" id="authDropdown">
-          <div class="auth-dropdown-item" id="authProfile">
-            <span>👤</span> Mi Perfil
+          <div class="auth-dropdown-header">Cuentas</div>
+          <div class="auth-dropdown-user-row">
+            <div class="auth-dropdown-avatar">🦊</div>
+            <div class="auth-dropdown-user-info">
+              <div class="auth-dropdown-name" id="dropdownUserName">Usuario</div>
+              <div class="auth-dropdown-handle" id="dropdownUserHandle">@usuario</div>
+            </div>
+            <div class="auth-dropdown-check">✓</div>
           </div>
-          <div class="auth-dropdown-item" id="authSettings">
-            <span>⚙️</span> Configuración
+          <div class="auth-dropdown-divider"></div>
+          <div class="auth-dropdown-item" id="authAddAccount">
+            <span>👤</span> Agregar una cuenta existente
           </div>
           <div class="auth-dropdown-divider"></div>
           <div class="auth-dropdown-item danger" id="authLogout">
-            <span>🚪</span> Cerrar Sesión
+            <span>🚪</span> Cerrar sesión <span class="auth-dropdown-logout-handle" id="dropdownLogoutHandle">@usuario</span>
           </div>
         </div>
       </div>
@@ -1930,7 +2114,10 @@
     var authUserBtn = document.getElementById('authUserBtn');
     var authDropdown = document.getElementById('authDropdown');
     var authUserName = document.getElementById('authUserName');
-    var authUserAvatar = document.getElementById('authUserAvatar');
+    var authUserHandle = document.getElementById('authUserHandle');
+    var dropdownUserName = document.getElementById('dropdownUserName');
+    var dropdownUserHandle = document.getElementById('dropdownUserHandle');
+    var dropdownLogoutHandle = document.getElementById('dropdownLogoutHandle');
 
     function getCurrentUser() {
       var email = localStorage.getItem('foxnet_current');
@@ -1942,17 +2129,21 @@
     function updateAuthUI() {
       var user = getCurrentUser();
       var sidebarLogout = document.getElementById('sidebarLogout');
+      var handle = user ? '@' + user.name.toLowerCase().replace(/\s+/g, '_') : '';
       if (user) {
         authButtons.style.display = 'none';
         authUserMenu.style.display = 'block';
         authUserName.textContent = user.name;
-        authUserAvatar.textContent = '🦊';
+        if (authUserHandle) authUserHandle.textContent = handle;
+        if (dropdownUserName) dropdownUserName.textContent = user.name;
+        if (dropdownUserHandle) dropdownUserHandle.textContent = handle;
+        if (dropdownLogoutHandle) dropdownLogoutHandle.textContent = handle;
         if (sidebarLogout) sidebarLogout.style.display = 'flex';
         var profileName = document.querySelector('.profile-name');
         var profileHandle = document.querySelector('.profile-handle');
         var profileBio = document.querySelector('.profile-bio');
         if (profileName) profileName.textContent = user.name;
-        if (profileHandle) profileHandle.textContent = '@' + user.name.toLowerCase().replace(/\s+/g, '_');
+        if (profileHandle) profileHandle.textContent = handle;
         if (profileBio) profileBio.textContent = 'Fan de BABYMETAL 🤘 | ' + user.email;
       } else {
         authButtons.style.display = 'flex';
@@ -1962,19 +2153,19 @@
     }
 
     authUserBtn.addEventListener('click', function() {
-      authDropdown.classList.toggle('active');
+      authDropdown.classList.toggle('show');
     });
 
     document.addEventListener('click', function(e) {
       if (!authUserBtn.contains(e.target) && !authDropdown.contains(e.target)) {
-        authDropdown.classList.remove('active');
+        authDropdown.classList.remove('show');
       }
     });
 
     document.getElementById('authLogout').addEventListener('click', function() {
       localStorage.removeItem('foxnet_current');
       updateAuthUI();
-      authDropdown.classList.remove('active');
+      authDropdown.classList.remove('show');
     });
 
     var sidebarLogout = document.getElementById('sidebarLogout');
