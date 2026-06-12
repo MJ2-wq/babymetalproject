@@ -2962,41 +2962,359 @@
     updateAuthUI();
   </script>
 
-  <!-- Tawk.to Live Chat Widget -->
-  <!-- PASO 1: Reemplaza TU_PROPERTY_ID con tu ID real de tawk.to -->
-  <!-- Ve a https://www.tawk.to/ → Crear cuenta → Admin → Admin → Copies → Widget Embed Code -->
-  <script>
-    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-    (function(){
-      var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
-      s1.async = true;
-      s1.src = 'https://embed.tawk.to/TU_PROPERTY_ID/default';
-      s1.charset = 'UTF-8';
-      s1.setAttribute('crossorigin','*');
-      s0.parentNode.insertBefore(s1, s0);
-    })();
-  </script>
-  <!-- Tawk.to personalización: estilo oscuro para Fox Net -->
-  <script>
-    Tawk_API.onLoad = function(){
-      Tawk_API.setAttributes({
-        'name': 'Fox Net',
-        'sector': 'BABYMETAL Fan Community'
-      });
-    };
-    Tawk_API.visitor = {
-      name: localStorage.getItem('foxnet_current') || 'Fan Anónimo'
-    };
-  </script>
+  <!-- Fox Bot - Chatbot de Fox Net -->
   <style>
-    #tawkto-minified-widget {
-      border-radius: 12px !important;
-      overflow: hidden !important;
+    .foxbot-toggle {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--red);
+      border: none;
+      cursor: pointer;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      box-shadow: 0 4px 24px rgba(255, 0, 60, 0.4);
+      transition: transform 0.3s, box-shadow 0.3s;
     }
-    .widget-container {
-      border-radius: 12px !important;
+    .foxbot-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 32px rgba(255, 0, 60, 0.6);
+    }
+    .foxbot-window {
+      position: fixed;
+      bottom: 96px;
+      right: 24px;
+      width: 380px;
+      height: 520px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      z-index: 9998;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+      animation: foxbotSlideUp 0.3s ease;
+    }
+    .foxbot-window.open { display: flex; }
+    @keyframes foxbotSlideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .foxbot-header {
+      background: var(--surface-2);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+    }
+    .foxbot-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .foxbot-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+    .foxbot-header-info h3 {
+      font-family: var(--font-heading);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .foxbot-header-info span {
+      font-size: 11px;
+      color: var(--green);
+    }
+    .foxbot-close {
+      background: none;
+      border: none;
+      color: var(--silver-light);
+      font-size: 20px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .foxbot-close:hover { color: var(--white); }
+    .foxbot-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .foxbot-messages::-webkit-scrollbar { width: 4px; }
+    .foxbot-messages::-webkit-scrollbar-track { background: transparent; }
+    .foxbot-messages::-webkit-scrollbar-thumb { background: var(--silver); border-radius: 4px; }
+    .foxbot-msg {
+      max-width: 85%;
+      padding: 10px 14px;
+      border-radius: 14px;
+      font-size: 13px;
+      line-height: 1.5;
+      animation: foxbotFadeIn 0.3s ease;
+    }
+    @keyframes foxbotFadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .foxbot-msg.bot {
+      background: var(--surface-3);
+      color: var(--white-dim);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+    .foxbot-msg.user {
+      background: var(--red);
+      color: #fff;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+    .foxbot-msg .bot-name {
+      font-size: 10px;
+      color: var(--red);
+      font-weight: 700;
+      margin-bottom: 4px;
+      font-family: var(--font-heading);
+    }
+    .foxbot-quick {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 0 16px 12px;
+    }
+    .foxbot-quick button {
+      background: var(--surface-3);
+      border: 1px solid var(--line);
+      color: var(--white-dim);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .foxbot-quick button:hover {
+      background: var(--red);
+      color: #fff;
+      border-color: var(--red);
+    }
+    .foxbot-input {
+      display: flex;
+      padding: 12px 16px;
+      gap: 8px;
+      border-top: 1px solid var(--line);
+      background: var(--surface-2);
+    }
+    .foxbot-input input {
+      flex: 1;
+      background: var(--surface-3);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 10px 14px;
+      color: var(--white);
+      font-size: 13px;
+      outline: none;
+    }
+    .foxbot-input input:focus { border-color: var(--red); }
+    .foxbot-input input::placeholder { color: var(--silver); }
+    .foxbot-send {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--red);
+      border: none;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .foxbot-send:hover { background: #e60036; }
+    @media (max-width: 480px) {
+      .foxbot-window {
+        width: calc(100% - 16px);
+        right: 8px;
+        bottom: 80px;
+        height: 70vh;
+      }
     }
   </style>
+
+  <button class="foxbot-toggle" id="foxbotToggle" title="Fox Bot">🦊</button>
+
+  <div class="foxbot-window" id="foxbotWindow">
+    <div class="foxbot-header">
+      <div class="foxbot-header-left">
+        <div class="foxbot-avatar">🦊</div>
+        <div class="foxbot-header-info">
+          <h3>Fox Bot</h3>
+          <span>En línea</span>
+        </div>
+      </div>
+      <button class="foxbot-close" id="foxbotClose">✕</button>
+    </div>
+    <div class="foxbot-messages" id="foxbotMessages"></div>
+    <div class="foxbot-quick" id="foxbotQuick">
+      <button onclick="foxbotSend('¿Quiénes son BABYMETAL?')">¿Quiénes son?</button>
+      <button onclick="foxbotSend('Canciones populares')">Canciones</button>
+      <button onclick="foxbotSend('Próximos conciertos')">Conciertos</button>
+      <button onclick="foxbotSend('Fox God')">Fox God</button>
+      <button onclick="foxbotSend('Historia')">Historia</button>
+    </div>
+    <div class="foxbot-input">
+      <input type="text" id="foxbotInput" placeholder="Escribe tu pregunta..." autocomplete="off">
+      <button class="foxbot-send" id="foxbotSendBtn">➤</button>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const toggle = document.getElementById('foxbotToggle');
+      const win = document.getElementById('foxbotWindow');
+      const close = document.getElementById('foxbotClose');
+      const messages = document.getElementById('foxbotMessages');
+      const input = document.getElementById('foxbotInput');
+      const sendBtn = document.getElementById('foxbotSendBtn');
+
+      toggle.addEventListener('click', () => {
+        win.classList.toggle('open');
+        if (win.classList.contains('open') && messages.children.length === 0) {
+          addBotMsg('🦊 ¡Hola! Soy **Fox Bot**, tu asistente de Fox Net. Pregúntame sobre BABYMETAL, sus canciones, conciertos, miembros o lo que quieras.');
+        }
+      });
+
+      close.addEventListener('click', () => win.classList.remove('open'));
+      sendBtn.addEventListener('click', () => {
+        const val = input.value.trim();
+        if (val) { foxbotSend(val); input.value = ''; }
+      });
+      input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          const val = input.value.trim();
+          if (val) { foxbotSend(val); input.value = ''; }
+        }
+      });
+
+      function addBotMsg(text) {
+        const div = document.createElement('div');
+        div.className = 'foxbot-msg bot';
+        div.innerHTML = '<div class="bot-name">🦊 Fox Bot</div>' + text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        messages.appendChild(div);
+        messages.scrollTop = messages.scrollHeight;
+      }
+
+      function addUserMsg(text) {
+        const div = document.createElement('div');
+        div.className = 'foxbot-msg user';
+        div.textContent = text;
+        messages.appendChild(div);
+        messages.scrollTop = messages.scrollHeight;
+      }
+
+      window.foxbotSend = function(text) {
+        addUserMsg(text);
+        setTimeout(() => addBotMsg(getReply(text)), 600);
+      };
+
+      function getReply(q) {
+        q = q.toLowerCase();
+
+        // Miembros
+        if (q.includes('quién') || q.includes('quien') || q.includes('miembro') || q.includes('integrante') || q.includes('suzuka') || q.includes('moa') || q.includes('momoko') || q.includes('yui')) {
+          return 'BABYMETAL es un grupo japonés de kawaii metal formado en 2010.\n\n🦊 <strong>SU-METAL</strong> (Suzuka Nakamoto) — Voz principal, leader\n🦊 <strong>MOAMETAL</strong> (Moa Kikuchi) — Danza y voces\n🦊 <strong>MOMOMETAL</strong> (Momoko Okazaki) — Danza y voces (antigua Kamibabymetal)\n\nYui Mizuno (YUIMETAL) fue miembro hasta 2018.';
+        }
+
+        // Canciones
+        if (q.includes('canción') || q.includes('cancion') || q.includes('song') || q.includes('tema') || q.includes('hits') || q.includes('popular')) {
+          return '🎶 <strong>Canciones más populares:</strong>\n\n1. Gimme Chocolate!!\n2. Karate\n3. Road of Resistance\n4. Pa Pa Ya!!\n5. Distortion\n6. headbangeeeeerrrrr!!!!\n7. Ijime, Dame, Zettai\n8. Megitsune\n9. Babymetal Death\n10. Shine\n\n¿Cuál es tu favorita?';
+        }
+
+        // Conciertos / Giras
+        if (q.includes('concierto') || q.includes('gira') || q.includes('tour') || q.includes('conciertos') || q.includes('próximo') || q.includes('fecha') || q.includes('actuación')) {
+          return '🎤 <strong>Gira 2026 - BABYMETAL RETURNS OF THE BABYKLOV WORLD TOUR</strong>\n\nPróximas fechas confirmadas:\n\n📍 EEUU - Múltiples ciudades\n📍 Europa - Reino Unido, Alemania, Francia, España\n📍 Japón - Tokyo, Osaka, Nagoya\n📍 Latinoamérica - México, Brasil, Argentina\n\n¡Revisa las redes oficiales para fechas exactas!';
+        }
+
+        // Fox God
+        if (q.includes('fox god') || q.includes('zorro') || q.includes('kitsune') || q.includes('dios')) {
+          return '🦊 <strong>El Fox God (Kitsune no Kami)</strong> es la figura mística que guió la formación de BABYMETAL.\n\nSegún la leyenda, el Fox God eligió a las tres chicas para crear una nueva forma de música: el <strong>kawaii metal</strong>.\n\nEl logo del zorro es el símbolo de la banda y de toda la comunidad de fans, los "Kitsunes" 🦊';
+        }
+
+        // Historia
+        if (q.includes('historia') || q.includes('origen') || q.includes('cuándo') || q.includes('cuando') || q.includes('formación') || q.includes('empezó') || q.includes('comenzó')) {
+          return '📖 <strong>Historia de BABYMETAL:</strong>\n\n2010 — Se forma como sub-unidad de Sakura Gakuin\n2011 — Primer sencillo "Doki Doki Morning"\n2012 — "Babymetal Death" y primer concierto solista\n2013 — Debut internacional en Sonisphere Festival (UK)\n2014 — Primer álbum "BABYMETAL" y gira mundial\n2015 — "Metal Resistance" y conciertos en escenarios gigantes\n2016 — "The Road to Resistance" rompe récords\n2017 — Yui se enferma, giras canceladas\n2018 — Yui deja el grupo oficialmente\n2019 — "Metal Galaxy" y Momoko se une como Kamibabymetal\n2023 — Momoko es promovida a miembro oficial (MOMOMETAL)\n2024-2026 — The Other One y nuevas giras mundiales';
+        }
+
+        // Kawaii Metal
+        if (q.includes('kawaii metal') || q.includes('género') || q.includes('genero') || q.includes('estilo') || q.includes('música') || q.includes('musica')) {
+          return '🎸 <strong>Kawaii Metal</strong> es el género inventado por BABYMETAL.\n\nMezcla:\n⚡ Heavy Metal (doble bombo, guitarras pesadas)\n🌸 J-Pop (melodías kawaii, coreografías)\n🦊 Teatro escénico (trajes, actitud, fox god)\n\nEs como si KISS tuviera un dueto con Hello Kitty, ¡pero épico!';
+        }
+
+        // Álbumes
+        if (q.includes('álbum') || q.includes('album') || q.includes('disco') || q.includes('cd')) {
+          return '💿 <strong>Discografía de BABYMETAL:</strong>\n\n1. BABYMETAL (2014)\n2. Metal Resistance (2016)\n3. Metal Galaxy (2019)\n4. THE OTHER ONE (2023)\n\nEPs:\n- Babymetal Returns (2022)\n- Singles como "Distortion", "Elevator Girl", "Pa Pa Ya!!"';
+        }
+
+        // Su-metal
+        if (q.includes('su-metal') || q.includes('suzuka') || q.includes('nakamoto')) {
+          return '🎤 <strong>SU-METAL (Suzuka Nakamoto)</strong>\n\nNacida: 20 de diciembre de 1997, Hiroshima, Japón\nRol: Voz principal y leader\nAltura: 1.58m\n\nAntes de BABYMETAL fue vocalista de Sakura Gakuin. Su voz potente y escénica es el corazón del grupo. ¡Es considerada una de las mejores vocalistas del metal japonés!';
+        }
+
+        // Moametal
+        if (q.includes('moametal') || q.includes('moa') || q.includes('kikuchi')) {
+          return '💃 <strong>MOAMETAL (Moa Kikuchi)</strong>\n\nNacida: 4 de julio de 1999, Aichi, Japón\nRol: Danza, voces y energy\n\nMoa es conocida por su energía explosiva en el escenario. Desde la salida de Yui en 2018, ha sido la compañera principal de SU-METAL. ¡Su sonrisa ilumina cada concierto! 🌸';
+        }
+
+        // Momometal
+        if (q.includes('momometal') || q.includes('momoko') || q.includes('okazaki')) {
+          return '🌸 <strong>MOMOMETAL (Momoko Okazaki)</strong>\n\nNacida: 4 de marzo de 2004, Kumamoto, Japón\nRol: Danza, voces\n\nFue Kamibabymetal (bailarina de soporte) desde 2018. En 2023 fue promovida a miembro oficial del grupo. Aporta una energía joven y fresca a BABYMETAL.';
+        }
+
+        // Yui
+        if (q.includes('yui') || q.includes('yuimetal') || q.includes('mizuno')) {
+          return '💔 <strong>YUIMETAL (Yui Mizuno)</strong>\n\nNacida: 20 de junio de 1999, Kanagawa, Japón\nMiembro desde: 2010 hasta 2018\n\nYui fue una de las tres miembros originales. En 2017 se enfermó durante una gira y en 2018 dejó oficialmente el grupo. Los fans la extrañan mucho. ¡Su legado vive en BABYMETAL! 🦊';
+        }
+
+        // Gimme Chocolate
+        if (q.includes('gimme chocolate') || q.includes('chocolate')) {
+          return '🍫 <strong>Gimme Chocolate!!</strong> es el hit que explotó a BABYMETAL mundialmente.\n\nLanzado en 2014, el video tiene más de 200 millones de views en YouTube. La canción mezcla heaviness extrema con una melodía pop adictiva.\n\nLa famosa frase: "Cocolate, chocolate, chocolate..." ¡No puedes dejar de cantarla!';
+        }
+
+        // Comunidad / Fans
+        if (q.includes('fan') || q.includes('comunidad') || q.includes('fox net') || q.includes('kitsune')) {
+          return '🦊 <strong>¡Bienvenido a la comunidad Fox Net!</strong>\n\nLos fans de BABYMETAL se llaman <strong>Kitsunes</strong> (zorros en japonés) 🦊\n\nFox Net es tu red social para:\n✅ Conectar con otros fans\n✅ Compartir fotos y momentos\n✅ Ver noticias y tendencias\n✅ Usar el chat y crear historias\n\n¡Dios Zorro te guió hasta aquí! 🦊🔥';
+        }
+
+        // Agradecimiento
+        if (q.includes('gracias') || q.includes('thank') || q.includes('genial') || q.includes('perfecto') || q.includes('excelente')) {
+          return '🦊 ¡De nada, Kitsune! Estoy aquí para lo que necesites. ¡BABYMETAL forever! 🔥🎵';
+        }
+
+        // Saludo
+        if (q.includes('hola') || q.includes('hey') || q.includes('buenas') || q.includes('qué tal') || q.includes('que tal') || q.includes('buenos') || q.includes('saludos')) {
+          return '🦊 ¡Hola, Kitsune! Bienvenido a Fox Net. ¿Qué quieres saber sobre BABYMETAL? Pregúntame sobre canciones, miembros, conciertos o cualquier cosa.';
+        }
+
+        // default
+        return '🦊 Hmm, no estoy seguro de entender eso. Prueba preguntar sobre:\n\n• Miembros (SU-METAL, MOAMETAL, MOMOMETAL)\n• Canciones populares\n• Historia de BABYMETAL\n• Próximos conciertos\n• Fox God\n• Discografía\n\n¡Haz clic en los botones de abajo para empezar!';
+      }
+    })();
+  </script>
 
 </body>
 </html>
