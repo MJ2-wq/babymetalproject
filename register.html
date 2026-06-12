@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrarse - Fox Net</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #000000;
+      --surface: #0a0a0a;
+      --surface-2: #111111;
+      --red: #ff003c;
+      --red-glow: rgba(255, 0, 60, 0.25);
+      --silver: #6b6b6b;
+      --silver-light: #a0a0a0;
+      --white: #f0f0f0;
+      --line: rgba(255, 255, 255, 0.06);
+      --font-heading: 'Cinzel', serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--white);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .auth-page {
+      width: 100%;
+      max-width: 440px;
+      padding: 20px;
+    }
+
+    .auth-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    }
+
+    .auth-header {
+      text-align: center;
+      padding: 40px 32px 24px;
+      background: linear-gradient(180deg, rgba(255, 0, 60, 0.08) 0%, transparent 100%);
+    }
+
+    .auth-logo {
+      font-size: 56px;
+      margin-bottom: 12px;
+      filter: drop-shadow(0 0 20px rgba(255, 0, 60, 0.4));
+    }
+
+    .auth-title {
+      font-family: var(--font-heading);
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .auth-subtitle {
+      font-size: 14px;
+      color: var(--silver-light);
+    }
+
+    .auth-body {
+      padding: 32px;
+    }
+
+    .auth-error {
+      background: rgba(255, 0, 60, 0.1);
+      border: 1px solid rgba(255, 0, 60, 0.3);
+      border-radius: 10px;
+      padding: 12px 16px;
+      color: #ff6b6b;
+      font-size: 13px;
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    .auth-error.show { display: block; }
+
+    .auth-field {
+      margin-bottom: 20px;
+    }
+
+    .auth-field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--silver-light);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .auth-field input {
+      width: 100%;
+      padding: 14px 16px;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      color: var(--white);
+      font-size: 15px;
+      font-family: var(--font-body);
+      transition: all 0.2s ease;
+    }
+
+    .auth-field input:focus {
+      outline: none;
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px rgba(255, 0, 60, 0.15);
+    }
+
+    .auth-field input::placeholder {
+      color: var(--silver);
+    }
+
+    .auth-btn {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-top: 4px;
+    }
+
+    .auth-btn-primary {
+      background: linear-gradient(135deg, var(--red), #cc0030);
+      color: white;
+    }
+
+    .auth-btn-primary:hover {
+      background: linear-gradient(135deg, #e60035, var(--red));
+      box-shadow: 0 4px 20px rgba(255, 0, 60, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .auth-footer {
+      text-align: center;
+      padding: 20px 32px 28px;
+      border-top: 1px solid var(--line);
+    }
+
+    .auth-footer-text {
+      font-size: 14px;
+      color: var(--silver-light);
+    }
+
+    .auth-footer-link {
+      color: var(--red);
+      font-weight: 700;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    .auth-footer-link:hover {
+      color: #e60035;
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      font-size: 13px;
+      color: var(--silver);
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    .back-link:hover {
+      color: var(--white);
+    }
+
+    @media (max-width: 480px) {
+      .auth-page { padding: 12px; }
+      .auth-header { padding: 32px 20px 20px; }
+      .auth-body { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-page">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="auth-logo">🦊</div>
+        <div class="auth-title">Fox Net</div>
+        <div class="auth-subtitle">Únete a la Metal Resistance</div>
+      </div>
+
+      <div class="auth-body">
+        <div class="auth-error" id="registerError"></div>
+
+        <form id="registerForm">
+          <div class="auth-field">
+            <label>Nombre de Usuario</label>
+            <input type="text" id="registerName" placeholder="KitsuneMetalero" required minlength="2">
+          </div>
+
+          <div class="auth-field">
+            <label>Correo Electrónico</label>
+            <input type="email" id="registerEmail" placeholder="tu@email.com" required>
+          </div>
+
+          <div class="auth-field">
+            <label>Contraseña</label>
+            <input type="password" id="registerPassword" placeholder="Mínimo 6 caracteres" required minlength="6">
+          </div>
+
+          <div class="auth-field">
+            <label>Confirmar Contraseña</label>
+            <input type="password" id="registerConfirm" placeholder="Repite tu contraseña" required>
+          </div>
+
+          <button type="submit" class="auth-btn auth-btn-primary">Crear Cuenta</button>
+        </form>
+      </div>
+
+      <div class="auth-footer">
+        <span class="auth-footer-text">¿Ya tienes cuenta? </span>
+        <a href="login.html" class="auth-footer-link">Inicia sesión</a>
+      </div>
+    </div>
+
+    <a href="index.html" class="back-link">← Volver a Fox Net</a>
+  </div>
+
+  <script>
+    var registerForm = document.getElementById('registerForm');
+    var registerError = document.getElementById('registerError');
+
+    function getUsers() {
+      return JSON.parse(localStorage.getItem('foxnet_users') || '{}');
+    }
+
+    function saveUsers(users) {
+      localStorage.setItem('foxnet_users', JSON.stringify(users));
+    }
+
+    function setCurrentUser(email) {
+      localStorage.setItem('foxnet_current', email);
+    }
+
+    function showError(msg) {
+      registerError.textContent = msg;
+      registerError.classList.add('show');
+    }
+
+    function hideError() {
+      registerError.classList.remove('show');
+    }
+
+    // Check if already logged in
+    if (localStorage.getItem('foxnet_current')) {
+      window.location.href = 'index.html';
+    }
+
+    registerForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      hideError();
+
+      var name = document.getElementById('registerName').value.trim();
+      var email = document.getElementById('registerEmail').value.trim().toLowerCase();
+      var password = document.getElementById('registerPassword').value;
+      var confirm = document.getElementById('registerConfirm').value;
+
+      if (name.length < 2) {
+        showError('El nombre debe tener al menos 2 caracteres.');
+        return;
+      }
+
+      if (password.length < 6) {
+        showError('La contraseña debe tener al menos 6 caracteres.');
+        return;
+      }
+
+      if (password !== confirm) {
+        showError('Las contraseñas no coinciden.');
+        return;
+      }
+
+      var users = getUsers();
+      if (users[email]) {
+        showError('Ya existe una cuenta con este correo. Inicia sesión.');
+        return;
+      }
+
+      users[email] = {
+        name: name,
+        email: email,
+        password: password,
+        created: new Date().toISOString()
+      };
+
+      saveUsers(users);
+      setCurrentUser(email);
+      window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>

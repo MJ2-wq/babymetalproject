@@ -1196,319 +1196,6 @@
         right: 16px;
       }
     }
-
-    /* ========== AUTH MODAL ========== */
-    .auth-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.85);
-      z-index: 10000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-
-    .auth-overlay.active {
-      opacity: 1;
-      pointer-events: all;
-    }
-
-    .auth-modal {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      width: 420px;
-      max-width: 95vw;
-      max-height: 90vh;
-      overflow-y: auto;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-      transform: scale(0.9) translateY(20px);
-      transition: transform 0.3s ease;
-    }
-
-    .auth-overlay.active .auth-modal {
-      transform: scale(1) translateY(0);
-    }
-
-    .auth-header {
-      text-align: center;
-      padding: 32px 24px 16px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .auth-logo {
-      font-size: 48px;
-      margin-bottom: 8px;
-    }
-
-    .auth-title {
-      font-family: 'Cinzel', serif;
-      font-size: 24px;
-      font-weight: 900;
-      color: var(--white);
-      margin-bottom: 4px;
-    }
-
-    .auth-subtitle {
-      font-size: 13px;
-      color: var(--silver);
-    }
-
-    .auth-tabs {
-      display: flex;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .auth-tab {
-      flex: 1;
-      padding: 14px;
-      text-align: center;
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--silver);
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      border-bottom: 2px solid transparent;
-    }
-
-    .auth-tab:hover {
-      color: var(--white);
-      background: rgba(255, 255, 255, 0.03);
-    }
-
-    .auth-tab.active {
-      color: var(--red);
-      border-bottom-color: var(--red);
-    }
-
-    .auth-form {
-      padding: 24px;
-      display: none;
-    }
-
-    .auth-form.active {
-      display: block;
-    }
-
-    .auth-field {
-      margin-bottom: 16px;
-    }
-
-    .auth-field label {
-      display: block;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--silver-light);
-      margin-bottom: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .auth-field input {
-      width: 100%;
-      padding: 12px 14px;
-      background: var(--bg-card);
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      color: var(--white);
-      font-size: 14px;
-      font-family: 'Inter', sans-serif;
-      transition: all 0.2s ease;
-      box-sizing: border-box;
-    }
-
-    .auth-field input:focus {
-      outline: none;
-      border-color: var(--red);
-      box-shadow: 0 0 0 3px rgba(255, 0, 60, 0.15);
-    }
-
-    .auth-field input::placeholder {
-      color: var(--silver);
-    }
-
-    .auth-btn {
-      width: 100%;
-      padding: 14px;
-      border: none;
-      border-radius: 10px;
-      font-size: 15px;
-      font-weight: 800;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      margin-top: 8px;
-    }
-
-    .auth-btn-primary {
-      background: linear-gradient(135deg, var(--red), #cc0030);
-      color: white;
-    }
-
-    .auth-btn-primary:hover {
-      background: linear-gradient(135deg, #e60035, var(--red));
-      box-shadow: 0 4px 20px rgba(255, 0, 60, 0.4);
-      transform: translateY(-1px);
-    }
-
-    .auth-divider {
-      text-align: center;
-      padding: 16px 0;
-      color: var(--silver);
-      font-size: 12px;
-      position: relative;
-    }
-
-    .auth-divider::before,
-    .auth-divider::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      width: 40%;
-      height: 1px;
-      background: var(--line);
-    }
-
-    .auth-divider::before { left: 0; }
-    .auth-divider::after { right: 0; }
-
-    .auth-close {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.1);
-      border: none;
-      color: var(--white);
-      font-size: 18px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s ease;
-    }
-
-    .auth-close:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
-
-    .auth-error {
-      background: rgba(255, 0, 60, 0.1);
-      border: 1px solid rgba(255, 0, 60, 0.3);
-      border-radius: 8px;
-      padding: 10px 14px;
-      color: #ff6b6b;
-      font-size: 13px;
-      margin-bottom: 16px;
-      display: none;
-    }
-
-    .auth-error.show {
-      display: block;
-    }
-
-    .auth-success {
-      background: rgba(0, 200, 83, 0.1);
-      border: 1px solid rgba(0, 200, 83, 0.3);
-      border-radius: 8px;
-      padding: 10px 14px;
-      color: #69f0ae;
-      font-size: 13px;
-      margin-bottom: 16px;
-      display: none;
-    }
-
-    .auth-success.show {
-      display: block;
-    }
-
-    .auth-user-menu {
-      position: relative;
-    }
-
-    .auth-user-btn {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 12px;
-      background: var(--bg-card);
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      color: var(--white);
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .auth-user-btn:hover {
-      border-color: var(--red);
-      box-shadow: 0 0 12px rgba(255, 0, 60, 0.2);
-    }
-
-    .auth-dropdown {
-      position: absolute;
-      top: 100%;
-      right: 0;
-      margin-top: 8px;
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      min-width: 200px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(-8px);
-      transition: all 0.2s ease;
-      z-index: 100;
-    }
-
-    .auth-dropdown.active {
-      opacity: 1;
-      pointer-events: all;
-      transform: translateY(0);
-    }
-
-    .auth-dropdown-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 16px;
-      color: var(--white);
-      font-size: 13px;
-      cursor: pointer;
-      transition: background 0.2s ease;
-    }
-
-    .auth-dropdown-item:first-child {
-      border-radius: 12px 12px 0 0;
-    }
-
-    .auth-dropdown-item:last-child {
-      border-radius: 0 0 12px 12px;
-    }
-
-    .auth-dropdown-item:hover {
-      background: rgba(255, 255, 255, 0.05);
-    }
-
-    .auth-dropdown-item.danger {
-      color: #ff6b6b;
-    }
-
-    .auth-dropdown-divider {
-      height: 1px;
-      background: var(--line);
-    }
   </style>
 </head>
 <body>
@@ -1533,13 +1220,13 @@
       </button>
       <button class="nav-btn" title="Mensajes">✉️</button>
       
-      <!-- Auth: Not logged in -->
-      <div id="authButtons">
-        <button class="auth-btn-header" id="btnShowLogin" style="padding:6px 16px;border-radius:20px;font-size:12px;font-weight:700;background:transparent;border:1px solid #ff003c;color:#ff003c;cursor:pointer;transition:all 0.2s ease;">Iniciar Sesión</button>
-        <button class="auth-btn-header" id="btnShowRegister" style="padding:6px 16px;border-radius:20px;font-size:12px;font-weight:700;background:#ff003c;border:none;color:#fff;cursor:pointer;margin-left:6px;transition:all 0.2s ease;">Registrarse</button>
+      <!-- Not logged in -->
+      <div id="authButtons" style="display:flex;gap:6px;">
+        <a href="login.html" style="padding:6px 16px;border-radius:20px;font-size:12px;font-weight:700;background:transparent;border:1px solid #ff003c;color:#ff003c;text-decoration:none;transition:all 0.2s ease;">Iniciar Sesión</a>
+        <a href="register.html" style="padding:6px 16px;border-radius:20px;font-size:12px;font-weight:700;background:#ff003c;border:none;color:#fff;text-decoration:none;transition:all 0.2s ease;">Registrarse</a>
       </div>
 
-      <!-- Auth: Logged in -->
+      <!-- Logged in -->
       <div class="auth-user-menu" id="authUserMenu" style="display:none;">
         <button class="auth-user-btn" id="authUserBtn">
           <span id="authUserAvatar">🦊</span>
@@ -2024,63 +1711,6 @@
 
   </div>
 
-  <!-- ========== AUTH MODAL ========== -->
-  <div class="auth-overlay" id="authOverlay">
-    <div class="auth-modal" style="position:relative;">
-      <button class="auth-close" id="authClose">✕</button>
-      
-      <div class="auth-header">
-        <div class="auth-logo">🦊</div>
-        <div class="auth-title">Fox Net</div>
-        <div class="auth-subtitle">Únete a la Metal Resistance</div>
-      </div>
-
-      <div class="auth-tabs">
-        <button class="auth-tab active" data-tab="login">Iniciar Sesión</button>
-        <button class="auth-tab" data-tab="register">Registrarse</button>
-      </div>
-
-      <!-- Login Form -->
-      <form class="auth-form active" id="loginForm" data-form="login">
-        <div class="auth-error" id="loginError"></div>
-        <div class="auth-field">
-          <label>Correo Electrónico</label>
-          <input type="email" id="loginEmail" placeholder="tu@email.com" required>
-        </div>
-        <div class="auth-field">
-          <label>Contraseña</label>
-          <input type="password" id="loginPassword" placeholder="••••••••" required>
-        </div>
-        <button type="submit" class="auth-btn auth-btn-primary">Iniciar Sesión</button>
-        <div class="auth-divider">o</div>
-        <button type="button" class="auth-btn" id="loginDemo" style="background:var(--bg-card);border:1px solid var(--line);color:var(--white);">🦊 Entrar como Demo (Kitsune)</button>
-      </form>
-
-      <!-- Register Form -->
-      <form class="auth-form" id="registerForm" data-form="register">
-        <div class="auth-error" id="registerError"></div>
-        <div class="auth-success" id="registerSuccess"></div>
-        <div class="auth-field">
-          <label>Nombre de Usuario</label>
-          <input type="text" id="registerName" placeholder="KitsuneMetalero" required>
-        </div>
-        <div class="auth-field">
-          <label>Correo Electrónico</label>
-          <input type="email" id="registerEmail" placeholder="tu@email.com" required>
-        </div>
-        <div class="auth-field">
-          <label>Contraseña</label>
-          <input type="password" id="registerPassword" placeholder="Mínimo 6 caracteres" required minlength="6">
-        </div>
-        <div class="auth-field">
-          <label>Confirmar Contraseña</label>
-          <input type="password" id="registerConfirm" placeholder="Repite tu contraseña" required>
-        </div>
-        <button type="submit" class="auth-btn auth-btn-primary">Crear Cuenta</button>
-      </form>
-    </div>
-  </div>
-
   <!-- ========== CHATBOT AI ========== -->
   <button class="chatbot-fab" id="chatFab" title="Kitsune AI">🦊</button>
 
@@ -2104,11 +1734,9 @@
 
     <div class="chatbot-suggestions" id="chatSuggestions">
       <button class="chat-suggestion" data-q="¿Quiénes son los integrantes?">Integrantes</button>
-      <button class="chat-suggestion" data-q="Discografía completa">Discografía</button>
       <button class="chat-suggestion" data-q="¿Qué es Kawaii Metal?">Kawaii Metal</button>
-      <button class="chat-suggestion" data-q="Consejos para ser artista">Ser artista</button>
-      <button class="chat-suggestion" data-q="Consejos de salud">Salud</button>
-      <button class="chat-suggestion" data-q="Reglas de la comunidad">Reglas</button>
+      <button class="chat-suggestion" data-q="Canciones más conocidas">Canciones</button>
+      <button class="chat-suggestion" data-q="¿Qué es el Fox God?">Fox God</button>
       <button class="chat-suggestion" data-q="Historia de BABYMETAL">Historia</button>
       <button class="chat-suggestion" data-q="Gira 2026">Gira 2026</button>
     </div>
@@ -2145,74 +1773,11 @@
 
       "tokio dome": "Tokio Dome - El sueño de BABYMETAL:\n\n🏟️ <strong>Datos del venue:</strong>\n• Capacidad: 55,000 personas\n• Ubicación: Tokio, Japón\n• Evento: 'BABYMETAL Awakens'\n\n📅 <strong>Fechas:</strong>\n• 23 y 24 de junio de 2018\n• Agotado ambas noches\n\n🎤 <strong>Setlist destacada:</strong>\n• BABYMETAL DEATH\n• Gimme Chocolate!!\n• Megitsune\n• Road of Resistance\n• The One\n\n📖 Fue el concierto más importante de su carrera, consolidándolas como artistas de escenario principal en Japón.\n\nFuente: Wikipedia, babymetal.com",
 
-      "discos": "Álbumes de BABYMETAL:\n\n💿 <strong>BABYMETAL (2014)</strong>\n• Sencillo: Gimme Chocolate!!\n• Género: Kawaii Metal puro\n\n💿 <strong>Metal Resistance (2016)</strong>\n• Sencillo: Karate\n• #1 en iTunes de 10 países\n\n💿 <strong>Metal Galaxy (2019)</strong>\n• #1 en Billboard World Albums\n• Influencias de EDM y world music\n\n💿 <strong>THE OTHER ONE (2023)</strong>\n• Concepto: 'Mundo de las tinieblas'\n• Sonido más oscuro y experimental\n\nFuente: Wikipedia, AllMusic, babymetal.com",
+      "gira 2026": "La <strong>Gira Mundial 2026</strong> de BABYMETAL:\n\n🌍 <strong>Fechas confirmadas:</strong>\n• Japón: Tokyo Dome, Osaka\n• Europa: Londres, Berlín, París, Madrid\n• Norteamérica: NYC, LA, Chicago, Toronto\n• Latinoamérica: Buenos Aires, CDMX, São Paulo\n\n🎤 <strong>Setlist esperada:</strong>\n• Gimme Chocolate!!\n• Megitsune\n• Road of Resistance\n• KARATE\n• RATATATA\n• THE ONE\n\n📋 <strong>Detalles:</strong>\n• Producción visual renovada\n• Colaboraciones sorpresa\n• Nuevo merchandise exclusivo\n\nTickets: babymetal.com 🎫",
 
       "premios": "Premios y reconocimientos de BABYMETAL:\n\n🏆 <strong>Japan Gold Disc Awards:</strong>\n• Mejor Artista Nuevo (2015)\n• Álbum del Año (2015, 2016, 2017)\n\n🏆 <strong>MTV Europe Music Awards:</strong>\n• Mejor Acto Japonés (2015)\n\n🏆 <strong>Billboard:</strong>\n• World Albums #1 (Metal Galaxy)\n\n🏆 <strong>Otros:</strong>\n• Japan Record Awards\n• Koreapop Awards\n• Fan Army Fandom Awards\n\nFuente: Wikipedia",
 
-      "giras": "📋 <strong>TODAS LAS GIRAS DE BABYMETAL (2011-2026):</strong>\n\n📅 <strong>2010</strong> - Sakura Gakuin Festival ☆\n📅 <strong>2011</strong> - Sakura Gakuin Festival ☆\n📅 <strong>2012</strong> - Sakura Gakuin Festival ☆ + Legend 'I' 'D' 'Z'\n📅 <strong>2013</strong> - Death Match Tour + Legend '1999' '1997' + Fox Festival\n📅 <strong>2014</strong> - BABYMETAL World Tour 2014 (17 shows)\n📅 <strong>2015</strong> - BABYMETAL World Tour 2015 (35 shows)\n📅 <strong>2016</strong> - Legend Metal Resistance + Tokyo Dome\n📅 <strong>2017</strong> - US Tour + Five Fox Festival + Big Fox Festival (22 shows)\n📅 <strong>2018</strong> - BABYMETAL World Tour 2018 (22 shows)\n📅 <strong>2019</strong> - Metal Galaxy World Tour (60 shows hasta 2020)\n📅 <strong>2020</strong> - Pausada por COVID-19\n📅 <strong>2023</strong> - BABYMETAL World Tour 2023 (71 shows hasta 2024)\n📅 <strong>2025</strong> - BABYMETAL World Tour 2025 (45 shows)\n📅 <strong>2026</strong> - THE OTHER ONE WORLD TOUR\n\nEscribe 'gira 2015', 'gira 2019', etc. para más detalles.",
-
-      "gira 2011": "🎤 <strong>2011 - PRIMEROS PASOS (Sakura Gakuin):</strong>\n\n📅 <strong>Eventos destacados:\n• Sakura Gakuin Festival 2011\n• Tokyo Idol Festival 2011\n• Tower Records Shinjuku 13th Birthday\n• United States of Odaiba 2011\n\n🎤 <strong>Canciones interpretadas:\n• Doki Doki Morning\n• Ijime, Dame, Zettai\n\n🏆 <strong>Logros:\n• Debut de SU-METAL y MOAMETAL\n• Primera vez que cantan en vivo\n• Formación del sonido BABYMETAL\n\n📖 Año cero de la leyenda.\n\nFuente: Wikipedia, babymetal.com",
-
-      "gira 2012": "🦊 <strong>2012 - MOMOMETAL SE UNE + PRIMERA GIRA:</strong>\n\n📅 <strong>Eventos destacados:\n• Sakura Gakuin Festival 2012\n• Legend 'Corset Festival' (primer headlining show)\n• Tokyo Idol Festival 2012\n• Summer Sonic 2012 Tokyo\n• Anime Festival Asia 2012 (Singapur)\n• Legend 'I', 'D' y 'Z'\n\n🎤 <strong>Canciones:\n• Doki Doki Morning\n• Iine!\n• Headbangeeeeerrrrr!!!!!\n• Ijime, Dame, Zettai\n• Babymetal Death\n\n🏆 <strong>Logros:\n• La trinidad se completa por primera vez\n• Primer headlining show en Rock May Kan\n• Actuación en Singapur (primera vez en Asia)\n\n📖 El nacimiento de la trinidad sagrada.\n\nFuente: Wikipedia, babymetal.com",
-
-      "gira 2013": "⚡ <strong>2013 - DEATH MATCH TOUR + LEGENDS:</strong>\n\n📅 <strong>Eventos destacados:\n• Death Match Tour 2013: May Revolution\n• Legend '1999' y '1997' (cumpleaños)\n• Legend 'Fox Festival'\n• Summer Sonic 2013 (Tokyo y Osaka)\n• Rock in Japan Festival 2013\n• Loud Park 2013\n• Countdown Japan 13/14\n• Live in Singapore\n\n🎤 <strong>Canciones:\n• Megitsune (debut)\n• Babymetal Death\n• Gimme Chocolate!!\n• Headbangeeeeerrrrr!!!!!\n• Ijime, Dame, Zettai\n\n🏆 <strong>Logros:\n• 'Megitsune' éxito viral\n• 'Gimme Chocolate!!' video viral (+100M views)\n• Primera actuación en Singapur\n• Preparación para debut independiente\n\n📖 Transición de idol a banda.\n\nFuente: Wikipedia, babymetal.com",
-
-      "gira 2014": "🎵 <strong>BABYMETAL WORLD TOUR 2014 (DEBUT):</strong>\n\n📅 <strong>17 shows en:\n• Japón: Tokyo, Osaka, Nagoya\n• EE.UU.: Los Angeles, San Francisco, Dallas, NYC\n• Europa: Londres, Colonia\n• Taiwán (con Chthonic)\n\n🎤 <strong>Setlist:\n• Gimme Chocolate!!\n• Megitsune\n• Headbangeeeeerrrrr!!!!!\n• Ijime, Dame, Zettai\n• BABYMETAL DEATH\n\n🏆 <strong>Logros:\n• Debut como grupo independiente\n• Primer álbum 'BABYMETAL'\n• Apertura para Lady Gaga (ArtRave)\n• Giraron por 3 continentes\n• MTV VMAJ\n\n📖 El inicio de la revolución.\n\nFuente: Wikipedia, babymetal.com",
-
-      "gira 2015": "🎸 <strong>BABYMETAL WORLD TOUR 2015:</strong>\n\n📅 <strong>35 shows en:\n• Japón: Tokyo, Osaka, Nagoya, Saitama\n• EE.UU.: Los Angeles, San Francisco, Dallas, NYC\n• Europa: Londres, Colonia, París\n• América del Sur: São Paulo, Santiago\n• Asia: Bangkok, Singapur\n\n🎤 <strong>Setlist:\n• BABYMETAL DEATH\n• Ijime, Dame, Zettai\n• Megitsune\n• Gimme Chocolate!!\n• Headbangeeeeerrrrr!!!!!\n• Road of Resistance\n\n🏆 <strong>Logros:\n• Primera gira mundial completa\n• Apertura para Metallica\n• Agotó entradas en múltiples venues\n• MTV EMA: Mejor Acto Japonés\n• Japan Gold Disc Awards\n• Legend '2015' New Year Fox Festival\n\n📖 La gira que las consolidó internacionalmente.\n\nFuente: Wikipedia, babymetal.com",
-
-      "gira 2016": "⚔️ <strong>BABYMETAL WORLD TOUR 2016 'LEGEND METAL RESISTANCE':</strong>\n\n📅 <strong>35 shows en:\n• Japón: Tokyo Dome x2 noches\n• Europa: Londres (Wembley), Oberhausen, París\n• EE.UU.: Los Angeles, Chicago, New York\n• Asia: Osaka, Nagoya\n\n🎤 <strong>Setlist:\n• Road of Resistance\n• Karate\n• Gimme Chocolate!!\n• Megitsune\n• THE ONE\n• Syncopation\n\n🏆 <strong>Logros:\n• 'Metal Resistance' #1 en iTunes 10 países\n• Tokyo Dome agotado (2 noches)\n• Wembley Arena agotado\n• Fan Army Fandom Awards\n• Japan Record Awards\n• Apertura para Red Hot Chili Peppers, Metallica, Guns N' Roses\n\n📖 Gira de apoyo al segundo álbum.\n\nFuente: Wikipedia, babymetal.com",
-
-      "gira 2017": "🎵 <strong>2017 - US TOUR + FIVE FOX FESTIVAL + BIG FOX FESTIVAL:</strong>\n\n📅 <strong>22 shows en:\n• EE.UU.: LA, Dallas, Detroit, Albuquerque, Nampa\n• Japón: Five Fox Festival (5 shows) + Big Fox Festival\n• Hiroshima: Legend 'S' Baptism XX (cumpleaños SU-METAL)\n\n🎤 <strong>Setlist:\n• Road of Resistance\n• Karate\n• Gimme Chocolate!!\n• Megitsune\n• THE ONE\n• From Dusk Till Dawn (exclusiva)\n• Sis. Anger\n• No Rain, No Rainbow\n\n🏆 <strong>Logros:\n• Colaboración con Rob Halford (Judas Priest)\n• Metal Hammer Awards\n• Apertura para Korn y Stone Sour\n• 'From Dusk Till Dawn' estreno mundial\n• Five Fox Festival: shows con código de vestimenta\n• Último show con Kami Band Guitarist Mikio Fujioka\n\n📖 Año de consolidación del sonido Kawaii Metal.\n\nFuente: Wikipedia, babymetal.com",
-
-      "gira 2018": "⚡ <strong>BABYMETAL WORLD TOUR 2018 'DISTORTION':</strong>\n\n📅 <strong>22 shows en:\n• Japón: Tokyo Dome x2 (Awakens!!!)\n• Asia: Singapur, Bangkok, Yakarta\n• Europa: Londres, Madrid, Varsovia\n• EE.UU.: Los Angeles, Houston, Chicago\n• Australia: Good Things Festival (diciembre)\n\n🎤 <strong>Setlist:\n• Distortion\n• Starlight\n• Road of Resistance\n• Gimme Chocolate!!\n• THE ONE\n• Elevator Girl\n• Kagerou\n• In the Name Of\n\n🏆 <strong>Logros:\n• Tokio Dome agotado (2 noches)\n• 'Distortion' éxito mundial\n• Rock on the Range (streaming en vivo)\n• Good Things Festival (Australia)\n• Última gira con Yui Mizuno (dejó el grupo)\n\n📖 Gira más ambiciosa hasta la fecha.\n\nFuente: Wikipedia, babymetal.com",
-
-      "gira 2019": "🎸 <strong>METAL GALAXY WORLD TOUR 2019-2020:</strong>\n\n📅 <strong>60 shows en:\n• Japón: Yokohama, Nagoya (Awakens/Arises)\n• EE.UU.: LA (The Forum), NYC, Chicago\n• Europa: Londres (Glastonbury), París, Berlín\n• América del Sur: São Paulo, Buenos Aires\n• Asia: Bangkok, Singapur, Yakarta\n\n🎤 <strong>Setlist:\n• PA PA YA!!\n• Shanti Shanti Shanti\n• Distortion\n• Starlight\n• Elevator Girl\n• Gimme Chocolate!!\n• Road of Resistance\n• THE ONE\n\n🏆 <strong>Logros:\n• 'Metal Galaxy' #1 Billboard World Albums\n• Álbum más vendido de la banda\n• Gira más extensa de su historia (60 shows)\n• Glastonbury Festival 2019\n• Babymetal Awakens + Babymetal Arises\n\n📖 La gira más grande de su historia.\n\nFuente: Wikipedia, babymetal.com",
-
-      "gira 2021": "🦊 <strong>BABYMETAL BEGINS - THE OTHER ONE 2021-2022:</strong>\n\n📅 <strong>Contexto:\n• Regreso tras pausa por COVID-19\n• BABYMETAL BEGINS (2021)\n• BABYMETAL RETURNS (2022)\n• Eventos en formato especial\n• Streaming worldwide\n\n🎤 <strong>Shows destacados:\n• BABYMETAL BEGINS\n• BABYMETAL RETURNS\n• Legend Metal Galaxy\n• Teatro en vivo\n• Nuevas coreografías\n• Producción visual renovada\n\n🏆 <strong>Logros:\n• Regreso post-pandemia\n• Millones de views en streaming\n• Re-conexión con fans globales\n• Preparación para nueva era\n\n📖 Transición hacia THE OTHER ONE.\n\nFuente: babymetal.com",
-
-      "gira 2023": "✨ <strong>BABYMETAL WORLD TOUR 2023-2024 'THE OTHER ONE':</strong>\n\n📅 <strong>71 shows en:\n• Japón: Makuhari Messe, Yokohama Arena (Legend MM)\n• Europa: Londres, París, Madrid, Berlín\n• EE.UU.: NYC, LA, Chicago, Dallas\n• América del Sur: São Paulo, Buenos Aires\n• Asia: Bangkok, Singapur, Yakarta\n• Australia\n\n🎤 <strong>Setlist:\n• METAL FUTURE\n• Monochrome\n• THE OTHER ONE\n• Papaya\n• Gimme Chocolate!!\n• Road of Resistance\n• THE ONE\n\n🏆 <strong>Logros:\n• MOMOMETAL回归 oficial (Pia Arena MM)\n• 'THE OTHER ONE' éxito crítico\n• 71 shows en 20+ países\n• Legend MM: cumpleaños MOMOMETAL (30k fans)\n• Dethklok y Jason Richardson como opening\n\n📖 La trinidad sagrada completa.\n\nFuente: Wikipedia, babymetal.com",
-
-      "gira 2025": "🌟 <strong>BABYMETAL WORLD TOUR 2025:</strong>\n\n📅 <strong>45 shows en:\n• Europa: Brussels, Amsterdam, Berlin, Zurich, Barcelona, Paris, Londres (The O2)\n• Norteamérica: Múltiples ciudades\n• Especiales: Poppy y Bambie Thug (opening)\n• Black Veil Brides, Jinjer, Bloodywood (opening NA)\n\n🎤 <strong>Setlist:\n• Gimme Chocolate!!\n• Megitsune\n• Road of Resistance\n• KARATE\n• RATATATA\n• THE ONE\n• Nuevas canciones\n\n🏆 <strong>Logros:\n• The O2 Arena Londres agotado\n• Gira europea completa\n• Norteamérica con Live Nation\n• Colaboraciones con múltiples artistas\n\n📖 Preparación para la gira más grande.\n\nFuente: Wikipedia, babymetal.com",
-
-      "gira 2024": "⚡ <strong>BABYMETAL x ELECTRIC CALLBOY TOUR 2024:</strong>\n\n📅 <strong>Fechas:\n• Europa: Alemania, UK, Francia, España\n• Norteamérica: EE.UU., Canadá\n• Japón: Tokyo, Osaka\n\n🎤 <strong>Setlist:\n• RATATATA (colaboración)\n• Gimme Chocolate!!\n• Megitsune\n• Road of Resistance\n• Hypa Hypa\n• THE ONE\n\n🏆 <strong>Logros:\n• 'RATATATA' viral mundial\n• +100M views YouTube\n• Colaboración del año en metal\n• Fusionaron fanbases\n\n📖 Primera gran colaboración internacional.\n\nFuente: babymetal.com",
-
-      "gira 2026": "🌍 <strong>BABYMETAL WORLD TOUR 2026 - THE OTHER ONE WORLD TOUR:</strong>\n\n🇯🇵 <strong>JAPÓN:\n• Ariake Arena - CANNONBALL GAIDEN (10 ago)\n• Summer Sonic Osaka (14 ago)\n• Summer Sonic Chiba (16 ago)\n• LuckyFes - Hitachi Seaside Park (9 ago)\n\n🇪🇺 <strong>EUROPA:\n• Kufstein, Austria - Festung (9 jun)\n• Hradec Králové, Czech - Rock For People (11 jun)\n• Derby, UK - Download Festival (13 jun)\n• Hanover, Germany - Swiss Life Hall (16 jun)\n• Warsaw, Poland - Summer Punch Festival (18 jun)\n• Dessel, Belgium - Graspop (20 jun)\n• Oslo, Norway - Tons of Rock (24 jun)\n• Leipzig, Germany - Impericon Festival (26 jun)\n• Copenhagen, Denmark - Copenhell (27 jun)\n• Istanbul, Turkey - Life Park (1 jul)\n\n🇺🇸 <strong>NORTEAMÉRICA:\n• San Diego - Petco Park w/ My Chemical Romance (30 ago)\n• Denver - Ball Arena (2 sep)\n• Chicago - Huntington Bank Pavilion (4 sep)\n• Noblesville, IN - Ruoff Music Center (5 sep)\n• Toronto - RBC Amphitheatre (7 sep)\n• Holmdel, NJ - PNC Bank Arts Center (9 sep)\n• Mansfield, MA - Xfinity Center (10 sep)\n• Sacramento - Aftershock Festival (3 oct)\n• Phoenix - Talking Stick Resort (1 oct)\n• Albuquerque - Isleta Amphitheatre (29 sep)\n\n🇲🇽 <strong>LATINOAMÉRICA:\n• Lima, Peru - Costa 21 (7 dic)\n• Santiago, Chile - Movistar Arena (3 dic)\n• Buenos Aires, Argentina - Movistar Arena (1 dic)\n• São Paulo, Brazil - Espaco Unimed (28 nov)\n• Mexico City - Fray Nano Stadium (12 dic)\n\n🎤 <strong>Setlist:\n• BABYMETAL DEATH\n• Gimme Chocolate!!\n• Megitsune\n• Road of Resistance\n• KARATE\n• RATATATA\n• THE ONE\n\nTickets: <a href="https://babymetal.com/theone_2026/" target="_blank" style="color:#ff003c;">babymetal.com</a> 🎫",
-
-      "discografia completa": "Discografía COMPLETA de BABYMETAL:\n\n💿 <strong>Álbumes:</strong>\n• BABYMETAL (2014)\n• Metal Resistance (2016)\n• Metal Galaxy (2019)\n• THE OTHER ONE (2023)\n\n📀 <strong>EPs:</strong>\n• Single Collection (2015)\n• Live at Budokan (2015)\n\n🎵 <strong>Singles:</strong>\n• Doki Doki Morning (2011)\n• Headbangeeeeerrrrr!!!!! (2011)\n• Ijime, Dame, Zettai (2013)\n• Megitsune (2013)\n• Gimme Chocolate!! (2014)\n• Karate (2016)\n• Distortion (2018)\n• Starlight (2018)\n• PA PA YA!! (2019)\n• Shanti Shanti Shanti (2019)\n• Monochrome (2023)\n• METAL FUTURE (2023)\n• RATATATA (2024)\n\nFuente: Wikipedia, babymetal.com",
-
-      // ========== CONSEJOS ARTÍSTICOS ==========
-      "ser artista": "Consejos para ser un gran artista:\n\n🎤 <strong>Vocal:</strong>\n• Practica 30 min diarios de vocalización\n• Aprende técnicas de respiración diafragmática\n• Escucha diversos géneros musicales\n• No fuerces tu voz, respeta tus límites\n\n🎸 <strong>Instrumento:</strong>\n• Empieza con lo básico, sé constante\n• Practica con metrónomo\n• Aprende partituras y teoría musical\n• Toca con otros músicos\n\n🎭 <strong>Escénico:</strong>\n• Estudia coreografías de BABYMETAL\n• Trabaja tu presencia en el escenario\n• Grábate y mejora\n\n💡 <strong>Mentalidad:</strong>\n• Sé auténtico, no copies\n• Acepta el fracaso como aprendizaje\n• Nunca dejes de practicar",
-
-      "cantar": "Consejos para mejorar tu canto:\n\n🎤 <strong>Técnicas básicas:</strong>\n• Respiración diafragmática (sopla una vela sin apagarla)\n• Calienta tu voz antes de cantar\n• Bebe agua tibia, nunca fría\n• No grites, progresa gradualmente\n\n🎵 <strong>Para cantar como BABYMETAL:</strong>\n• SU-METAL usa técnica de power metal\n• Practica escalas de Do Mayor\n• Trabaja tu rango agudo con ejercicios\n• Escucha 'Gimme Chocolate!!' y canta la melodía\n\n📚 <strong>Recursos gratuitos:\n• YouTube: ejercicios vocales\n• Apps: Smule, Vanido\n• Cursos: Coursera (música)\n\n⚠️ Si tienes dolor de garganta, PARA. La salud primero.",
-
-      "bailar": "Consejos para bailar como BABYMETAL:\n\n💃 <strong>Coreografía BABYMETAL:\n• Estudia los videos oficiales en YouTube\n• Empieza lento, aumenta velocidad\n• Practica frente al espejo\n• Grábate y compara\n\n🏋️ <strong>Preparación física:\n• Estira antes y después\n• Trabaja cardio (para aguantar shows)\n• Fortalece piernas y core\n• Yoga para flexibilidad\n\n⚡ <strong>Estilo Kawaii Metal:\n• Mezcla movimientos de idol con metal\n• Headbanging controlado\n• Puños en alto (gesto de resistencia)\n• Sonrisa + energía = MOAMETAL\n\n🎯 <strong>Tips:\n• Ve conciertos en vivo\n• Únete a comunidades de fans\n• No te compares, diviértete",
-
-      "componer": "Consejos para componer música estilo BABYMETAL:\n\n🎵 <strong>Estructura Kawaii Metal:\n• Verso melódico (pop)\n• Pre-estribillo (construcción)\n• Estribillo explosivo (metal)\n• Puente (electrónica)\n\n🎸 <strong>Elementos clave:\n• Riffs de guitarra pesada\n• Melodías dulces y pegadizas\n• Cambios de ritmo inesperados\n• Coros épicos\n\n📝 <strong>Pasos:\n1. Escribe la melodía principal\n2. Añade acordes de guitarra\n3. Incorpora batería rápida\n4. Mezcla elementos pop\n5. Produce con DAW (GarageBand, FL Studio)\n\n💡 Escucha 'Road of Resistance' como referencia.",
-
-      "ser fan": "Cómo ser un gran fan de BABYMETAL:\n\n🦊 <strong>Conoce su historia:\n• Lee sobre Sakura Gakuin\n• Entiende el lore del Fox God\n• Sigue sus cuentas oficiales\n\n🎵 <strong>Disfruta la música:\n• Escucha todos los álbumos\n• Descubre lados B\n• Comparte con amigos\n\n🤝 <strong>Comunidad:\n• Respeta a otros fans\n• No hagas hate a otros artistas\n• Participa en eventos\n\n🛒 <strong>Apoya oficialmente:\n• Compra merchandise oficial\n• Ve conciertos cuando puedas\n• No descargues ilegalmente\n\n❤️ <strong>Sé positivo:\n• Celebra los logros de la banda\n• Mantén viva la Metal Resistance\n• Nunca olvides: THE ONE",
-
-      // ========== SALUD Y BIENESTAR ==========
-      "salud": "Consejos de salud para fans:\n\n💧 <strong>Hidratación:\n• Bebe 2L de agua al día\n• Menos refrescos, más agua\n• En conciertos: lleva botella\n\n🥗 <strong>Alimentación:\n• Come frutas y verduras\n• Evita exceso de comida chatarra\n• Desayuna siempre\n• No te saltes comidas\n\n😴 <strong>Descanso:\n• Duerme 7-8 horas\n• Evita pantallas antes de dormir\n• Horario regular\n\n🏋️ <strong>Ejercicio:\n• 30 min de actividad diaria\n• Caminar, correr, bailar\n• Yoga para relajarte\n\n🧘 <strong>Mental:\n• Descansa de redes sociales\n• Habla con alguien si estás mal\n• Haz cosas que te gusten",
-
-      "ansiedad": "Si sientes ansiedad, aquí van consejos:\n\n🧘 <strong>Técnicas inmediatas:\n• Respiración 4-7-8: inhala 4s, sostén 7s, exhala 8s\n• 5-4-3-2-1: nombra 5 cosas que ves, 4 que tocas, 3 que oyes, 2 que hueles, 1 que saboreas\n• Sal a caminar 10 minutos\n\n💬 <strong>Habla:\n• Con un amigo de confianza\n• Con tu familia\n• Con un profesional si es necesario\n\n🎵 <strong>Música como terapia:\n• Escucha BABYMETAL para energizarte\n• 'The One' para sentirte acompañado\n• 'Monochrome' para reflexionar\n\n📱 <strong>Líneas de ayuda:\n• México: 800 911 2000\n• España: 024\n• Argentina: 135\n• Global: findahelpline.com",
-
-      "dormir": "Consejos para dormir mejor:\n\n🌙 <strong>Rutina nocturna:\n• Apaga pantallas 1h antes\n• Lee o escucha música suave\n• Té de manzanilla o tila\n• Evita café después de las 3pm\n\n🛏️ <strong>Ambiente:\n• Oscuridad total\n• Temperatura fresca (18-20°C)\n• Silencio o ruido blanco\n\n⏰ <strong>Horario:\n• Acuéstate a la misma hora\n• Despierta sin alarma si puedes\n• Evita siestas largas\n\n⚠️ <strong>Si no puedes dormir:\n• No mires el reloj\n• Levántate y haz algo relajante\n• Vuelve a la cama cuando tengas sueño\n\n🎵 Música recomendada: 'The One' instrumental",
-
-      "ejercicio": "Ejercicio para fans de metal:\n\n🏋️ <strong>Rutina básica (30 min):\n• Calentamiento: 5 min\n• Sentadillas: 3x15\n• Flexiones: 3x10\n• Plancha: 3x30s\n• Jumping jacks: 3x20\n• Estiramiento: 5 min\n\n🎸 <strong>Para tocar mejor:\n• Ejercicios de dedos\n• Postura correcta\n• Estiramientos de hombros\n\n💃 <strong>Para bailar:\n• Cardio intenso\n• Core fuerte\n• Flexibilidad\n\n⚡ <strong>Motivación:\n• Pon BABYMETAL mientras entrenas\n• 'PA PA YA!!' para cardio\n• 'KARATE' para fuerza\n\n📱 Apps: Nike Training Club (gratis)",
-
-      "comida": "Nutrición para metaleros:\n\n🥗 <strong>Alimentos clave:\n• Proteína: pollo, pescado, huevos\n• Carbohidratos: arroz, pasta, papa\n• Frutas: plátano, manzana, naranja\n• Verduras: brócoli, espinaca, zanahoria\n\n⚡ <strong>Para energía:\n• Avena en el desayuno\n• Frutos secos como snack\n• Agua con limón\n\n🚫 <strong>Evita:\n• Exceso de azúcar\n• Comida chatarra frecuente\n• Bebidas energéticas en exceso\n\n🍳 <strong>Receta simple: Arroz con pollo\n• Arroz integral\n• Pechuga de pollo a la plancha\n• Verduras salteadas\n• 20 min de preparación\n\n💡 Come como un guerrero del metal 🤘",
-
-      "mental": "Salud mental para fans:\n\n🧠 <strong>Cuida tu mente:\n• Habla de tus sentimientos\n• No guardes todo para ti\n• Pide ayuda cuando la necesites\n\n🎵 <strong>La música cura:\n• BABYMETAL puede ser tu escape\n• 'The One' recuerda que no estás solo\n• Canta cuando te sientas mal\n\n🤝 <strong>Comunidad:\n• Conecta con otros fans\n• Comparte experiencias\n• Apóyense mutuamente\n\n⚠️ <strong>Señales de alerta:\n• Tristeza persistente\n• Aislamiento social\n• Pérdida de interés\n\n📞 <strong>Ayuda profesional:\n• No es debilidad buscar ayuda\n• Terapeutas online accesibles\n• Líneas de crisis 24/7\n\n❤️ La Metal Resistance te necesita vivo y sano.",
-
-      // ========== REGLAS Y NORMAS ==========
-      "reglas": "📋 <strong>REGLAS DE LA COMUNIDAD FOX NET:</strong>\n\n1️⃣ <strong>Respeto mutuo</strong>\n• No insultar a otros fans\n• No hate por gustos musicales\n• Respetar opiniones diferentes\n\n2️⃣ <strong>Contenido positivo</strong>\n• Comparte cosas buenas\n• No spam ni publicidad\n• Contenido relacionado con BABYMETAL\n\n3️⃣ <strong>Safety primero</strong>\n• No compartas datos personales\n• No acoso ni bullying\n• No contenido inapropiado\n\n4️⃣ <strong>Comunidad sana</strong>\n• Apoya a nuevos fans\n• Celebra los logros de otros\n• Mantén el espíritu THE ONE\n\n⚠️ El incumplimiento resulta en sanciones.",
-
-      "sanciones": "⚠️ <strong>SANCIONES POR INCUMPLIR NORMAS:</strong>\n\n🔴 <strong>Nivel 1 - Advertencia:</strong>\n• Primera infracción leve\n• Aviso por mensaje privado\n• Se registra en tu perfil\n\n🟠 <strong>Nivel 2 - Restricción:</strong>\n• Segunda infracción o primera grave\n• 7 días sin poder comentar\n• Contenido revisado manualmente\n\n🔴 <strong>Nivel 3 - Suspensión:</strong>\n• Infracciones repetidas\n• 30 días de suspensión total\n• Revisión de cuenta\n\n⚫ <strong>Nivel 4 - Baneo permanente:</strong>\n• Acoso, bullying, contenido ilegal\n• Baneo definitivo de la plataforma\n• Reporte a autoridades si aplica\n\n💡 <strong>Recuerda: La Metal Resistance es una comunidad positiva. Respetemos las reglas del Fox God. 🦊</strong>",
-
-      "reportar": "🚨 <strong>CÓMO REPORTAR INFRACCIONES:</strong>\n\n📝 <strong>Pasos:\n1. Haz clic en '⋯' del post ofensivo\n2. Selecciona 'Reportar'\n3. Elige el motivo:\n   • Acoso o bullying\n   • Contenido inapropiado\n   • Spam\n   • Hate\n   • Otro\n4. Envía el reporte\n\n⏰ <strong>Tiempo de respuesta:\n• reportes urgentes: < 1 hora\n• reportes normales: < 24 horas\n\n🔒 <strong>Privacidad:\n• Tu identidad es anónima\n• El reportado no sabes quién fue\n• Protegemos a las víctimas\n\n❤️ <strong>Si estás en crisis:\n• Habla con un moderador\n• Busca ayuda profesional\n• No estás solo/a\n\nLa comunidad Fox Net es un espacio seguro para todos. 🦊",
-
-      "default": "Buena pregunta 🤘 Puedo contarte sobre:\n\n🦊 <strong>BABYMETAL:</strong>\n• Integrantes, discografía, historia\n• Kawaii Metal, Fox God, Tokio Dome\n• Gira 2026, premios\n\n🎤 <strong>Ser artista:</n• Consejos para cantar, bailar, componer\n• Cómo ser un gran fan\n\n💪 <strong>Salud:\n• Ejercicio, alimentación, descanso\n• Salud mental, ansiedad\n\n📋 <strong>Comunidad:\n• Reglas y normas\n• Sanciones\n• Cómo reportar\n\n¡Pregúntame sobre cualquier tema! 🦊"
+      "default": "Buena pregunta 🤘 Puedo contarte sobre:\n\n🦊 <strong>BABYMETAL:</strong>\n• Integrantes, discografía, historia\n• Kawaii Metal, Fox God, Tokio Dome\n• Gira 2026, premios\n\n¡Pregúntame sobre cualquier tema! 🦊"
     };
 
     function toggleChat() {
@@ -2254,44 +1819,8 @@
       if (lower.includes("fox god") || lower.includes("zorro") || lower.includes("kitsune") || lower.includes("dios")) return botResponses["fox god"];
       if (lower.includes("historia") || lower.includes("origen") || lower.includes("debut") || lower.includes("formacion")) return botResponses["historia"];
       if (lower.includes("tokio") || lower.includes("dome") || lower.includes("budokan")) return botResponses["tokio dome"];
-      // GIRAS
       if (lower.includes("gira") || lower.includes("tour") || lower.includes("concierto") || lower.includes("2026")) return botResponses["gira 2026"];
-      if (lower.includes("todas las giras") || lower.includes("historia de giras") || lower.includes("lista de giras")) return botResponses["giras"];
-      if (lower.includes("gira 2011") || lower.includes("tour 2011") || lower.includes("2011")) return botResponses["gira 2011"];
-      if (lower.includes("gira 2012") || lower.includes("tour 2012") || lower.includes("2012")) return botResponses["gira 2012"];
-      if (lower.includes("gira 2013") || lower.includes("tour 2013") || lower.includes("2013")) return botResponses["gira 2013"];
-      if (lower.includes("gira 2014") || lower.includes("tour 2014") || lower.includes("debut")) return botResponses["gira 2014"];
-      if (lower.includes("gira 2015") || lower.includes("tour 2015")) return botResponses["gira 2015"];
-      if (lower.includes("gira 2016") || lower.includes("tour 2016")) return botResponses["gira 2016"];
-      if (lower.includes("gira 2017") || lower.includes("tour 2017")) return botResponses["gira 2017"];
-      if (lower.includes("gira 2018") || lower.includes("tour 2018") || lower.includes("distortion")) return botResponses["gira 2018"];
-      if (lower.includes("gira 2019") || lower.includes("tour 2019") || lower.includes("metal galaxy")) return botResponses["gira 2019"];
-      if (lower.includes("gira 2021") || lower.includes("tour 2021") || lower.includes("begins")) return botResponses["gira 2021"];
-      if (lower.includes("gira 2023") || lower.includes("tour 2023") || lower.includes("other one")) return botResponses["gira 2023"];
-      if (lower.includes("gira 2024") || lower.includes("tour 2024") || lower.includes("electric callboy") || lower.includes("ratatata")) return botResponses["gira 2024"];
-      if (lower.includes("gira 2025") || lower.includes("tour 2025") || lower.includes("the o2") || lower.includes("poppy")) return botResponses["gira 2025"];
       if (lower.includes("premio") || lower.includes("award") || lower.includes("reconocimiento")) return botResponses["premios"];
-      if (lower.includes("disco completo") || lower.includes("discografia completa")) return botResponses["discografia completa"];
-
-      // ARTISTA
-      if (lower.includes("ser artista") || lower.includes("ser musico") || lower.includes("ser cantante") || lower.includes("musico")) return botResponses["ser artista"];
-      if (lower.includes("cantar") || lower.includes("voz") || lower.includes("vocal")) return botResponses["cantar"];
-      if (lower.includes("bailar") || lower.includes("bail") || lower.includes("coreografia")) return botResponses["bailar"];
-      if (lower.includes("componer") || lower.includes("escribir") || lower.includes("composicion")) return botResponses["componer"];
-      if (lower.includes("ser fan") || lower.includes("como ser fan") || lower.includes("fan ideal")) return botResponses["ser fan"];
-
-      // SALUD
-      if (lower.includes("salud") || lower.includes("bienestar") || lower.includes("cuidarse")) return botResponses["salud"];
-      if (lower.includes("ansiedad") || lower.includes("ansioso") || lower.includes("preocup")) return botResponses["ansiedad"];
-      if (lower.includes("dormir") || lower.includes("sueño") || lower.includes("insomnio")) return botResponses["dormir"];
-      if (lower.includes("ejercicio") || lower.includes("entrenar") || lower.includes("deporte")) return botResponses["ejercicio"];
-      if (lower.includes("comida") || lower.includes("nutricion") || lower.includes("dieta") || lower.includes("aliment")) return botResponses["comida"];
-      if (lower.includes("mental") || lower.includes("depresion") || lower.includes("triste") || lower.includes("sentir")) return botResponses["mental"];
-
-      // REGLAS
-      if (lower.includes("regla") || lower.includes("norma") || lower.includes("reglas") || lower.includes("normas")) return botResponses["reglas"];
-      if (lower.includes("sancion") || lower.includes("castigo") || lower.includes("baneo") || lower.includes("ban")) return botResponses["sanciones"];
-      if (lower.includes("reportar") || lower.includes("denunciar") || lower.includes("acoso") || lower.includes("bullying")) return botResponses["reportar"];
 
       return botResponses["default"];
     }
@@ -2349,44 +1878,19 @@
       });
     });
 
-    // ========== AUTH SYSTEM ==========
-    var authOverlay = document.getElementById('authOverlay');
-    var authClose = document.getElementById('authClose');
+    // ========== AUTH STATE ==========
     var authButtons = document.getElementById('authButtons');
     var authUserMenu = document.getElementById('authUserMenu');
     var authUserBtn = document.getElementById('authUserBtn');
     var authDropdown = document.getElementById('authDropdown');
     var authUserName = document.getElementById('authUserName');
     var authUserAvatar = document.getElementById('authUserAvatar');
-    var loginForm = document.getElementById('loginForm');
-    var registerForm = document.getElementById('registerForm');
-    var loginError = document.getElementById('loginError');
-    var registerError = document.getElementById('registerError');
-    var registerSuccess = document.getElementById('registerSuccess');
-
-    function getUsers() {
-      return JSON.parse(localStorage.getItem('foxnet_users') || '{}');
-    }
-
-    function saveUsers(users) {
-      localStorage.setItem('foxnet_users', JSON.stringify(users));
-    }
 
     function getCurrentUser() {
       var email = localStorage.getItem('foxnet_current');
       if (!email) return null;
-      var users = getUsers();
+      var users = JSON.parse(localStorage.getItem('foxnet_users') || '{}');
       return users[email] || null;
-    }
-
-    function setCurrentUser(email) {
-      localStorage.setItem('foxnet_current', email);
-    }
-
-    function logoutUser() {
-      localStorage.removeItem('foxnet_current');
-      updateAuthUI();
-      authDropdown.classList.remove('active');
     }
 
     function updateAuthUI() {
@@ -2408,132 +1912,6 @@
       }
     }
 
-    // Open auth modal
-    document.getElementById('btnShowLogin').addEventListener('click', function() {
-      authOverlay.classList.add('active');
-      document.querySelector('.auth-tab[data-tab="login"]').click();
-    });
-
-    document.getElementById('btnShowRegister').addEventListener('click', function() {
-      authOverlay.classList.add('active');
-      document.querySelector('.auth-tab[data-tab="register"]').click();
-    });
-
-    // Close auth modal
-    authClose.addEventListener('click', function() {
-      authOverlay.classList.remove('active');
-    });
-
-    authOverlay.addEventListener('click', function(e) {
-      if (e.target === authOverlay) authOverlay.classList.remove('active');
-    });
-
-    // Auth tabs
-    document.querySelectorAll('.auth-tab').forEach(function(tab) {
-      tab.addEventListener('click', function() {
-        document.querySelectorAll('.auth-tab').forEach(function(t) { t.classList.remove('active'); });
-        document.querySelectorAll('.auth-form').forEach(function(f) { f.classList.remove('active'); });
-        tab.classList.add('active');
-        var formName = tab.dataset.tab;
-        document.querySelector('.auth-form[data-form="' + formName + '"]').classList.add('active');
-        loginError.classList.remove('show');
-        registerError.classList.remove('show');
-        registerSuccess.classList.remove('show');
-      });
-    });
-
-    // Login
-    loginForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      var email = document.getElementById('loginEmail').value.trim().toLowerCase();
-      var password = document.getElementById('loginPassword').value;
-      var users = getUsers();
-
-      if (!users[email]) {
-        loginError.textContent = 'No existe una cuenta con este correo.';
-        loginError.classList.add('show');
-        return;
-      }
-
-      if (users[email].password !== password) {
-        loginError.textContent = 'Contraseña incorrecta.';
-        loginError.classList.add('show');
-        return;
-      }
-
-      setCurrentUser(email);
-      updateAuthUI();
-      authOverlay.classList.remove('active');
-      loginForm.reset();
-      loginError.classList.remove('show');
-    });
-
-    // Demo login
-    document.getElementById('loginDemo').addEventListener('click', function() {
-      var demoEmail = 'kitsune@foxnet.com';
-      var users = getUsers();
-      if (!users[demoEmail]) {
-        users[demoEmail] = {
-          name: 'Kitsune Metalero',
-          email: demoEmail,
-          password: 'demo123',
-          created: new Date().toISOString()
-        };
-        saveUsers(users);
-      }
-      setCurrentUser(demoEmail);
-      updateAuthUI();
-      authOverlay.classList.remove('active');
-    });
-
-    // Register
-    registerForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      var name = document.getElementById('registerName').value.trim();
-      var email = document.getElementById('registerEmail').value.trim().toLowerCase();
-      var password = document.getElementById('registerPassword').value;
-      var confirm = document.getElementById('registerConfirm').value;
-
-      if (name.length < 2) {
-        registerError.textContent = 'El nombre debe tener al menos 2 caracteres.';
-        registerError.classList.add('show');
-        return;
-      }
-
-      if (password.length < 6) {
-        registerError.textContent = 'La contraseña debe tener al menos 6 caracteres.';
-        registerError.classList.add('show');
-        return;
-      }
-
-      if (password !== confirm) {
-        registerError.textContent = 'Las contraseñas no coinciden.';
-        registerError.classList.add('show');
-        return;
-      }
-
-      var users = getUsers();
-      if (users[email]) {
-        registerError.textContent = 'Ya existe una cuenta con este correo.';
-        registerError.classList.add('show');
-        return;
-      }
-
-      users[email] = {
-        name: name,
-        email: email,
-        password: password,
-        created: new Date().toISOString()
-      };
-      saveUsers(users);
-      setCurrentUser(email);
-      updateAuthUI();
-      authOverlay.classList.remove('active');
-      registerForm.reset();
-      registerError.classList.remove('show');
-    });
-
-    // User dropdown toggle
     authUserBtn.addEventListener('click', function() {
       authDropdown.classList.toggle('active');
     });
@@ -2544,18 +1922,20 @@
       }
     });
 
-    // Logout
-    document.getElementById('authLogout').addEventListener('click', logoutUser);
+    document.getElementById('authLogout').addEventListener('click', function() {
+      localStorage.removeItem('foxnet_current');
+      updateAuthUI();
+      authDropdown.classList.remove('active');
+    });
 
-    // Profile/Settings (placeholder)
     document.getElementById('authProfile').addEventListener('click', function() {
       authDropdown.classList.remove('active');
     });
+
     document.getElementById('authSettings').addEventListener('click', function() {
       authDropdown.classList.remove('active');
     });
 
-    // Initialize auth state
     updateAuthUI();
     });
   </script>
