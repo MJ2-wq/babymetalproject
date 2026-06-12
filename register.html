@@ -191,6 +191,128 @@
       .auth-header { padding: 32px 20px 20px; }
       .auth-body { padding: 24px 20px; }
     }
+
+    /* Verification Screen */
+    .verify-screen { display: none; }
+    .verify-screen.active { display: block; }
+    .verify-code-display {
+      background: var(--surface-2);
+      border: 2px dashed var(--red);
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+      margin-bottom: 24px;
+      position: relative;
+    }
+    .verify-code-label {
+      font-size: 12px;
+      color: var(--silver-light);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .verify-code-value {
+      font-size: 36px;
+      font-weight: 900;
+      color: var(--red);
+      letter-spacing: 8px;
+      font-family: 'Courier New', monospace;
+      text-shadow: 0 0 20px rgba(255, 0, 60, 0.4);
+      user-select: all;
+    }
+    .verify-code-email {
+      font-size: 13px;
+      color: var(--silver);
+      margin-top: 12px;
+    }
+    .verify-code-email strong {
+      color: var(--white);
+    }
+    .verify-steps {
+      margin-bottom: 24px;
+    }
+    .verify-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .verify-step:last-child {
+      border-bottom: none;
+    }
+    .verify-step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--red);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .verify-step-text {
+      font-size: 14px;
+      color: var(--silver-light);
+      line-height: 1.5;
+      padding-top: 3px;
+    }
+    .verify-step-text strong {
+      color: var(--white);
+    }
+    .verify-input-group {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .verify-input-group input {
+      flex: 1;
+      padding: 14px 16px;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      color: var(--white);
+      font-size: 20px;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 4px;
+      text-align: center;
+      font-weight: 700;
+    }
+    .verify-input-group input:focus {
+      outline: none;
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px rgba(255, 0, 60, 0.15);
+    }
+    .verify-success {
+      display: none;
+      text-align: center;
+      padding: 20px 0;
+    }
+    .verify-success.active { display: block; }
+    .verify-success-icon {
+      font-size: 64px;
+      margin-bottom: 16px;
+      animation: popIn 0.4s ease;
+    }
+    .verify-success-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .verify-success-text {
+      font-size: 14px;
+      color: var(--silver-light);
+      margin-bottom: 24px;
+    }
+    @keyframes popIn {
+      0% { transform: scale(0); opacity: 0; }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); opacity: 1; }
+    }
   </style>
 </head>
 <body>
@@ -203,34 +325,84 @@
       </div>
 
       <div class="auth-body">
-        <div class="auth-error" id="registerError"></div>
+        <!-- Step 1: Registration Form -->
+        <div id="step1">
+          <div class="auth-error" id="registerError"></div>
 
-        <form id="registerForm">
-          <div class="auth-field">
-            <label>Nombre de Usuario</label>
-            <input type="text" id="registerName" placeholder="KitsuneMetalero" required minlength="2">
+          <form id="registerForm">
+            <div class="auth-field">
+              <label>Nombre de Usuario</label>
+              <input type="text" id="registerName" placeholder="KitsuneMetalero" required minlength="2">
+            </div>
+
+            <div class="auth-field">
+              <label>Correo Electrónico</label>
+              <input type="email" id="registerEmail" placeholder="tu@gmail.com" required>
+            </div>
+
+            <div class="auth-field">
+              <label>Contraseña</label>
+              <input type="password" id="registerPassword" placeholder="Mínimo 6 caracteres" required minlength="6">
+            </div>
+
+            <div class="auth-field">
+              <label>Confirmar Contraseña</label>
+              <input type="password" id="registerConfirm" placeholder="Repite tu contraseña" required>
+            </div>
+
+            <button type="submit" class="auth-btn auth-btn-primary">Crear Cuenta</button>
+          </form>
+        </div>
+
+        <!-- Step 2: Verification Code -->
+        <div id="step2" class="verify-screen">
+          <div class="verify-code-display">
+            <div class="verify-code-label">Tu código de verificación</div>
+            <div class="verify-code-value" id="verifyCodeDisplay">000000</div>
+            <div class="verify-code-email">Enviado a <strong id="verifyEmailDisplay">-</strong></div>
           </div>
 
-          <div class="auth-field">
-            <label>Correo Electrónico</label>
-            <input type="email" id="registerEmail" placeholder="tu@email.com" required>
+          <div class="verify-steps">
+            <div class="verify-step">
+              <div class="verify-step-num">1</div>
+              <div class="verify-step-text"><strong>Copia</strong> el código de arriba (selecciona y copia)</div>
+            </div>
+            <div class="verify-step">
+              <div class="verify-step-num">2</div>
+              <div class="verify-step-text">En tu Gmail, abre un <strong>nuevo borrador</strong> y pega el código en el asunto</div>
+            </div>
+            <div class="verify-step">
+              <div class="verify-step-num">3</div>
+              <div class="verify-step-text"><strong>Envía</strong> el correo a <strong style="color:var(--red);">foxnet.verify@gmail.com</strong></div>
+            </div>
+            <div class="verify-step">
+              <div class="verify-step-num">4</div>
+              <div class="verify-step-text">Vuelve aquí y <strong>pega el código</strong> abajo para verificar</div>
+            </div>
           </div>
 
-          <div class="auth-field">
-            <label>Contraseña</label>
-            <input type="password" id="registerPassword" placeholder="Mínimo 6 caracteres" required minlength="6">
+          <div class="verify-input-group">
+            <input type="text" id="verifyCodeInput" placeholder="Pega tu código" maxlength="6">
           </div>
 
-          <div class="auth-field">
-            <label>Confirmar Contraseña</label>
-            <input type="password" id="registerConfirm" placeholder="Repite tu contraseña" required>
-          </div>
+          <div class="auth-error" id="verifyError"></div>
 
-          <button type="submit" class="auth-btn auth-btn-primary">Crear Cuenta</button>
-        </form>
+          <button class="auth-btn auth-btn-primary" id="verifyBtn">Verificar Cuenta</button>
+          <div style="text-align:center;margin-top:16px;">
+            <button onclick="localStorage.removeItem('foxnet_unverified');location.reload();" style="background:none;border:none;color:var(--silver);font-size:13px;cursor:pointer;">Cancelar y volver</button>
+          </div>
+        </div>
+
+        <!-- Step 3: Success -->
+        <div id="step3" class="verify-success">
+          <div class="verify-success-icon">✅</div>
+          <div class="verify-success-title">¡Cuenta Verificada!</div>
+          <div class="verify-success-text">Tu cuenta ha sido activada correctamente.<br>Ahora puedes iniciar sesión.</div>
+          <a href="login.html" class="auth-btn auth-btn-primary" style="display:inline-block;text-decoration:none;width:auto;padding:14px 40px;">Ir a Iniciar Sesión</a>
+        </div>
       </div>
 
-      <div class="auth-footer">
+      <div class="auth-footer" id="authFooter">
         <span class="auth-footer-text">¿Ya tienes cuenta? </span>
         <a href="login.html" class="auth-footer-link">Inicia sesión</a>
       </div>
@@ -240,8 +412,17 @@
   </div>
 
   <script>
+    var step1 = document.getElementById('step1');
+    var step2 = document.getElementById('step2');
+    var step3 = document.getElementById('step3');
     var registerForm = document.getElementById('registerForm');
     var registerError = document.getElementById('registerError');
+    var verifyError = document.getElementById('verifyError');
+    var verifyCodeDisplay = document.getElementById('verifyCodeDisplay');
+    var verifyEmailDisplay = document.getElementById('verifyEmailDisplay');
+    var verifyCodeInput = document.getElementById('verifyCodeInput');
+    var verifyBtn = document.getElementById('verifyBtn');
+    var authFooter = document.getElementById('authFooter');
 
     function getUsers() {
       return JSON.parse(localStorage.getItem('foxnet_users') || '{}');
@@ -251,40 +432,50 @@
       localStorage.setItem('foxnet_users', JSON.stringify(users));
     }
 
-    function setCurrentUser(email) {
-      localStorage.setItem('foxnet_current', email);
+    function getUnverified() {
+      return JSON.parse(localStorage.getItem('foxnet_unverified') || '{}');
     }
 
-    function showError(msg) {
-      registerError.textContent = msg;
-      registerError.classList.add('show');
+    function saveUnverified(data) {
+      localStorage.setItem('foxnet_unverified', JSON.stringify(data));
     }
 
-    function hideError() {
-      registerError.classList.remove('show');
+    function generateCode() {
+      return Math.floor(100000 + Math.random() * 900000).toString();
     }
 
-    // Check if already logged in — show message instead of silent redirect
+    function showError(el, msg) {
+      el.textContent = msg;
+      el.classList.add('show');
+    }
+
+    function hideError(el) {
+      el.classList.remove('show');
+    }
+
+    function showStep(n) {
+      step1.style.display = n === 1 ? 'block' : 'none';
+      step2.style.display = n === 2 ? 'block' : 'none';
+      step2.className = n === 2 ? 'verify-screen active' : 'verify-screen';
+      step3.style.display = n === 3 ? 'block' : 'none';
+      step3.className = n === 3 ? 'verify-success active' : 'verify-success';
+      authFooter.style.display = n === 1 ? 'block' : 'none';
+    }
+
+    // Check if there's an unverified user pending
     (function() {
-      var currentEmail = localStorage.getItem('foxnet_current');
-      if (currentEmail) {
-        var users = JSON.parse(localStorage.getItem('foxnet_users') || '{}');
-        var user = users[currentEmail];
-        var name = user ? user.name : currentEmail;
-        var form = document.getElementById('registerForm');
-        form.innerHTML = '<div style="text-align:center;padding:20px 0;">' +
-          '<div style="font-size:48px;margin-bottom:16px;">🦊</div>' +
-          '<div style="font-size:18px;font-weight:700;color:#fff;margin-bottom:8px;">Ya tienes una cuenta</div>' +
-          '<div style="font-size:14px;color:#888;margin-bottom:24px;">Conectado como <strong style="color:#ff003c;">' + name + '</strong></div>' +
-          '<a href="index.html" style="display:inline-block;padding:12px 32px;background:linear-gradient(135deg,#ff003c,#cc0030);color:#fff;border-radius:10px;font-weight:700;text-decoration:none;">Ir a Fox Net</a>' +
-          '<div style="margin-top:16px;"><button onclick="localStorage.removeItem(\'foxnet_current\');location.reload();" style="background:none;border:none;color:#888;font-size:13px;cursor:pointer;">¿Crear otra cuenta? Cierra sesión primero</button></div>' +
-          '</div>';
+      var unverified = getUnverified();
+      if (unverified.code && unverified.name) {
+        verifyCodeDisplay.textContent = unverified.code;
+        verifyEmailDisplay.textContent = unverified.email;
+        showStep(2);
       }
     })();
 
+    // Step 1: Register
     registerForm.addEventListener('submit', function(e) {
       e.preventDefault();
-      hideError();
+      hideError(registerError);
 
       var name = document.getElementById('registerName').value.trim();
       var email = document.getElementById('registerEmail').value.trim().toLowerCase();
@@ -292,36 +483,77 @@
       var confirm = document.getElementById('registerConfirm').value;
 
       if (name.length < 2) {
-        showError('El nombre debe tener al menos 2 caracteres.');
+        showError(registerError, 'El nombre debe tener al menos 2 caracteres.');
         return;
       }
 
       if (password.length < 6) {
-        showError('La contraseña debe tener al menos 6 caracteres.');
+        showError(registerError, 'La contraseña debe tener al menos 6 caracteres.');
         return;
       }
 
       if (password !== confirm) {
-        showError('Las contraseñas no coinciden.');
+        showError(registerError, 'Las contraseñas no coinciden.');
         return;
       }
 
       var users = getUsers();
       if (users[email]) {
-        showError('Ya existe una cuenta con este correo. Inicia sesión.');
+        showError(registerError, 'Ya existe una cuenta con este correo. Inicia sesión.');
         return;
       }
 
-      users[email] = {
+      // Generate verification code
+      var code = generateCode();
+      saveUnverified({
         name: name,
         email: email,
         password: password,
+        code: code,
         created: new Date().toISOString()
+      });
+
+      verifyCodeDisplay.textContent = code;
+      verifyEmailDisplay.textContent = email;
+      showStep(2);
+    });
+
+    // Step 2: Verify code
+    verifyBtn.addEventListener('click', function() {
+      hideError(verifyError);
+      var inputCode = verifyCodeInput.value.trim();
+      var unverified = getUnverified();
+
+      if (!inputCode) {
+        showError(verifyError, 'Ingresa el código de verificación.');
+        return;
+      }
+
+      if (inputCode !== unverified.code) {
+        showError(verifyError, 'Código incorrecto. Intenta de nuevo.');
+        return;
+      }
+
+      // Code correct — activate account
+      var users = getUsers();
+      users[unverified.email] = {
+        name: unverified.name,
+        email: unverified.email,
+        password: unverified.password,
+        verified: true,
+        created: unverified.created
       };
 
       saveUsers(users);
-      setCurrentUser(email);
-      window.location.href = 'index.html';
+      localStorage.removeItem('foxnet_unverified');
+      showStep(3);
+    });
+
+    // Allow paste
+    verifyCodeInput.addEventListener('paste', function(e) {
+      setTimeout(function() {
+        verifyCodeInput.value = verifyCodeInput.value.replace(/\s/g, '').substring(0, 6);
+      }, 100);
     });
   </script>
 </body>

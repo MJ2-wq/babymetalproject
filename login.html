@@ -309,7 +309,7 @@
 
     loginForm.addEventListener('submit', function(e) {
       e.preventDefault();
-      hideError();
+      hideError(loginError);
 
       var email = document.getElementById('loginEmail').value.trim().toLowerCase();
       var password = document.getElementById('loginPassword').value;
@@ -317,6 +317,11 @@
 
       if (!users[email]) {
         showError('No existe una cuenta con este correo. Regístrate primero.');
+        return;
+      }
+
+      if (users[email].verified === false) {
+        showError('Tu cuenta no está verificada. Revisa tu correo para el código de verificación.');
         return;
       }
 
