@@ -1725,14 +1725,14 @@
   </div>
 
   <script>
-    // ========== CHATBOT AI ==========
-    const chatFab = document.getElementById('chatFab');
-    const chatWindow = document.getElementById('chatWindow');
-    const chatClose = document.getElementById('chatClose');
-    const chatMessages = document.getElementById('chatMessages');
-    const chatInput = document.getElementById('chatInput');
-    const chatSend = document.getElementById('chatSend');
-    const chatSuggestions = document.getElementById('chatSuggestions');
+    document.addEventListener('DOMContentLoaded', function() {
+      var chatFab = document.getElementById('chatFab');
+      var chatWindow = document.getElementById('chatWindow');
+      var chatClose = document.getElementById('chatClose');
+      var chatMessages = document.getElementById('chatMessages');
+      var chatInput = document.getElementById('chatInput');
+      var chatSend = document.getElementById('chatSend');
+      var chatSuggestions = document.getElementById('chatSuggestions');
 
     const botResponses = {
       // ========== BABYMETAL INFO ==========
@@ -1952,6 +1952,7 @@
         ring.classList.remove('seen');
         ring.style.background = 'linear-gradient(135deg, var(--red), #ff6b6b, var(--red))';
       });
+    });
     });
   </script>
 
