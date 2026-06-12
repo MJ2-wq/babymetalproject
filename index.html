@@ -209,9 +209,9 @@
     /* ========== LAYOUT ========== */
     .layout {
       display: grid;
-      grid-template-columns: 280px 1fr 320px;
+      grid-template-columns: 260px 1fr 340px;
       gap: 24px;
-      max-width: 1280px;
+      max-width: 1320px;
       margin: 80px auto 0;
       padding: 24px 20px;
     }
@@ -231,6 +231,17 @@
       position: sticky;
       top: 84px;
       height: fit-content;
+    }
+
+    /* ========== SIDE MENU (in right sidebar) ========== */
+    .side-menu {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 8px;
+      margin-bottom: 20px;
+      position: sticky;
+      top: 84px;
     }
 
     .profile-card {
@@ -1494,30 +1505,6 @@
           </div>
         </div>
       </div>
-
-      <nav class="side-menu">
-        <a href="index.html" class="side-menu-item active">
-          <span class="icon">🏠</span> Inicio
-        </a>
-        <div class="side-menu-item">
-          <span class="icon">🔥</span> Tendencias
-        </div>
-        <div class="side-menu-item">
-          <span class="icon">👤</span> Mi Perfil
-        </div>
-        <div class="side-menu-item">
-          <span class="icon">🦊</span> The One Community
-        </div>
-        <div class="side-menu-item">
-          <span class="icon">🎮</span> Kitsune Arcade
-        </div>
-        <div class="side-menu-item">
-          <span class="icon">⚙️</span> Configuración
-        </div>
-        <div class="side-menu-item" id="sidebarLogout" style="color:#ff6b6b;display:none;">
-          <span class="icon">🚪</span> Cerrar Sesión
-        </div>
-      </nav>
     </aside>
 
     <!-- MAIN FEED -->
@@ -1759,6 +1746,31 @@
 
     <!-- SIDEBAR RIGHT -->
     <aside class="sidebar-right">
+
+      <!-- Menú lateral -->
+      <nav class="side-menu">
+        <a href="index.html" class="side-menu-item active">
+          <span class="icon">🏠</span> Inicio
+        </a>
+        <div class="side-menu-item">
+          <span class="icon">🔥</span> Tendencias
+        </div>
+        <div class="side-menu-item">
+          <span class="icon">👤</span> Mi Perfil
+        </div>
+        <div class="side-menu-item">
+          <span class="icon">🦊</span> The One Community
+        </div>
+        <div class="side-menu-item">
+          <span class="icon">🎮</span> Kitsune Arcade
+        </div>
+        <div class="side-menu-item">
+          <span class="icon">⚙️</span> Configuración
+        </div>
+        <div class="side-menu-item" id="sidebarLogout" style="color:#ff6b6b;display:none;">
+          <span class="icon">🚪</span> Cerrar Sesión
+        </div>
+      </nav>
 
       <!-- Tendencias -->
       <div class="trending-box">
