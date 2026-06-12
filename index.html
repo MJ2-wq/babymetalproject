@@ -1296,8 +1296,171 @@
       color: var(--red);
     }
 
+    .post-action-btn.retweeted {
+      color: #00c853;
+    }
+
     .post-action-btn .icon {
       font-size: 18px;
+      transition: transform 0.2s ease;
+    }
+
+    .post-action-btn:active .icon {
+      transform: scale(1.3);
+    }
+
+    .post-action-count {
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* Comment Section */
+    .post-comments {
+      display: none;
+      border-top: 1px solid var(--line);
+      padding: 12px 16px;
+    }
+
+    .post-comments.show {
+      display: block;
+    }
+
+    .comment-item {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .comment-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--surface-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .comment-body {
+      flex: 1;
+    }
+
+    .comment-user {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .comment-text {
+      font-size: 13px;
+      color: var(--silver-light);
+      margin-top: 2px;
+    }
+
+    .comment-time {
+      font-size: 11px;
+      color: var(--silver);
+      margin-top: 4px;
+    }
+
+    .comment-input-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .comment-input {
+      flex: 1;
+      padding: 10px 14px;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      color: var(--white);
+      font-size: 13px;
+      font-family: var(--font-body);
+    }
+
+    .comment-input:focus {
+      outline: none;
+      border-color: var(--red);
+    }
+
+    .comment-send {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--red);
+      border: none;
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Search */
+    .search-results {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 0 0 12px 12px;
+      max-height: 400px;
+      overflow-y: auto;
+      z-index: 1000;
+    }
+
+    .search-results.show {
+      display: block;
+    }
+
+    .search-result-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .search-result-item:hover {
+      background: var(--surface-2);
+    }
+
+    .search-result-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--surface-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .search-result-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .search-result-handle {
+      font-size: 12px;
+      color: var(--silver);
+    }
+
+    .search-empty {
+      padding: 24px;
+      text-align: center;
+      color: var(--silver);
+      font-size: 14px;
     }
 
     /* ========== SIDEBAR RIGHT ========== */
@@ -1809,9 +1972,10 @@
         <span class="fox">🦊</span>
         FOX <span class="net">NET</span>
       </a>
-      <div class="search-box">
+      <div class="search-box" style="position:relative;">
         <span class="search-icon">🔍</span>
-        <input type="text" placeholder="Buscar en Fox Net...">
+        <input type="text" placeholder="Buscar en Fox Net..." id="searchInput" autocomplete="off">
+        <div class="search-results" id="searchResults"></div>
       </div>
     </div>
     <div class="header-nav">
@@ -1982,7 +2146,7 @@
       </div>
 
       <!-- Post 1 -->
-      <article class="post-card">
+      <article class="post-card" data-post-id="1">
         <div class="post-header">
           <div class="post-avatar"><img src="assets/su-metal.webp" alt="SU-METAL"></div>
           <div class="post-user-info">
@@ -2005,25 +2169,33 @@
               <span class="reaction-icon r-love">❤️</span>
               <span class="reaction-icon r-fire">🔥</span>
             </div>
-            <span>0</span>
+            <span class="like-count">0</span>
           </div>
-          <span>0 comentarios · 0 compartidos</span>
+          <span class="comment-count-text">0 comentarios · <span class="share-count">0</span> compartidos</span>
         </div>
         <div class="post-actions">
-          <button class="post-action-btn">
-            <span class="icon">🤍</span> Me gusta
+          <button class="post-action-btn like-btn" data-liked="false">
+            <span class="icon">🤍</span> <span class="action-label">Me gusta</span>
           </button>
-          <button class="post-action-btn">
+          <button class="post-action-btn comment-toggle-btn">
             <span class="icon">💬</span> Comentar
           </button>
-          <button class="post-action-btn">
-            <span class="icon">🔄</span> Compartir
+          <button class="post-action-btn retweet-btn" data-retweeted="false">
+            <span class="icon">🔄</span> <span class="action-label">Compartir</span>
           </button>
+        </div>
+        <div class="post-comments">
+          <div class="comment-list"></div>
+          <div class="comment-input-row">
+            <div class="comment-avatar">🦊</div>
+            <input class="comment-input" placeholder="Escribe un comentario..." maxlength="200">
+            <button class="comment-send">➤</button>
+          </div>
         </div>
       </article>
 
       <!-- Post 2 -->
-      <article class="post-card">
+      <article class="post-card" data-post-id="2">
         <div class="post-header">
           <div class="post-avatar"><img src="assets/moametal.jpg" alt="MOAMETAL"></div>
           <div class="post-user-info">
@@ -2045,25 +2217,33 @@
               <span class="reaction-icon r-like">👍</span>
               <span class="reaction-icon r-love">❤️</span>
             </div>
-            <span>0</span>
+            <span class="like-count">0</span>
           </div>
-          <span>0 comentarios · 0 compartidos</span>
+          <span class="comment-count-text">0 comentarios · <span class="share-count">0</span> compartidos</span>
         </div>
         <div class="post-actions">
-          <button class="post-action-btn">
-            <span class="icon">🤍</span> Me gusta
+          <button class="post-action-btn like-btn" data-liked="false">
+            <span class="icon">🤍</span> <span class="action-label">Me gusta</span>
           </button>
-          <button class="post-action-btn">
+          <button class="post-action-btn comment-toggle-btn">
             <span class="icon">💬</span> Comentar
           </button>
-          <button class="post-action-btn">
-            <span class="icon">🔄</span> Compartir
+          <button class="post-action-btn retweet-btn" data-retweeted="false">
+            <span class="icon">🔄</span> <span class="action-label">Compartir</span>
           </button>
+        </div>
+        <div class="post-comments">
+          <div class="comment-list"></div>
+          <div class="comment-input-row">
+            <div class="comment-avatar">🦊</div>
+            <input class="comment-input" placeholder="Escribe un comentario..." maxlength="200">
+            <button class="comment-send">➤</button>
+          </div>
         </div>
       </article>
 
       <!-- Post 3 -->
-      <article class="post-card">
+      <article class="post-card" data-post-id="3">
         <div class="post-header">
           <div class="post-avatar"><img src="assets/momometal.webp" alt="MOMOMETAL"></div>
           <div class="post-user-info">
@@ -2086,25 +2266,33 @@
               <span class="reaction-icon r-love">❤️</span>
               <span class="reaction-icon r-fire">🔥</span>
             </div>
-            <span>0</span>
+            <span class="like-count">0</span>
           </div>
-          <span>0 comentarios · 0 compartidos</span>
+          <span class="comment-count-text">0 comentarios · <span class="share-count">0</span> compartidos</span>
         </div>
         <div class="post-actions">
-          <button class="post-action-btn">
-            <span class="icon">🤍</span> Me gusta
+          <button class="post-action-btn like-btn" data-liked="false">
+            <span class="icon">🤍</span> <span class="action-label">Me gusta</span>
           </button>
-          <button class="post-action-btn">
+          <button class="post-action-btn comment-toggle-btn">
             <span class="icon">💬</span> Comentar
           </button>
-          <button class="post-action-btn">
-            <span class="icon">🔄</span> Compartir
+          <button class="post-action-btn retweet-btn" data-retweeted="false">
+            <span class="icon">🔄</span> <span class="action-label">Compartir</span>
           </button>
+        </div>
+        <div class="post-comments">
+          <div class="comment-list"></div>
+          <div class="comment-input-row">
+            <div class="comment-avatar">🦊</div>
+            <input class="comment-input" placeholder="Escribe un comentario..." maxlength="200">
+            <button class="comment-send">➤</button>
+          </div>
         </div>
       </article>
 
       <!-- Post 4 - Fan Post -->
-      <article class="post-card">
+      <article class="post-card" data-post-id="4">
         <div class="post-header">
           <div class="post-avatar">🤘</div>
           <div class="post-user-info">
@@ -2122,20 +2310,28 @@
               <span class="reaction-icon r-like">👍</span>
               <span class="reaction-icon r-love">❤️</span>
             </div>
-            <span>0</span>
+            <span class="like-count">0</span>
           </div>
-          <span>0 comentarios · 0 compartidos</span>
+          <span class="comment-count-text">0 comentarios · <span class="share-count">0</span> compartidos</span>
         </div>
         <div class="post-actions">
-          <button class="post-action-btn">
-            <span class="icon">🤍</span> Me gusta
+          <button class="post-action-btn like-btn" data-liked="false">
+            <span class="icon">🤍</span> <span class="action-label">Me gusta</span>
           </button>
-          <button class="post-action-btn">
+          <button class="post-action-btn comment-toggle-btn">
             <span class="icon">💬</span> Comentar
           </button>
-          <button class="post-action-btn">
-            <span class="icon">🔄</span> Compartir
+          <button class="post-action-btn retweet-btn" data-retweeted="false">
+            <span class="icon">🔄</span> <span class="action-label">Compartir</span>
           </button>
+        </div>
+        <div class="post-comments">
+          <div class="comment-list"></div>
+          <div class="comment-input-row">
+            <div class="comment-avatar">🦊</div>
+            <input class="comment-input" placeholder="Escribe un comentario..." maxlength="200">
+            <button class="comment-send">➤</button>
+          </div>
         </div>
       </article>
 
@@ -2339,6 +2535,42 @@
 
   </div>
 
+  <!-- ========== PRIVATE CHAT MODAL ========== -->
+  <div class="chat-private-modal" id="chatPrivateModal" style="display:none;position:fixed;bottom:90px;right:24px;width:380px;height:500px;background:var(--surface);border:1px solid var(--line);border-radius:16px;z-index:9998;flex-direction:column;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.6);">
+    <div style="padding:14px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:36px;height:36px;border-radius:50%;background:var(--surface-2);display:flex;align-items:center;justify-content:center;font-size:16px;">🦊</div>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:var(--white);" id="chatPrivateName">-</div>
+          <div style="font-size:11px;color:#00c853;">En línea</div>
+        </div>
+      </div>
+      <button onclick="document.getElementById('chatPrivateModal').style.display='none'" style="background:none;border:none;color:var(--silver);font-size:18px;cursor:pointer;">✕</button>
+    </div>
+    <div id="chatPrivateMessages" style="flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:8px;"></div>
+    <div style="padding:12px 16px;border-top:1px solid var(--line);display:flex;gap:8px;">
+      <input id="chatPrivateInput" placeholder="Escribe un mensaje..." style="flex:1;padding:10px 14px;background:var(--surface-2);border:1px solid var(--line);border-radius:20px;color:var(--white);font-size:13px;font-family:var(--font-body);">
+      <button id="chatPrivateSend" style="width:36px;height:36px;border-radius:50%;background:var(--red);border:none;color:#fff;font-size:14px;cursor:pointer;">➤</button>
+    </div>
+  </div>
+
+  <!-- ========== PROFILE PHOTO MODAL ========== -->
+  <div class="profile-photo-modal" id="profilePhotoModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9998;align-items:center;justify-content:center;padding:20px;">
+    <div style="background:var(--surface);border:1px solid var(--line);border-radius:16px;width:100%;max-width:400px;overflow:hidden;">
+      <div style="padding:16px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;">
+        <h3 style="font-size:16px;font-weight:700;color:var(--white);">Foto de Perfil</h3>
+        <button onclick="document.getElementById('profilePhotoModal').style.display='none'" style="background:none;border:none;color:var(--silver);font-size:18px;cursor:pointer;">✕</button>
+      </div>
+      <div style="padding:24px 20px;text-align:center;">
+        <div id="profilePhotoPreview" style="width:120px;height:120px;border-radius:50%;background:var(--surface-2);border:3px solid var(--line);margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:48px;overflow:hidden;">🦊</div>
+        <input type="file" id="profilePhotoInput" accept="image/*" style="display:none;">
+        <button onclick="document.getElementById('profilePhotoInput').click()" style="padding:12px 24px;background:var(--surface-2);border:1px solid var(--line);border-radius:10px;color:var(--white);font-size:14px;font-weight:600;cursor:pointer;margin-bottom:12px;">📸 Seleccionar foto</button>
+        <div style="font-size:12px;color:var(--silver);margin-bottom:20px;">JPG, PNG o GIF. Máximo 2MB.</div>
+        <button id="profilePhotoSave" style="width:100%;padding:14px;background:linear-gradient(135deg,var(--red),#cc0030);border:none;border-radius:10px;color:#fff;font-size:15px;font-weight:700;cursor:pointer;">Guardar Foto</button>
+      </div>
+    </div>
+  </div>
+
   <!-- ========== CHATBOT AI ========== -->
   <button class="chatbot-fab" id="chatFab" title="Kitsune AI">🦊</button>
 
@@ -2521,22 +2753,289 @@
       });
     });
 
-    // Like button toggle
-    document.querySelectorAll('.post-action-btn').forEach(btn => {
-      if (btn.textContent.includes('Me gusta')) {
-        btn.addEventListener('click', () => {
-          btn.classList.toggle('liked');
-          const icon = btn.querySelector('.icon');
-          icon.textContent = btn.classList.contains('liked') ? '❤️' : '🤍';
+    // ========== POST INTERACTIONS ==========
+    function getPostData() {
+      return JSON.parse(localStorage.getItem('foxnet_posts') || '{}');
+    }
+
+    function savePostData(data) {
+      localStorage.setItem('foxnet_posts', JSON.stringify(data));
+    }
+
+    // Like
+    document.querySelectorAll('.like-btn').forEach(function(btn) {
+      var postId = btn.closest('.post-card').dataset.postId;
+      var postData = getPostData();
+      if (postData[postId] && postData[postId].liked) {
+        btn.dataset.liked = 'true';
+        btn.querySelector('.icon').textContent = '❤️';
+        btn.classList.add('liked');
+      }
+      var countEl = btn.closest('.post-card').querySelector('.like-count');
+      if (postData[postId] && postData[postId].likes) {
+        countEl.textContent = postData[postId].likes;
+      }
+
+      btn.addEventListener('click', function() {
+        var email = localStorage.getItem('foxnet_current');
+        if (!email) { alert('Inicia sesión para dar me gusta.'); return; }
+        var pd = getPostData();
+        if (!pd[postId]) pd[postId] = { likes: 0, shares: 0, comments: [], liked: false, retweeted: false };
+        if (btn.dataset.liked === 'true') {
+          btn.dataset.liked = 'false';
+          btn.querySelector('.icon').textContent = '🤍';
+          btn.classList.remove('liked');
+          pd[postId].likes = Math.max(0, pd[postId].likes - 1);
+          pd[postId].liked = false;
+        } else {
+          btn.dataset.liked = 'true';
+          btn.querySelector('.icon').textContent = '❤️';
+          btn.classList.add('liked');
+          pd[postId].likes += 1;
+          pd[postId].liked = true;
+        }
+        countEl.textContent = pd[postId].likes;
+        savePostData(pd);
+      });
+    });
+
+    // Retweet/Share
+    document.querySelectorAll('.retweet-btn').forEach(function(btn) {
+      var postId = btn.closest('.post-card').dataset.postId;
+      var postData = getPostData();
+      if (postData[postId] && postData[postId].retweeted) {
+        btn.dataset.retweeted = 'true';
+        btn.querySelector('.icon').textContent = '✅';
+        btn.querySelector('.action-label').textContent = 'Compartido';
+        btn.classList.add('retweeted');
+      }
+      var countEl = btn.closest('.post-card').querySelector('.share-count');
+      if (postData[postId] && postData[postId].shares) {
+        countEl.textContent = postData[postId].shares;
+      }
+
+      btn.addEventListener('click', function() {
+        var email = localStorage.getItem('foxnet_current');
+        if (!email) { alert('Inicia sesión para compartir.'); return; }
+        var pd = getPostData();
+        if (!pd[postId]) pd[postId] = { likes: 0, shares: 0, comments: [], liked: false, retweeted: false };
+        if (btn.dataset.retweeted === 'true') {
+          btn.dataset.retweeted = 'false';
+          btn.querySelector('.icon').textContent = '🔄';
+          btn.querySelector('.action-label').textContent = 'Compartir';
+          btn.classList.remove('retweeted');
+          pd[postId].shares = Math.max(0, pd[postId].shares - 1);
+          pd[postId].retweeted = false;
+        } else {
+          btn.dataset.retweeted = 'true';
+          btn.querySelector('.icon').textContent = '✅';
+          btn.querySelector('.action-label').textContent = 'Compartido';
+          btn.classList.add('retweeted');
+          pd[postId].shares += 1;
+          pd[postId].retweeted = true;
+        }
+        countEl.textContent = pd[postId].shares;
+        savePostData(pd);
+      });
+    });
+
+    // Comment toggle
+    document.querySelectorAll('.comment-toggle-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var comments = btn.closest('.post-card').querySelector('.post-comments');
+        comments.classList.toggle('show');
+        if (comments.classList.contains('show')) {
+          comments.querySelector('.comment-input').focus();
+        }
+      });
+    });
+
+    // Send comment
+    document.querySelectorAll('.comment-send').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var email = localStorage.getItem('foxnet_current');
+        if (!email) { alert('Inicia sesión para comentar.'); return; }
+        var users = JSON.parse(localStorage.getItem('foxnet_users') || '{}');
+        var user = users[email];
+        var input = btn.closest('.comment-input-row').querySelector('.comment-input');
+        var text = input.value.trim();
+        if (!text) return;
+
+        var postId = btn.closest('.post-card').dataset.postId;
+        var pd = getPostData();
+        if (!pd[postId]) pd[postId] = { likes: 0, shares: 0, comments: [], liked: false, retweeted: false };
+        var comment = { user: user.name, text: text, time: 'Ahora' };
+        pd[postId].comments.push(comment);
+        savePostData(pd);
+
+        var list = btn.closest('.post-comments').querySelector('.comment-list');
+        var div = document.createElement('div');
+        div.className = 'comment-item';
+        div.innerHTML = '<div class="comment-avatar">🦊</div><div class="comment-body"><div class="comment-user">' + user.name + '</div><div class="comment-text">' + text + '</div><div class="comment-time">Ahora</div></div>';
+        list.appendChild(div);
+        input.value = '';
+      });
+    });
+
+    // Load existing comments
+    document.querySelectorAll('.post-card').forEach(function(card) {
+      var postId = card.dataset.postId;
+      var pd = getPostData();
+      if (pd[postId] && pd[postId].comments) {
+        var list = card.querySelector('.comment-list');
+        pd[postId].comments.forEach(function(c) {
+          var div = document.createElement('div');
+          div.className = 'comment-item';
+          div.innerHTML = '<div class="comment-avatar">🦊</div><div class="comment-body"><div class="comment-user">' + c.user + '</div><div class="comment-text">' + c.text + '</div><div class="comment-time">' + c.time + '</div></div>';
+          list.appendChild(div);
         });
       }
     });
 
+    // Enter to send comment
+    document.querySelectorAll('.comment-input').forEach(function(input) {
+      input.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          input.closest('.comment-input-row').querySelector('.comment-send').click();
+        }
+      });
+    });
+
     // Follow button toggle
-    document.querySelectorAll('.follow-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
+    document.querySelectorAll('.follow-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
         btn.classList.toggle('following');
         btn.textContent = btn.classList.contains('following') ? 'Siguiendo' : 'Seguir';
+      });
+    });
+
+    // ========== SEARCH ==========
+    var searchInput = document.getElementById('searchInput');
+    var searchResults = document.getElementById('searchResults');
+    var searchableUsers = [
+      { name: 'SU-METAL', handle: '@su_metal', avatar: 'assets/su-metal.webp', type: 'user' },
+      { name: 'MOAMETAL', handle: '@moametal', avatar: 'assets/moametal.jpg', type: 'user' },
+      { name: 'MOMOMETAL', handle: '@momometal', avatar: 'assets/momometal.webp', type: 'user' },
+      { name: 'Babymetal_JP', handle: '@babymetal_jp', avatar: '🎤', type: 'user' },
+      { name: 'MetalResistance', handle: '@metalresistance', avatar: '🎸', type: 'user' },
+      { name: 'FoxGodOfficial', handle: '@foxgod', avatar: '🤘', type: 'user' },
+      { name: 'Kamishibai Band', handle: '@kamishibai_band', avatar: '🎸', type: 'user' },
+      { name: 'The One LATAM', handle: '@theone_latam', avatar: '🎤', type: 'user' },
+      { name: 'Kitsune Network', handle: '@kitsune_network', avatar: '🦊', type: 'user' },
+      { name: 'Metal Drummers', handle: '@metal_drummers', avatar: '🥁', type: 'user' }
+    ];
+    var searchableHashtags = [
+      { name: '#BABYMETAL', handle: 'Tendencia musical', avatar: '🔥', type: 'hashtag' },
+      { name: '#MetalResistance', handle: 'Tendencia', avatar: '🤘', type: 'hashtag' },
+      { name: '#FoxGod', handle: 'Fox God', avatar: '🦊', type: 'hashtag' },
+      { name: '#KawaiiMetal', handle: 'Género musical', avatar: '🎀', type: 'hashtag' },
+      { name: '#WorldTour2026', handle: 'Gira mundial', avatar: '🌍', type: 'hashtag' },
+      { name: '#TheOne', handle: 'Comunidad', avatar: '⚡', type: 'hashtag' }
+    ];
+
+    searchInput.addEventListener('input', function() {
+      var q = searchInput.value.trim().toLowerCase();
+      if (q.length < 2) { searchResults.classList.remove('show'); return; }
+      var results = searchableUsers.concat(searchableHashtags).filter(function(item) {
+        return item.name.toLowerCase().indexOf(q) !== -1 || item.handle.toLowerCase().indexOf(q) !== -1;
+      });
+      if (results.length === 0) {
+        searchResults.innerHTML = '<div class="search-empty">No se encontraron resultados</div>';
+      } else {
+        searchResults.innerHTML = results.map(function(r) {
+          var avatarContent = r.avatar.includes('/') ? '<img src="' + r.avatar + '" style="width:100%;height:100%;object-fit:cover;">' : r.avatar;
+          return '<div class="search-result-item"><div class="search-result-avatar">' + avatarContent + '</div><div><div class="search-result-name">' + r.name + '</div><div class="search-result-handle">' + r.handle + '</div></div></div>';
+        }).join('');
+      }
+      searchResults.classList.add('show');
+    });
+
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.search-box')) {
+        searchResults.classList.remove('show');
+      }
+    });
+
+    // ========== PRIVATE CHAT ==========
+    var chatPrivateModal = document.getElementById('chatPrivateModal');
+    var chatPrivateName = document.getElementById('chatPrivateName');
+    var chatPrivateMessages = document.getElementById('chatPrivateMessages');
+    var chatPrivateInput = document.getElementById('chatPrivateInput');
+    var chatPrivateSend = document.getElementById('chatPrivateSend');
+    var currentChatUser = null;
+
+    function openPrivateChat(userName) {
+      currentChatUser = userName;
+      chatPrivateName.textContent = userName;
+      chatPrivateMessages.innerHTML = '';
+      var key = 'foxnet_chat_' + localStorage.getItem('foxnet_current') + '_' + userName;
+      var messages = JSON.parse(localStorage.getItem(key) || '[]');
+      messages.forEach(function(m) {
+        var div = document.createElement('div');
+        div.style.cssText = 'max-width:80%;padding:10px 14px;border-radius:12px;font-size:13px;' + (m.from === 'me' ? 'background:var(--red);color:#fff;align-self:flex-end;border-bottom-right-radius:4px;' : 'background:var(--surface-2);color:var(--white);align-self:flex-start;border-bottom-left-radius:4px;');
+        div.textContent = m.text;
+        chatPrivateMessages.appendChild(div);
+      });
+      chatPrivateMessages.scrollTop = chatPrivateMessages.scrollHeight;
+      chatPrivateModal.style.display = 'flex';
+    }
+
+    chatPrivateSend.addEventListener('click', function() {
+      var text = chatPrivateInput.value.trim();
+      if (!text || !currentChatUser) return;
+      var email = localStorage.getItem('foxnet_current');
+      var key = 'foxnet_chat_' + email + '_' + currentChatUser;
+      var messages = JSON.parse(localStorage.getItem(key) || '[]');
+      messages.push({ from: 'me', text: text, time: Date.now() });
+      localStorage.setItem(key, JSON.stringify(messages));
+      var div = document.createElement('div');
+      div.style.cssText = 'max-width:80%;padding:10px 14px;border-radius:12px;font-size:13px;background:var(--red);color:#fff;align-self:flex-end;border-bottom-right-radius:4px;';
+      div.textContent = text;
+      chatPrivateMessages.appendChild(div);
+      chatPrivateInput.value = '';
+      chatPrivateMessages.scrollTop = chatPrivateMessages.scrollHeight;
+    });
+
+    chatPrivateInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') chatPrivateSend.click();
+    });
+
+    // ========== PROFILE PHOTO ==========
+    var profilePhotoModal = document.getElementById('profilePhotoModal');
+    var profilePhotoPreview = document.getElementById('profilePhotoPreview');
+    var profilePhotoInput = document.getElementById('profilePhotoInput');
+    var profilePhotoSave = document.getElementById('profilePhotoSave');
+
+    // Load saved photo
+    var savedPhoto = localStorage.getItem('foxnet_profile_photo');
+    if (savedPhoto) {
+      profilePhotoPreview.innerHTML = '<img src="' + savedPhoto + '" style="width:100%;height:100%;object-fit:cover;">';
+    }
+
+    profilePhotoInput.addEventListener('change', function(e) {
+      var file = e.target.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function(ev) {
+        profilePhotoPreview.innerHTML = '<img src="' + ev.target.result + '" style="width:100%;height:100%;object-fit:cover;">';
+        profilePhotoPreview.dataset.photo = ev.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    profilePhotoSave.addEventListener('click', function() {
+      var photo = profilePhotoPreview.dataset.photo;
+      if (photo) {
+        localStorage.setItem('foxnet_profile_photo', photo);
+        profilePhotoModal.style.display = 'none';
+      }
+    });
+
+    // Open profile photo modal from profile card
+    document.querySelectorAll('.profile-avatar').forEach(function(el) {
+      el.style.cursor = 'pointer';
+      el.addEventListener('click', function() {
+        profilePhotoModal.style.display = 'flex';
       });
     });
 
