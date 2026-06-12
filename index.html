@@ -2962,5 +2962,41 @@
     updateAuthUI();
   </script>
 
+  <!-- Tawk.to Live Chat Widget -->
+  <!-- PASO 1: Reemplaza TU_PROPERTY_ID con tu ID real de tawk.to -->
+  <!-- Ve a https://www.tawk.to/ → Crear cuenta → Admin → Admin → Copies → Widget Embed Code -->
+  <script>
+    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+    (function(){
+      var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+      s1.async = true;
+      s1.src = 'https://embed.tawk.to/TU_PROPERTY_ID/default';
+      s1.charset = 'UTF-8';
+      s1.setAttribute('crossorigin','*');
+      s0.parentNode.insertBefore(s1, s0);
+    })();
+  </script>
+  <!-- Tawk.to personalización: estilo oscuro para Fox Net -->
+  <script>
+    Tawk_API.onLoad = function(){
+      Tawk_API.setAttributes({
+        'name': 'Fox Net',
+        'sector': 'BABYMETAL Fan Community'
+      });
+    };
+    Tawk_API.visitor = {
+      name: localStorage.getItem('foxnet_current') || 'Fan Anónimo'
+    };
+  </script>
+  <style>
+    #tawkto-minified-widget {
+      border-radius: 12px !important;
+      overflow: hidden !important;
+    }
+    .widget-container {
+      border-radius: 12px !important;
+    }
+  </style>
+
 </body>
 </html>
