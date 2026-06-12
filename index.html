@@ -144,6 +144,38 @@
       background: var(--surface-2);
     }
 
+    .auth-btn-login,
+    .auth-btn-register {
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .auth-btn-login {
+      background: transparent;
+      border: 1px solid var(--red);
+      color: var(--red);
+    }
+
+    .auth-btn-login:hover {
+      background: var(--red-dim);
+    }
+
+    .auth-btn-register {
+      background: var(--red);
+      border: none;
+      color: #fff;
+    }
+
+    .auth-btn-register:hover {
+      background: #e60035;
+    }
+
     .nav-btn .badge {
       position: absolute;
       top: 4px;
@@ -1393,8 +1425,8 @@
       
       <!-- Not logged in -->
       <div id="authButtons" style="display:flex;gap:6px;">
-        <a href="login.html" style="padding:6px 16px;border-radius:20px;font-size:12px;font-weight:700;background:transparent;border:1px solid #ff003c;color:#ff003c;text-decoration:none;transition:all 0.2s ease;">Iniciar Sesión</a>
-        <a href="register.html" style="padding:6px 16px;border-radius:20px;font-size:12px;font-weight:700;background:#ff003c;border:none;color:#fff;text-decoration:none;transition:all 0.2s ease;">Registrarse</a>
+        <a href="login.html" class="auth-btn-login">Iniciar Sesión</a>
+        <a href="register.html" class="auth-btn-register">Registrarse</a>
       </div>
 
       <!-- Logged in - Twitter/X style -->
