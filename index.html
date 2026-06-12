@@ -2617,55 +2617,18 @@
       var chatSend = document.getElementById('chatSend');
       var chatSuggestions = document.getElementById('chatSuggestions');
 
-    const botResponses = {
-      // ========== BABYMETAL INFO ==========
-      "integrantes": "BABYMETAL está conformado por tres integrantes:\n\n🎤 <strong>SU-METAL</strong> (Suzuka Nakamoto)\n• Nacimiento: 20 dic 1997, Hiroshima\n• Rol: Voz principal y danza\n• Grupos anteriores: Karen Girl's, Sakura Gakuin\n\n💃 <strong>MOAMETAL</strong> (Moa Kikuchi)\n• Nacimiento: 4 jul 1999, Nagoya\n• Rol: Coros, danza y guitarra en vivo\n• Grupo anterior: Sakura Gakuin\n\n✨ <strong>MOMOMETAL</strong> (Momoko Okazaki)\n• Nacimiento: 3 mar 2003, Fukuoka\n• Rol: Coros y danza\n• Oficial desde 2023\n\nSon conocidas como la 'Trinidad Sagrada' del Dios Zorro. 🦊",
-
-      "discografia": "Discografía oficial de BABYMETAL:\n\n💿 <strong>Álbumes de estudio:</strong>\n1. BABYMETAL (2014)\n2. Metal Resistance (2016)\n3. Metal Galaxy (2019)\n4. THE OTHER ONE (2023)\n\n📀 <strong>Álbumes en vivo:</strong>\n• Live at Budokan (2015)\n• Live in London (2016)\n\n🎵 <strong>Singles destacados:</strong>\n• Gimme Chocolate!!\n• Megitsune\n• Road of Resistance\n• KARATE\n• Distortion\n• Starlight\n• Pa Pa Ya!!\n• Monochrome\n• RATATATA (w/ Electric Callboy)",
-
-      "canciones": "Las canciones más icónicas de BABYMETAL:\n\n1. 🍫 <strong>Gimme Chocolate!!</strong> - Hits mundial, +200M views\n2. 🦊 <strong>Megitsune</strong> - Himno del zorro\n3. ⚔️ <strong>Road of Resistance</strong> - Power metal épico\n4. 🥋 <strong>KARATE</strong> - Balada poderosa\n5. 🤘 <strong>Headbangeeeeerrrrr!!!!!</strong> - Clásico\n6. 🌟 <strong>The One</strong> - Himno de unión\n7. 🔥 <strong>PA PA YA!!</strong> - Energía pura\n8. 💫 <strong>Distortion</strong> - Sonido moderno\n9. 🎭 <strong>Shanti Shanti Shanti</strong> - Ritual\n10. 🌌 <strong>Monochrome</strong> - Balada emotiva\n11. ⚡ <strong>RATATATA</strong> - Colaboración con Electric Callboy",
-
-      "kawaii metal": "El <strong>Kawaii Metal</strong> es un género musical ÚNICO creado por BABYMETAL.\n\n🎸 <strong>Elementos del metal:</strong>\n• Guitarras pesadas y distorsionadas\n• Batería rápida (blast beats)\n• Riffs de power metal y thrash\n\n🎀 <strong>Elementos del pop:</strong>\n• Melodías dulces y pegadizas\n• Coreografías sincronizadas\n• Estética idol japonesa\n\n⚡ <strong>Influencias adicionales:</strong>\n• Electrónica y EDM\n• Folk japonés\n• Música clásica\n\n📖 Wikipedia lo define como: 'Un subgénero que fusiona el heavy metal con el J-pop idol, creado por BABYMETAL en 2010'.\n\nFuentes: Wikipedia, AllMusic, Metal Injection",
-
-      "fox god": "El <strong>Fox God (Dios Zorro / Kitsune-Sama)</strong> es la deidad protectora de BABYMETAL.\n\n🦊 <strong>Mitología:</strong>\n• Es una deidad del folclor japonés (Inari)\n• Según el lore, eligió a las tres chicas\n• Cada integrante tiene un 'sacrificio' simbólico\n• Los bailarines son 'Kamishibai' (sacerdotes)\n\n📖 <strong>En la cultura fan:</strong>\n• El gesto de manos 🦊 es el 'Fox Sign'\n• Aparece en merchandising oficial\n• Es el símbolo de la Metal Resistance\n\n🎭 <strong>Referencias:</strong>\n• Aparece en los videos oficiales\n• Es mencionado en canciones como 'Megitsune'\n• El lore se expande en cada álbum\n\nFuente: babymetal.com, Wikipedia",
-
-      "historia": "Historia completa de BABYMETAL:\n\n📅 <strong>2010</strong> - Se forma como sub-unidad de Sakura Gakuin\n🎤 <strong>2011</strong> - Primera presentación con 'Dokidoki Morning'\n🌍 <strong>2012</strong> - MOMOMETAL se une como tercera integrante\n🎵 <strong>2013</strong> - Última actuación en Sakura Gakuin\n🏆 <strong>2014</strong> - Debutan como grupo independiente\n💿 <strong>2014</strong> - Primer álbum 'BABYMETAL'\n🎸 <strong>2015</strong> - Gira mundial y apertura para Metallica\n⚡ <strong>2016</strong> - Tokio Dome (sueño cumplido)\n🌍 <strong>2016</strong> - 'Metal Resistance' rompe records\n🎵 <strong>2017</strong> - Colaboración con Rob Halford\n🎸 <strong>2019</strong> - 'Metal Galaxy' #1 en Billboard\n💔 <strong>2018</strong> - Yui Mizuno deja el grupo\n✨ <strong>2023</strong> - MOMOMETAL回归 oficial\n🚀 <strong>2023</strong> - 'THE OTHER ONE'\n🎤 <strong>2024</strong> - Collaboración con Electric Callboy\n🌍 <strong>2026</strong> - Gira mundial en curso\n\nFuente: Wikipedia, babymetal.com",
-
-      "tokio dome": "Tokio Dome - El sueño de BABYMETAL:\n\n🏟️ <strong>Datos del venue:</strong>\n• Capacidad: 55,000 personas\n• Ubicación: Tokio, Japón\n• Evento: 'BABYMETAL Awakens'\n\n📅 <strong>Fechas:</strong>\n• 23 y 24 de junio de 2018\n• Agotado ambas noches\n\n🎤 <strong>Setlist destacada:</strong>\n• BABYMETAL DEATH\n• Gimme Chocolate!!\n• Megitsune\n• Road of Resistance\n• The One\n\n📖 Fue el concierto más importante de su carrera, consolidándolas como artistas de escenario principal en Japón.\n\nFuente: Wikipedia, babymetal.com",
-
-      "gira 2026": "🌍 <strong>GIRA MUNDIAL 2026 - THE OTHER ONE WORLD TOUR:</strong>\n\n🇯🇵 <strong>JAPÓN:\n• Ariake Arena - CANNONBALL GAIDEN (10 ago)\n• Summer Sonic Osaka (14 ago)\n• Summer Sonic Chiba (16 ago)\n• LuckyFes - Hitachi Seaside Park (9 ago)\n\n🇪🇺 <strong>EUROPA:\n• Kufstein, Austria - Festung (9 jun)\n• Hradec Králové, Czech - Rock For People (11 jun)\n• Derby, UK - Download Festival (13 jun)\n• Hanover, Germany - Swiss Life Hall (16 jun)\n• Warsaw, Poland - Summer Punch Festival (18 jun)\n• Dessel, Belgium - Graspop (20 jun)\n• Oslo, Norway - Tons of Rock (24 jun)\n• Leipzig, Germany - Impericon Festival (26 jun)\n• Copenhagen, Denmark - Copenhell (27 jun)\n• Istanbul, Turkey - Life Park (1 jul)\n\n🇺🇸 <strong>NORTEAMÉRICA:\n• San Diego - Petco Park w/ My Chemical Romance (30 ago)\n• Denver - Ball Arena (2 sep)\n• Chicago - Huntington Bank Pavilion (4 sep)\n• Noblesville, IN - Ruoff Music Center (5 sep)\n• Toronto - RBC Amphitheatre (7 sep)\n• Holmdel, NJ - PNC Bank Arts Center (9 sep)\n• Mansfield, MA - Xfinity Center (10 sep)\n• Sacramento - Aftershock Festival (3 oct)\n• Phoenix - Talking Stick Resort (1 oct)\n• Albuquerque - Isleta Amphitheatre (29 sep)\n\n🇲🇽 <strong>LATINOAMÉRICA:\n• Lima, Peru - Costa 21 (7 dic)\n• Santiago, Chile - Movistar Arena (3 dic)\n• Buenos Aires, Argentina - Movistar Arena (1 dic)\n• São Paulo, Brazil - Espaco Unimed (28 nov)\n• Mexico City - Fray Nano Stadium (12 dic)\n\n🎤 <strong>Setlist:\n• BABYMETAL DEATH\n• Gimme Chocolate!!\n• Megitsune\n• Road of Resistance\n• KARATE\n• RATATATA\n• THE ONE\n\nTickets: <a href=\"https://babymetal.com/theone_2026/\" target=\"_blank\" style=\"color:#ff003c;\">babymetal.com</a> 🎫",
-
-      "giras": "📋 <strong>TODAS LAS GIRAS DE BABYMETAL (2011-2026):</strong>\n\n📅 <strong>2010</strong> - Sakura Gakuin Festival ☆\n📅 <strong>2011</strong> - Sakura Gakuin Festival ☆\n📅 <strong>2012</strong> - Sakura Gakuin Festival ☆ + Legend 'I' 'D' 'Z'\n📅 <strong>2013</strong> - Death Match Tour + Legend '1999' '1997' + Fox Festival\n📅 <strong>2014</strong> - BABYMETAL World Tour 2014 (17 shows)\n📅 <strong>2015</strong> - BABYMETAL World Tour 2015 (35 shows)\n📅 <strong>2016</strong> - Legend Metal Resistance + Tokyo Dome\n📅 <strong>2017</strong> - US Tour + Five Fox Festival + Big Fox Festival (22 shows)\n📅 <strong>2018</strong> - BABYMETAL World Tour 2018 (22 shows)\n📅 <strong>2019</strong> - Metal Galaxy World Tour (60 shows hasta 2020)\n📅 <strong>2020</strong> - Pausada por COVID-19\n📅 <strong>2023</strong> - BABYMETAL World Tour 2023 (71 shows hasta 2024)\n📅 <strong>2025</strong> - BABYMETAL World Tour 2025 (45 shows)\n📅 <strong>2026</strong> - THE OTHER ONE WORLD TOUR\n\nEscribe 'gira 2015', 'gira 2019', etc. para más detalles.",
-
-      "gira 2011": "🎤 <strong>2011 - PRIMEROS PASOS (Sakura Gakuin):</strong>\n\n📅 <strong>Eventos:\n• Sakura Gakuin Festival 2011\n• Tokyo Idol Festival 2011\n\n🎤 <strong>Canciones:\n• Doki Doki Morning\n• Ijime, Dame, Zettai\n\n🏆 Logros: Debut de SU-METAL y MOAMETAL\n\n📖 Año cero de la leyenda.\n\nFuente: Wikipedia, babymetal.com",
-
-      "gira 2012": "🦊 <strong>2012 - MOMOMETAL SE UNE:</strong>\n\n📅 <strong>Eventos:\n• Sakura Gakuin Festival 2012\n• Legend 'Corset Festival' (primer show)\n• Tokyo Idol Festival 2012\n• Summer Sonic 2012\n• Anime Festival Asia (Singapur)\n\n🏆 Logros: La trinidad se completa\n\n📖 El nacimiento de la trinidad sagrada.\n\nFuente: Wikipedia, babymetal.com",
-
-      "gira 2013": "⚡ <strong>2013 - DEATH MATCH TOUR:</strong>\n\n📅 <strong>Eventos:\n• Death Match Tour: May Revolution\n• Legend '1999' y '1997'\n• Legend 'Fox Festival'\n• Summer Sonic 2013\n• Rock in Japan Festival\n• Loud Park 2013\n\n🎤 Megitsune y Gimme Chocolate!! debutan\n\n📖 Transición de idol a banda.\n\nFuente: Wikipedia, babymetal.com",
-
-      "gira 2014": "🎵 <strong>BABYMETAL WORLD TOUR 2014:</strong>\n\n📅 <strong>17 shows:\n• Japón: Tokyo, Osaka, Nagoya\n• EE.UU.: LA, SF, Dallas, NYC\n• Europa: Londres, Colonia\n• Taiwán (con Chthonic)\n\n🏆 Debut como grupo independiente\n• Apertura para Lady Gaga\n\n📖 El inicio de la revolución.\n\nFuente: Wikipedia, babymetal.com",
-
-      "gira 2015": "🎸 <strong>BABYMETAL WORLD TOUR 2015:</strong>\n\n📅 <strong>35 shows:\n• Japón: Tokyo, Osaka, Nagoya, Saitama\n• EE.UU.: LA, SF, Dallas, NYC\n• Europa: Londres, Colonia, París\n• América del Sur: São Paulo, Santiago\n• Asia: Bangkok, Singapur\n\n🏆 Primera gira mundial completa\n• Apertura para Metallica\n• MTV EMA: Mejor Acto Japonés\n\nFuente: Wikipedia, babymetal.com",
-
-      "gira 2016": "⚔️ <strong>BABYMETAL WORLD TOUR 2016:</strong>\n\n📅 <strong>35 shows:\n• Japón: Tokyo Dome x2\n• Europa: Londres (Wembley), Oberhausen, París\n• EE.UU.: LA, Chicago, NYC\n\n🏆 'Metal Resistance' #1 en iTunes\n• Tokyo Dome agotado\n• Apertura para RHCP, Metallica, GNR\n\nFuente: Wikipedia, babymetal.com",
-
-      "gira 2017": "🎵 <strong>2017 - US TOUR + FOX FESTIVAL:</strong>\n\n📅 <strong>22 shows:\n• EE.UU.: LA, Dallas, Detroit\n• Japón: Five Fox Festival + Big Fox Festival\n• Hiroshima: Legend 'S' Baptism XX\n\n🏆 Colaboración con Rob Halford\n• 'From Dusk Till Dawn' estreno\n\nFuente: Wikipedia, babymetal.com",
-
-      "gira 2018": "⚡ <strong>BABYMETAL WORLD TOUR 2018:</strong>\n\n📅 <strong>22 shows:\n• Japón: Tokyo Dome x2 (Awakens!!!)\n• Asia: Singapur, Bangkok, Yakarta\n• Europa: Londres, Madrid, Varsovia\n• EE.UU.: LA, Houston, Chicago\n• Australia: Good Things Festival\n\n🏆 Tokio Dome agotado\n• Última gira con Yui Mizuno\n\nFuente: Wikipedia, babymetal.com",
-
-      "gira 2019": "🎸 <strong>METAL GALAXY WORLD TOUR:</strong>\n\n📅 <strong>60 shows:\n• Japón: Yokohama, Nagoya\n• EE.UU.: LA (The Forum), NYC, Chicago\n• Europa: Londres (Glastonbury), París\n• América del Sur: São Paulo, Buenos Aires\n\n🏆 'Metal Galaxy' #1 Billboard\n• Gira más extensa de su historia\n\nFuente: Wikipedia, babymetal.com",
-
-      "gira 2021": "🦊 <strong>BABYMETAL BEGINS (2021-2022):</strong>\n\n📅 Regreso post-COVID\n• BABYMETAL BEGINS (2021)\n• BABYMETAL RETURNS (2022)\n• Legend Metal Galaxy\n\n📖 Transición hacia nueva era.\n\nFuente: babymetal.com",
-
-      "gira 2023": "✨ <strong>BABYMETAL WORLD TOUR 2023:</strong>\n\n📅 <strong>71 shows:\n• Japón: Makuhari Messe, Yokohama Arena\n• Europa: Londres, París, Madrid, Berlín\n• EE.UU.: NYC, LA, Chicago, Dallas\n• América del Sur: São Paulo, Buenos Aires\n\n🏆 MOMOMETAL回归 oficial\n• Dethklok como opening\n\nFuente: Wikipedia, babymetal.com",
-
-      "gira 2024": "⚡ <strong>BABYMETAL x ELECTRIC CALLBOY 2024:</strong>\n\n📅 Europa, Norteamérica, Japón\n\n🎤 RATATATA viral mundial (+100M views)\n\n📖 Primera gran colaboración internacional.\n\nFuente: babymetal.com",
-
-      "gira 2025": "🌟 <strong>BABYMETAL WORLD TOUR 2025:</strong>\n\n📅 <strong>45 shows:\n• Europa: The O2 Londres, Brussels, Amsterdam\n• Norteamérica con Live Nation\n• Opening: Poppy, Bambie Thug, Black Veil Brides\n\n🏆 The O2 Arena agotado\n\nFuente: Wikipedia, babymetal.com",
-
-      "premios": "Premios y reconocimientos de BABYMETAL:\n\n🏆 <strong>Japan Gold Disc Awards:</strong>\n• Mejor Artista Nuevo (2015)\n• Álbum del Año (2015, 2016, 2017)\n\n🏆 <strong>MTV Europe Music Awards:</strong>\n• Mejor Acto Japonés (2015)\n\n🏆 <strong>Billboard:</strong>\n• World Albums #1 (Metal Galaxy)\n\n🏆 <strong>Otros:</strong>\n• Japan Record Awards\n• Koreapop Awards\n• Fan Army Fandom Awards\n\nFuente: Wikipedia",
-
-      "default": "Buena pregunta 🤘 Puedo contarte sobre:\n\n🦊 <strong>BABYMETAL:</strong>\n• Integrantes, discografía, historia\n• Kawaii Metal, Fox God, Tokio Dome\n• Gira 2026, premios\n\n🎸 <strong>Todas las giras (2011-2026):\n• Pregúnta por cualquier año específico\n• 'Todas las giras' para el listado completo\n\n¡Pregúntame sobre cualquier tema! 🦊"
+    var botResponses = {
+      "integrantes": "BABYMETAL está conformado por tres integrantes:\n\n🎤 <strong>SU-METAL</strong> (Suzuka Nakamoto)\n• Nacimiento: 20 dic 1997, Hiroshima\n• Rol: Voz principal y danza\n\n💃 <strong>MOAMETAL</strong> (Moa Kikuchi)\n• Nacimiento: 4 jul 1999, Nagoya\n• Rol: Coros, danza y guitarra en vivo\n\n✨ <strong>MOMOMETAL</strong> (Momoko Okazaki)\n• Nacimiento: 3 mar 2003, Fukuoka\n• Rol: Coros y danza\n• Oficial desde 2023\n\nSon conocidas como la 'Trinidad Sagrada' del Dios Zorro. 🦊",
+      "discografia": "Discografía oficial de BABYMETAL:\n\n💿 <strong>Álbumes de estudio:</strong>\n1. BABYMETAL (2014)\n2. Metal Resistance (2016)\n3. Metal Galaxy (2019)\n4. THE OTHER ONE (2023)\n\n🎵 <strong>Singles destacados:</strong>\n• Gimme Chocolate!!\n• Megitsune\n• Road of Resistance\n• KARATE\n• RATATATA (w/ Electric Callboy)",
+      "canciones": "Las canciones más icónicas de BABYMETAL:\n\n1. 🍫 <strong>Gimme Chocolate!!</strong>\n2. 🦊 <strong>Megitsune</strong>\n3. ⚔️ <strong>Road of Resistance</strong>\n4. 🥋 <strong>KARATE</strong>\n5. 🤘 <strong>Headbangeeeeerrrrr!!!!!</strong>\n6. 🌟 <strong>The One</strong>\n7. 🔥 <strong>PA PA YA!!</strong>\n8. ⚡ <strong>RATATATA</strong>",
+      "kawaii metal": "El <strong>Kawaii Metal</strong> es un género musical ÚNICO creado por BABYMETAL.\n\n🎸 Elementos del metal: guitarras pesadas, batería rápida\n🎀 Elementos del pop: melodías dulces, coreografías\n⚡ Influencias: electrónica, folk japonés\n\nFue creado en 2010 y es el sello distintivo de la banda.",
+      "fox god": "El <strong>Fox God (Dios Zorro)</strong> es la deidad protectora de BABYMETAL.\n\n🦊 Mitología del folclor japonés (Inari)\n🦊 Elige a las tres chicas como sus representantes\n🦊 El gesto 🦊 es el 'Fox Sign'\n🦊 Aparece en videos y merchandising oficial",
+      "historia": "Historia de BABYMETAL:\n\n📅 2010 - Se forma en Sakura Gakuin\n🎤 2011 - Primera presentación\n🌍 2012 - MOMOMETAL se une\n🏆 2014 - Debut independiente\n🎸 2015 - Gira mundial + Metallica\n⚡ 2016 - Tokio Dome\n🌍 2019 - Metal Galaxy #1 Billboard\n✨ 2023 - MOMOMETAL回归\n🚀 2026 - Gira mundial en curso",
+      "tokio dome": "Tokio Dome - El sueño de BABYMETAL:\n\n🏟️ Capacidad: 55,000 personas\n📅 23 y 24 de junio de 2018\n🎤 'BABYMETAL Awakens'\n🏆 Agotado ambas noches\n\nFue el concierto más importante de su carrera.",
+      "gira 2026": "🌍 <strong>GIRA MUNDIAL 2026:</strong>\n\n🇯🇵 Japón: Ariake Arena, Summer Sonic\n🇪🇺 Europa: Download Festival, Graspop, Tons of Rock\n🇺🇸 Norteamérica: Petco Park w/ MCR, Ball Arena\n🇲🇽 LATAM: Lima, Santiago, Buenos Aires, São Paulo, CDMX\n\nTickets: <a href='https://babymetal.com/theone_2026/' target='_blank' style='color:#ff003c;'>babymetal.com</a>",
+      "giras": "📋 <strong>TODAS LAS GIRAS:</strong>\n\n2011 - Sakura Gakuin\n2012 - Legend shows\n2013 - Death Match Tour\n2014 - World Tour (17 shows)\n2015 - World Tour (35 shows)\n2016 - Tokyo Dome\n2017 - US Tour + Fox Festival\n2018 - World Tour (22 shows)\n2019 - Metal Galaxy (60 shows)\n2021 - BABYMETAL BEGINS\n2023 - World Tour (71 shows)\n2025 - World Tour (45 shows)\n2026 - THE OTHER ONE WORLD TOUR\n\nEscribe 'gira 2015' para más detalles.",
+      "premios": "Premios de BABYMETAL:\n\n🏆 Japan Gold Disc Awards: Mejor Artista Nuevo\n🏆 MTV EMA: Mejor Acto Japonés\n🏆 Billboard: World Albums #1\n🏆 Japan Record Awards",
+      "default": "Buena pregunta 🤘 Puedo contarte sobre:\n\n🦊 Integrantes, discografía, historia\n🎸 Kawaii Metal, Fox God, Tokio Dome\n🌍 Giras (2011-2026), premios\n\n¡Pregúntame! 🦊"
     };
 
     function toggleChat() {
@@ -2675,7 +2638,7 @@
     }
 
     function addMessage(text, isUser) {
-      const msg = document.createElement('div');
+      var msg = document.createElement('div');
       msg.className = 'chat-msg ' + (isUser ? 'user' : 'bot');
       msg.innerHTML = text.replace(/\n/g, '<br>');
       chatMessages.appendChild(msg);
@@ -2683,7 +2646,7 @@
     }
 
     function showTyping() {
-      const msg = document.createElement('div');
+      var msg = document.createElement('div');
       msg.className = 'chat-msg bot';
       msg.id = 'typing-indicator';
       msg.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
@@ -2698,33 +2661,29 @@
 
     function getResponse(input) {
       var lower = input.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-
-      // BABYMETAL
       if (lower.includes("integrante") || lower.includes("miembro") || lower.includes("quien") || lower.includes("quién")) return botResponses["integrantes"];
       if (lower.includes("discografia") || lower.includes("disco") || lower.includes("album")) return botResponses["discografia"];
       if (lower.includes("cancion") || lower.includes("tema") || lower.includes("song") || lower.includes("hits")) return botResponses["canciones"];
       if (lower.includes("kawaii") || lower.includes("genero") || lower.includes("estilo")) return botResponses["kawaii metal"];
       if (lower.includes("fox god") || lower.includes("zorro") || lower.includes("kitsune") || lower.includes("dios")) return botResponses["fox god"];
-      if (lower.includes("historia") || lower.includes("origen") || lower.includes("debut") || lower.includes("formacion")) return botResponses["historia"];
+      if (lower.includes("historia") || lower.includes("origen") || lower.includes("debut")) return botResponses["historia"];
       if (lower.includes("tokio") || lower.includes("dome") || lower.includes("budokan")) return botResponses["tokio dome"];
-      if (lower.includes("premio") || lower.includes("award") || lower.includes("reconocimiento")) return botResponses["premios"];
-      // GIRAS
-      if (lower.includes("todas las giras") || lower.includes("historia de giras") || lower.includes("lista de giras")) return botResponses["giras"];
-      if (lower.includes("gira 2011") || lower.includes("tour 2011")) return botResponses["gira 2011"];
-      if (lower.includes("gira 2012") || lower.includes("tour 2012")) return botResponses["gira 2012"];
-      if (lower.includes("gira 2013") || lower.includes("tour 2013")) return botResponses["gira 2013"];
-      if (lower.includes("gira 2014") || lower.includes("tour 2014")) return botResponses["gira 2014"];
-      if (lower.includes("gira 2015") || lower.includes("tour 2015")) return botResponses["gira 2015"];
-      if (lower.includes("gira 2016") || lower.includes("tour 2016")) return botResponses["gira 2016"];
-      if (lower.includes("gira 2017") || lower.includes("tour 2017")) return botResponses["gira 2017"];
-      if (lower.includes("gira 2018") || lower.includes("tour 2018") || lower.includes("distortion")) return botResponses["gira 2018"];
-      if (lower.includes("gira 2019") || lower.includes("tour 2019") || lower.includes("metal galaxy")) return botResponses["gira 2019"];
-      if (lower.includes("gira 2021") || lower.includes("tour 2021") || lower.includes("begins")) return botResponses["gira 2021"];
-      if (lower.includes("gira 2023") || lower.includes("tour 2023") || lower.includes("other one")) return botResponses["gira 2023"];
-      if (lower.includes("gira 2024") || lower.includes("tour 2024") || lower.includes("electric callboy") || lower.includes("ratatata")) return botResponses["gira 2024"];
-      if (lower.includes("gira 2025") || lower.includes("tour 2025") || lower.includes("the o2")) return botResponses["gira 2025"];
+      if (lower.includes("premio") || lower.includes("award")) return botResponses["premios"];
+      if (lower.includes("todas las giras") || lower.includes("lista de giras")) return botResponses["giras"];
+      if (lower.includes("gira 2011") || lower.includes("tour 2011")) return "📅 <strong>2011:</strong> Sakura Gakuin Festival. Primeros pasos de SU-METAL y MOAMETAL.";
+      if (lower.includes("gira 2012") || lower.includes("tour 2012")) return "📅 <strong>2012:</strong> MOMOMETAL se une. Legend 'Corset Festival'.";
+      if (lower.includes("gira 2013") || lower.includes("tour 2013")) return "📅 <strong>2013:</strong> Death Match Tour. Legend '1999' y '1997'.";
+      if (lower.includes("gira 2014") || lower.includes("tour 2014")) return "📅 <strong>2014:</strong> World Tour (17 shows). Debut independiente. Apertura para Lady Gaga.";
+      if (lower.includes("gira 2015") || lower.includes("tour 2015")) return "📅 <strong>2015:</strong> World Tour (35 shows). Apertura para Metallica. MTV EMA.";
+      if (lower.includes("gira 2016") || lower.includes("tour 2016")) return "📅 <strong>2016:</strong> Tokyo Dome agotado. Metal Resistance #1. Apertura para RHCP.";
+      if (lower.includes("gira 2017") || lower.includes("tour 2017")) return "📅 <strong>2017:</strong> US Tour + Five Fox Festival. Colaboración con Rob Halford.";
+      if (lower.includes("gira 2018") || lower.includes("tour 2018")) return "📅 <strong>2018:</strong> Tokyo Dome x2 (Awakens). Última gira con Yui Mizuno.";
+      if (lower.includes("gira 2019") || lower.includes("tour 2019") || lower.includes("metal galaxy")) return "📅 <strong>2019:</strong> Metal Galaxy World Tour (60 shows). #1 Billboard.";
+      if (lower.includes("gira 2021") || lower.includes("tour 2021") || lower.includes("begins")) return "📅 <strong>2021:</strong> BABYMETAL BEGINS. Regreso post-COVID.";
+      if (lower.includes("gira 2023") || lower.includes("tour 2023")) return "📅 <strong>2023:</strong> World Tour (71 shows). MOMOMETAL回归. Dethklok opening.";
+      if (lower.includes("gira 2024") || lower.includes("tour 2024") || lower.includes("ratatata")) return "📅 <strong>2024:</strong> Electric Callboy collab. RATATATA viral (+100M views).";
+      if (lower.includes("gira 2025") || lower.includes("tour 2025") || lower.includes("the o2")) return "📅 <strong>2025:</strong> World Tour (45 shows). The O2 Arena agotado.";
       if (lower.includes("gira") || lower.includes("tour") || lower.includes("concierto") || lower.includes("2026")) return botResponses["gira 2026"];
-
       return botResponses["default"];
     }
 
