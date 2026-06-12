@@ -822,6 +822,93 @@
       color: var(--silver-light);
     }
 
+    /* Fan Ranking */
+    .fan-ranking-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .fan-ranking-item:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .fan-rank {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--silver);
+      flex-shrink: 0;
+    }
+
+    .fan-rank.rank-1 {
+      background: linear-gradient(135deg, #ffd700, #ffaa00);
+      border: none;
+      color: #000;
+    }
+
+    .fan-rank.rank-2 {
+      background: linear-gradient(135deg, #c0c0c0, #a0a0a0);
+      border: none;
+      color: #000;
+    }
+
+    .fan-rank.rank-3 {
+      background: linear-gradient(135deg, #cd7f32, #b5651d);
+      border: none;
+      color: #fff;
+    }
+
+    .fan-avatar {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .fan-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .fan-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--white);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .fan-points {
+      font-size: 11px;
+      color: var(--red);
+      font-weight: 600;
+    }
+
+    .fan-badge {
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .ranking-info {
+      padding: 10px 12px;
+      color: var(--silver);
+      font-size: 11px;
+      text-align: center;
+      border-top: 1px solid var(--line);
+      margin-top: 8px;
+    }
+
     /* Footer */
     .sidebar-footer {
       font-size: 11px;
@@ -1505,6 +1592,90 @@
         </div>
       </div>
 
+      <!-- Fan Ranking Section -->
+      <div class="sidebar-section">
+        <div class="trending-title">🏆 Ranking de Fans</div>
+        
+        <div class="fan-ranking-item">
+          <div class="fan-rank rank-1">1</div>
+          <div class="fan-avatar">🦊</div>
+          <div class="fan-info">
+            <div class="fan-name">KitsuneMaster23</div>
+            <div class="fan-points">12,450 pts</div>
+          </div>
+          <div class="fan-badge">🥇</div>
+        </div>
+
+        <div class="fan-ranking-item">
+          <div class="fan-rank rank-2">2</div>
+          <div class="fan-avatar">🎸</div>
+          <div class="fan-info">
+            <div class="fan-name">MetalResistance_Fan</div>
+            <div class="fan-points">11,280 pts</div>
+          </div>
+          <div class="fan-badge">🥈</div>
+        </div>
+
+        <div class="fan-ranking-item">
+          <div class="fan-rank rank-3">3</div>
+          <div class="fan-avatar">🎤</div>
+          <div class="fan-info">
+            <div class="fan-name">SuMetalForever</div>
+            <div class="fan-points">10,890 pts</div>
+          </div>
+          <div class="fan-badge">🥉</div>
+        </div>
+
+        <div class="fan-ranking-item">
+          <div class="fan-rank">4</div>
+          <div class="fan-avatar">⚡</div>
+          <div class="fan-info">
+            <div class="fan-name">KawaiiMetalHead</div>
+            <div class="fan-points">9,750 pts</div>
+          </div>
+        </div>
+
+        <div class="fan-ranking-item">
+          <div class="fan-rank">5</div>
+          <div class="fan-avatar">🎵</div>
+          <div class="fan-info">
+            <div class="fan-name">TheOneLATAM</div>
+            <div class="fan-points">8,920 pts</div>
+          </div>
+        </div>
+
+        <div class="fan-ranking-item">
+          <div class="fan-rank">6</div>
+          <div class="fan-avatar">🔥</div>
+          <div class="fan-info">
+            <div class="fan-name">FoxGodBeliever</div>
+            <div class="fan-points">7,640 pts</div>
+          </div>
+        </div>
+
+        <div class="fan-ranking-item">
+          <div class="fan-rank">7</div>
+          <div class="fan-avatar">🎶</div>
+          <div class="fan-info">
+            <div class="fan-name">RoadOfResistance</div>
+            <div class="fan-points">6,380 pts</div>
+          </div>
+        </div>
+
+        <div class="fan-ranking-item">
+          <div class="fan-rank">8</div>
+          <div class="fan-avatar">🌟</div>
+          <div class="fan-info">
+            <div class="fan-name">GimmeChocolate_Fan</div>
+            <div class="fan-points">5,210 pts</div>
+          </div>
+        </div>
+
+        <div class="ranking-info">
+          <small>Los puntos se ganan publicando, comentando y recibiendo likes</small>
+        </div>
+      </div>
+
       <!-- Footer -->
       <div class="sidebar-footer">
         <a href="#">Ayuda</a> · <a href="#">Privacidad</a> · <a href="#">Términos</a> · <a href="#">API</a><br>
@@ -1604,6 +1775,8 @@
       "gira 2018": "⚡ <strong>BABYMETAL WORLD TOUR 2018 'DISTORTION':</strong>\n\n📅 <strong>22 shows en:\n• Japón: Tokyo Dome x2 (Awakens!!!)\n• Asia: Singapur, Bangkok, Yakarta\n• Europa: Londres, Madrid, Varsovia\n• EE.UU.: Los Angeles, Houston, Chicago\n• Australia: Good Things Festival (diciembre)\n\n🎤 <strong>Setlist:\n• Distortion\n• Starlight\n• Road of Resistance\n• Gimme Chocolate!!\n• THE ONE\n• Elevator Girl\n• Kagerou\n• In the Name Of\n\n🏆 <strong>Logros:\n• Tokio Dome agotado (2 noches)\n• 'Distortion' éxito mundial\n• Rock on the Range (streaming en vivo)\n• Good Things Festival (Australia)\n• Última gira con Yui Mizuno (dejó el grupo)\n\n📖 Gira más ambiciosa hasta la fecha.\n\nFuente: Wikipedia, babymetal.com",
 
       "gira 2019": "🎸 <strong>METAL GALAXY WORLD TOUR 2019-2020:</strong>\n\n📅 <strong>60 shows en:\n• Japón: Yokohama, Nagoya (Awakens/Arises)\n• EE.UU.: LA (The Forum), NYC, Chicago\n• Europa: Londres (Glastonbury), París, Berlín\n• América del Sur: São Paulo, Buenos Aires\n• Asia: Bangkok, Singapur, Yakarta\n\n🎤 <strong>Setlist:\n• PA PA YA!!\n• Shanti Shanti Shanti\n• Distortion\n• Starlight\n• Elevator Girl\n• Gimme Chocolate!!\n• Road of Resistance\n• THE ONE\n\n🏆 <strong>Logros:\n• 'Metal Galaxy' #1 Billboard World Albums\n• Álbum más vendido de la banda\n• Gira más extensa de su historia (60 shows)\n• Glastonbury Festival 2019\n• Babymetal Awakens + Babymetal Arises\n\n📖 La gira más grande de su historia.\n\nFuente: Wikipedia, babymetal.com",
+
+      "gira 2021": "🦊 <strong>BABYMETAL BEGINS - THE OTHER ONE 2021-2022:</strong>\n\n📅 <strong>Contexto:\n• Regreso tras pausa por COVID-19\n• BABYMETAL BEGINS (2021)\n• BABYMETAL RETURNS (2022)\n• Eventos en formato especial\n• Streaming worldwide\n\n🎤 <strong>Shows destacados:\n• BABYMETAL BEGINS\n• BABYMETAL RETURNS\n• Legend Metal Galaxy\n• Teatro en vivo\n• Nuevas coreografías\n• Producción visual renovada\n\n🏆 <strong>Logros:\n• Regreso post-pandemia\n• Millones de views en streaming\n• Re-conexión con fans globales\n• Preparación para nueva era\n\n📖 Transición hacia THE OTHER ONE.\n\nFuente: babymetal.com",
 
       "gira 2023": "✨ <strong>BABYMETAL WORLD TOUR 2023-2024 'THE OTHER ONE':</strong>\n\n📅 <strong>71 shows en:\n• Japón: Makuhari Messe, Yokohama Arena (Legend MM)\n• Europa: Londres, París, Madrid, Berlín\n• EE.UU.: NYC, LA, Chicago, Dallas\n• América del Sur: São Paulo, Buenos Aires\n• Asia: Bangkok, Singapur, Yakarta\n• Australia\n\n🎤 <strong>Setlist:\n• METAL FUTURE\n• Monochrome\n• THE OTHER ONE\n• Papaya\n• Gimme Chocolate!!\n• Road of Resistance\n• THE ONE\n\n🏆 <strong>Logros:\n• MOMOMETAL回归 oficial (Pia Arena MM)\n• 'THE OTHER ONE' éxito crítico\n• 71 shows en 20+ países\n• Legend MM: cumpleaños MOMOMETAL (30k fans)\n• Dethklok y Jason Richardson como opening\n\n📖 La trinidad sagrada completa.\n\nFuente: Wikipedia, babymetal.com",
 
