@@ -2176,16 +2176,15 @@
       });
     }
 
-    document.getElementById('authProfile').addEventListener('click', function() {
-      authDropdown.classList.remove('active');
-    });
-
-    document.getElementById('authSettings').addEventListener('click', function() {
-      authDropdown.classList.remove('active');
-    });
+    var authAddAccount = document.getElementById('authAddAccount');
+    if (authAddAccount) {
+      authAddAccount.addEventListener('click', function() {
+        authDropdown.classList.remove('show');
+        window.location.href = 'register.html';
+      });
+    }
 
     updateAuthUI();
-    });
   </script>
 
 </body>
