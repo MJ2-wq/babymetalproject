@@ -264,10 +264,23 @@
       registerError.classList.remove('show');
     }
 
-    // Check if already logged in
-    if (localStorage.getItem('foxnet_current')) {
-      window.location.href = 'index.html';
-    }
+    // Check if already logged in — show message instead of silent redirect
+    (function() {
+      var currentEmail = localStorage.getItem('foxnet_current');
+      if (currentEmail) {
+        var users = JSON.parse(localStorage.getItem('foxnet_users') || '{}');
+        var user = users[currentEmail];
+        var name = user ? user.name : currentEmail;
+        var form = document.getElementById('registerForm');
+        form.innerHTML = '<div style="text-align:center;padding:20px 0;">' +
+          '<div style="font-size:48px;margin-bottom:16px;">🦊</div>' +
+          '<div style="font-size:18px;font-weight:700;color:#fff;margin-bottom:8px;">Ya tienes una cuenta</div>' +
+          '<div style="font-size:14px;color:#888;margin-bottom:24px;">Conectado como <strong style="color:#ff003c;">' + name + '</strong></div>' +
+          '<a href="index.html" style="display:inline-block;padding:12px 32px;background:linear-gradient(135deg,#ff003c,#cc0030);color:#fff;border-radius:10px;font-weight:700;text-decoration:none;">Ir a Fox Net</a>' +
+          '<div style="margin-top:16px;"><button onclick="localStorage.removeItem(\'foxnet_current\');location.reload();" style="background:none;border:none;color:#888;font-size:13px;cursor:pointer;">¿Crear otra cuenta? Cierra sesión primero</button></div>' +
+          '</div>';
+      }
+    })();
 
     registerForm.addEventListener('submit', function(e) {
       e.preventDefault();
