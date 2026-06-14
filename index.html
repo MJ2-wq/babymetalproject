@@ -1236,6 +1236,276 @@
       font-size: 18px;
     }
 
+    .create-post {
+      cursor: pointer;
+    }
+
+    .create-post:hover .create-input {
+      border-color: var(--line-hover);
+      background: var(--surface-3);
+    }
+
+    /* ========== POST CREATE MODAL ========== */
+    .post-create-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9998;
+      background: rgba(0,0,0,0.85);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .post-create-modal.active {
+      display: flex;
+    }
+
+    .post-create-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 560px;
+      max-height: 90vh;
+      overflow-y: auto;
+      animation: postModalIn 0.25s ease;
+    }
+
+    @keyframes postModalIn {
+      from { opacity: 0; transform: scale(0.95) translateY(10px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .post-create-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .post-create-header h3 {
+      font-family: var(--font-heading);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .post-create-close {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--surface-2);
+      border: none;
+      color: var(--silver-light);
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .post-create-close:hover {
+      background: var(--red);
+      color: #fff;
+    }
+
+    .post-create-body {
+      padding: 20px;
+    }
+
+    .post-create-user {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .post-create-user-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--red), #ff6b6b);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .post-create-user-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .post-create-visibility {
+      font-size: 12px;
+      color: var(--silver);
+    }
+
+    .post-create-textarea {
+      width: 100%;
+      min-height: 120px;
+      padding: 0;
+      background: transparent;
+      border: none;
+      color: var(--white);
+      font-size: 16px;
+      font-family: var(--font-body);
+      resize: none;
+      outline: none;
+      line-height: 1.6;
+    }
+
+    .post-create-textarea::placeholder {
+      color: var(--silver);
+    }
+
+    .post-create-counter {
+      text-align: right;
+      font-size: 11px;
+      color: var(--silver);
+      margin-bottom: 12px;
+    }
+
+    .post-create-media-preview {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 12px;
+      border: 1px solid var(--line);
+    }
+
+    .post-create-media-preview img,
+    .post-create-media-preview video {
+      width: 100%;
+      max-height: 300px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .post-create-media-remove {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.7);
+      border: none;
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      transition: background 0.2s;
+    }
+
+    .post-create-media-remove:hover {
+      background: var(--red);
+    }
+
+    .post-create-hashtags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .post-hashtag-btn {
+      padding: 5px 10px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: transparent;
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: var(--font-body);
+    }
+
+    .post-hashtag-btn:hover {
+      background: var(--red-dim);
+      border-color: var(--red);
+    }
+
+    .post-create-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+    }
+
+    .post-create-actions-left {
+      display: flex;
+      gap: 4px;
+    }
+
+    .post-create-action-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      border-radius: 20px;
+      border: none;
+      background: transparent;
+      color: var(--red);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: var(--font-body);
+    }
+
+    .post-create-action-btn:hover {
+      background: var(--red-dim);
+    }
+
+    .post-create-action-btn span {
+      display: none;
+    }
+
+    @media (min-width: 600px) {
+      .post-create-action-btn span {
+        display: inline;
+      }
+    }
+
+    .post-create-submit {
+      padding: 10px 24px;
+      border-radius: 20px;
+      border: none;
+      background: var(--red);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: var(--font-body);
+    }
+
+    .post-create-submit:hover:not(:disabled) {
+      background: #e60035;
+      box-shadow: 0 4px 16px rgba(255, 0, 60, 0.4);
+    }
+
+    .post-create-submit:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 600px) {
+      .post-create-card { max-height: 95vh; border-radius: 12px; }
+      .post-create-textarea { font-size: 14px; min-height: 100px; }
+    }
+
     /* Post Card */
     .post-card {
       background: var(--surface);
@@ -2033,8 +2303,8 @@
         </div>
       </div>
 
-      <!-- Create Post -->
-      <div class="create-post">
+      <!-- Create Post - Click to open modal -->
+      <div class="create-post" id="createPostTrigger">
         <div class="create-post-top">
           <div class="create-avatar">🦊</div>
           <div class="create-input">¿Qué está pasando en la Metal Resistance?</div>
@@ -2051,6 +2321,64 @@
           </div>
           <div class="create-action">
             <span class="icon">🎤</span> Evento
+          </div>
+        </div>
+      </div>
+
+      <!-- Create Post Modal -->
+      <div class="post-create-modal" id="postCreateModal">
+        <div class="post-create-card">
+          <div class="post-create-header">
+            <h3>🦊 Crear Publicación</h3>
+            <button class="post-create-close" id="postCreateClose">✕</button>
+          </div>
+          <div class="post-create-body">
+            <!-- User info -->
+            <div class="post-create-user">
+              <div class="post-create-user-avatar">🦊</div>
+              <div>
+                <div class="post-create-user-name" id="postCreateUserName">Fan</div>
+                <div class="post-create-visibility">🌐 Público</div>
+              </div>
+            </div>
+
+            <!-- Text input -->
+            <textarea class="post-create-textarea" id="postCreateText" placeholder="¿Qué quieres compartir con la comunidad? 🤘" maxlength="2000"></textarea>
+            <div class="post-create-counter"><span id="postCreateCounter">0</span>/2000</div>
+
+            <!-- Media preview -->
+            <div class="post-create-media-preview" id="postCreateMediaPreview" style="display:none;">
+              <button class="post-create-media-remove" id="postCreateMediaRemove">✕</button>
+              <img id="postCreateImgPreview" style="display:none;">
+              <video id="postCreateVideoPreview" style="display:none;" controls></video>
+            </div>
+
+            <!-- Hashtag suggestions -->
+            <div class="post-create-hashtags">
+              <button class="post-hashtag-btn" data-tag="#BABYMETAL">#BABYMETAL</button>
+              <button class="post-hashtag-btn" data-tag="#MetalResistance">#MetalResistance</button>
+              <button class="post-hashtag-btn" data-tag="#FoxGod">#FoxGod</button>
+              <button class="post-hashtag-btn" data-tag="#KawaiiMetal">#KawaiiMetal</button>
+              <button class="post-hashtag-btn" data-tag="#WorldTour2026">#WorldTour2026</button>
+            </div>
+
+            <!-- Actions bar -->
+            <div class="post-create-actions">
+              <div class="post-create-actions-left">
+                <button class="post-create-action-btn" id="postAddPhoto" title="Agregar foto">
+                  📷 <span>Foto</span>
+                </button>
+                <button class="post-create-action-btn" id="postAddVideo" title="Agregar video">
+                  🎬 <span>Video</span>
+                </button>
+                <button class="post-create-action-btn" id="postAddGif" title="Agregar GIF">
+                  🎞️ <span>GIF</span>
+                </button>
+              </div>
+              <button class="post-create-submit" id="postCreateSubmit" disabled>Publicar</button>
+            </div>
+
+            <input type="file" id="postFileInput" accept="image/*,video/*" style="display:none;">
           </div>
         </div>
       </div>
@@ -3204,6 +3532,326 @@
 
     // Init stories
     renderStories();
+
+    // ========== POST CREATE MODAL ==========
+    var createPostTrigger = document.getElementById('createPostTrigger');
+    var postCreateModal = document.getElementById('postCreateModal');
+    var postCreateClose = document.getElementById('postCreateClose');
+    var postCreateText = document.getElementById('postCreateText');
+    var postCreateCounter = document.getElementById('postCreateCounter');
+    var postCreateSubmit = document.getElementById('postCreateSubmit');
+    var postCreateMediaPreview = document.getElementById('postCreateMediaPreview');
+    var postCreateImgPreview = document.getElementById('postCreateImgPreview');
+    var postCreateVideoPreview = document.getElementById('postCreateVideoPreview');
+    var postCreateMediaRemove = document.getElementById('postCreateMediaRemove');
+    var postAddPhoto = document.getElementById('postAddPhoto');
+    var postAddVideo = document.getElementById('postAddVideo');
+    var postAddGif = document.getElementById('postAddGif');
+    var postFileInput = document.getElementById('postFileInput');
+    var postCreateUserName = document.getElementById('postCreateUserName');
+
+    var currentPostMedia = null;
+    var currentPostMediaType = null;
+
+    // Open modal
+    createPostTrigger.addEventListener('click', function() {
+      var email = localStorage.getItem('foxnet_current');
+      if (!email) {
+        alert('Debes iniciar sesión para crear publicaciones.');
+        return;
+      }
+      var users = JSON.parse(localStorage.getItem('foxnet_users') || '{}');
+      var user = users[email];
+      if (user) postCreateUserName.textContent = user.name;
+      postCreateModal.classList.add('active');
+      setTimeout(function() { postCreateText.focus(); }, 100);
+    });
+
+    // Close modal
+    postCreateClose.addEventListener('click', function() {
+      postCreateModal.classList.remove('active');
+      resetPostCreate();
+    });
+
+    postCreateModal.addEventListener('click', function(e) {
+      if (e.target === postCreateModal) {
+        postCreateModal.classList.remove('active');
+        resetPostCreate();
+      }
+    });
+
+    // Text counter
+    postCreateText.addEventListener('input', function() {
+      postCreateCounter.textContent = postCreateText.value.length;
+      updatePostSubmitBtn();
+    });
+
+    // Add photo
+    postAddPhoto.addEventListener('click', function() {
+      postFileInput.accept = 'image/*';
+      postFileInput.click();
+    });
+
+    // Add video
+    postAddVideo.addEventListener('click', function() {
+      postFileInput.accept = 'video/*';
+      postFileInput.click();
+    });
+
+    // Add GIF (opens file picker for animated images)
+    postAddGif.addEventListener('click', function() {
+      postFileInput.accept = 'image/*';
+      postFileInput.click();
+    });
+
+    // File selected
+    postFileInput.addEventListener('change', function(e) {
+      var file = e.target.files[0];
+      if (!file) return;
+
+      if (file.size > 50 * 1024 * 1024) {
+        alert('El archivo es muy grande. Máximo 50MB.');
+        return;
+      }
+
+      var isVideo = file.type.startsWith('video/');
+      var reader = new FileReader();
+
+      reader.onload = function(ev) {
+        currentPostMedia = ev.target.result;
+        currentPostMediaType = isVideo ? 'video' : 'image';
+
+        if (isVideo) {
+          postCreateVideoPreview.src = currentPostMedia;
+          postCreateVideoPreview.style.display = 'block';
+          postCreateImgPreview.style.display = 'none';
+        } else {
+          postCreateImgPreview.src = currentPostMedia;
+          postCreateImgPreview.style.display = 'block';
+          postCreateVideoPreview.style.display = 'none';
+        }
+        postCreateMediaPreview.style.display = 'block';
+        updatePostSubmitBtn();
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // Remove media
+    postCreateMediaRemove.addEventListener('click', function() {
+      currentPostMedia = null;
+      currentPostMediaType = null;
+      postCreateMediaPreview.style.display = 'none';
+      postCreateImgPreview.src = '';
+      postCreateVideoPreview.src = '';
+      postCreateImgPreview.style.display = 'none';
+      postCreateVideoPreview.style.display = 'none';
+      postFileInput.value = '';
+      updatePostSubmitBtn();
+    });
+
+    // Hashtag buttons
+    document.querySelectorAll('.post-hashtag-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var tag = btn.dataset.tag;
+        var textarea = postCreateText;
+        var pos = textarea.selectionStart;
+        var text = textarea.value;
+        var before = text.substring(0, pos);
+        var after = text.substring(pos);
+        var needsSpace = before.length > 0 && before[before.length - 1] !== ' ';
+        textarea.value = before + (needsSpace ? ' ' : '') + tag + ' ' + after;
+        textarea.selectionStart = textarea.selectionEnd = pos + tag.length + (needsSpace ? 1 : 0) + 1;
+        textarea.focus();
+        postCreateCounter.textContent = textarea.value.length;
+        updatePostSubmitBtn();
+      });
+    });
+
+    function updatePostSubmitBtn() {
+      postCreateSubmit.disabled = !postCreateText.value.trim() && !currentPostMedia;
+    }
+
+    // Submit post
+    postCreateSubmit.addEventListener('click', function() {
+      var email = localStorage.getItem('foxnet_current');
+      var users = JSON.parse(localStorage.getItem('foxnet_users') || '{}');
+      var user = users[email];
+      if (!user) return;
+
+      var text = postCreateText.value.trim();
+      if (!text && !currentPostMedia) return;
+
+      var postId = 'post_' + Date.now();
+      var postHtml = '<article class="post-card" data-post-id="' + postId + '">';
+      postHtml += '<div class="post-header">';
+      postHtml += '<div class="post-avatar">' + (user.name.charAt(0).toUpperCase()) + '</div>';
+      postHtml += '<div class="post-user-info">';
+      postHtml += '<div class="post-username">' + user.name + '</div>';
+      postHtml += '<div class="post-meta">Ahora · 🌐 Público</div>';
+      postHtml += '</div>';
+      postHtml += '<button class="post-more">⋯</button>';
+      postHtml += '</div>';
+
+      if (text) {
+        var formattedText = text
+          .replace(/#(\w+)/g, '<span class="hashtag">#$1</span>')
+          .replace(/@(\w+)/g, '<span class="mention">@$1</span>')
+          .replace(/\n/g, '<br>');
+        postHtml += '<div class="post-text">' + formattedText + '</div>';
+      }
+
+      if (currentPostMedia) {
+        if (currentPostMediaType === 'video') {
+          postHtml += '<div class="post-image"><video src="' + currentPostMedia + '" controls style="width:100%;max-height:400px;object-fit:cover;"></video></div>';
+        } else {
+          postHtml += '<div class="post-image"><img src="' + currentPostMedia + '" alt="Post media"><div class="image-overlay"></div></div>';
+        }
+      }
+
+      postHtml += '<div class="post-engagement"><div class="post-reactions"><div class="reaction-icons"><span class="reaction-icon r-like">👍</span><span class="reaction-icon r-love">❤️</span><span class="reaction-icon r-fire">🔥</span></div><span class="like-count">0</span></div><span class="comment-count-text">0 comentarios · <span class="share-count">0</span> compartidos</span></div>';
+      postHtml += '<div class="post-actions">';
+      postHtml += '<button class="post-action-btn like-btn" data-liked="false"><span class="icon">🤍</span> <span class="action-label">Me gusta</span></button>';
+      postHtml += '<button class="post-action-btn comment-toggle-btn"><span class="icon">💬</span> Comentar</button>';
+      postHtml += '<button class="post-action-btn retweet-btn" data-retweeted="false"><span class="icon">🔄</span> <span class="action-label">Compartir</span></button>';
+      postHtml += '</div>';
+      postHtml += '<div class="post-comments"><div class="comment-list"></div><div class="comment-input-row"><div class="comment-avatar">🦊</div><input class="comment-input" placeholder="Escribe un comentario..." maxlength="200"><button class="comment-send">➤</button></div></div>';
+      postHtml += '</article>';
+
+      var feed = document.querySelector('.main-feed');
+      var firstPost = feed.querySelector('.post-card');
+      var tempDiv = document.createElement('div');
+      tempDiv.innerHTML = postHtml;
+      var newPost = tempDiv.firstElementChild;
+      feed.insertBefore(newPost, firstPost);
+
+      // Rebind events for new post
+      bindPostEvents(newPost);
+
+      // Close and reset
+      postCreateModal.classList.remove('active');
+      resetPostCreate();
+    });
+
+    function resetPostCreate() {
+      postCreateText.value = '';
+      postCreateCounter.textContent = '0';
+      currentPostMedia = null;
+      currentPostMediaType = null;
+      postCreateMediaPreview.style.display = 'none';
+      postCreateImgPreview.src = '';
+      postCreateVideoPreview.src = '';
+      postCreateImgPreview.style.display = 'none';
+      postCreateVideoPreview.style.display = 'none';
+      postFileInput.value = '';
+      postCreateSubmit.disabled = true;
+    }
+
+    function bindPostEvents(card) {
+      var postId = card.dataset.postId;
+
+      // Like
+      var likeBtn = card.querySelector('.like-btn');
+      if (likeBtn) {
+        likeBtn.addEventListener('click', function() {
+          var email = localStorage.getItem('foxnet_current');
+          if (!email) { alert('Inicia sesión para dar me gusta.'); return; }
+          var pd = getPostData();
+          if (!pd[postId]) pd[postId] = { likes: 0, shares: 0, comments: [], liked: false, retweeted: false };
+          var countEl = card.querySelector('.like-count');
+          if (likeBtn.dataset.liked === 'true') {
+            likeBtn.dataset.liked = 'false';
+            likeBtn.querySelector('.icon').textContent = '🤍';
+            likeBtn.classList.remove('liked');
+            pd[postId].likes = Math.max(0, pd[postId].likes - 1);
+            pd[postId].liked = false;
+          } else {
+            likeBtn.dataset.liked = 'true';
+            likeBtn.querySelector('.icon').textContent = '❤️';
+            likeBtn.classList.add('liked');
+            pd[postId].likes += 1;
+            pd[postId].liked = true;
+          }
+          countEl.textContent = pd[postId].likes;
+          savePostData(pd);
+        });
+      }
+
+      // Retweet
+      var retweetBtn = card.querySelector('.retweet-btn');
+      if (retweetBtn) {
+        retweetBtn.addEventListener('click', function() {
+          var email = localStorage.getItem('foxnet_current');
+          if (!email) { alert('Inicia sesión para compartir.'); return; }
+          var pd = getPostData();
+          if (!pd[postId]) pd[postId] = { likes: 0, shares: 0, comments: [], liked: false, retweeted: false };
+          var countEl = card.querySelector('.share-count');
+          if (retweetBtn.dataset.retweeted === 'true') {
+            retweetBtn.dataset.retweeted = 'false';
+            retweetBtn.querySelector('.icon').textContent = '🔄';
+            retweetBtn.querySelector('.action-label').textContent = 'Compartir';
+            retweetBtn.classList.remove('retweeted');
+            pd[postId].shares = Math.max(0, pd[postId].shares - 1);
+            pd[postId].retweeted = false;
+          } else {
+            retweetBtn.dataset.retweeted = 'true';
+            retweetBtn.querySelector('.icon').textContent = '✅';
+            retweetBtn.querySelector('.action-label').textContent = 'Compartido';
+            retweetBtn.classList.add('retweeted');
+            pd[postId].shares += 1;
+            pd[postId].retweeted = true;
+          }
+          countEl.textContent = pd[postId].shares;
+          savePostData(pd);
+        });
+      }
+
+      // Comment toggle
+      var commentToggle = card.querySelector('.comment-toggle-btn');
+      if (commentToggle) {
+        commentToggle.addEventListener('click', function() {
+          var comments = card.querySelector('.post-comments');
+          comments.classList.toggle('show');
+          if (comments.classList.contains('show')) {
+            comments.querySelector('.comment-input').focus();
+          }
+        });
+      }
+
+      // Send comment
+      var commentSend = card.querySelector('.comment-send');
+      if (commentSend) {
+        commentSend.addEventListener('click', function() {
+          var email = localStorage.getItem('foxnet_current');
+          if (!email) { alert('Inicia sesión para comentar.'); return; }
+          var users = JSON.parse(localStorage.getItem('foxnet_users') || '{}');
+          var user = users[email];
+          var input = card.querySelector('.comment-input');
+          var text = input.value.trim();
+          if (!text) return;
+          var pd = getPostData();
+          if (!pd[postId]) pd[postId] = { likes: 0, shares: 0, comments: [], liked: false, retweeted: false };
+          var comment = { user: user.name, text: text, time: 'Ahora' };
+          pd[postId].comments.push(comment);
+          savePostData(pd);
+          var list = card.querySelector('.comment-list');
+          var div = document.createElement('div');
+          div.className = 'comment-item';
+          div.innerHTML = '<div class="comment-avatar">🦊</div><div class="comment-body"><div class="comment-user">' + user.name + '</div><div class="comment-text">' + text + '</div><div class="comment-time">Ahora</div></div>';
+          list.appendChild(div);
+          input.value = '';
+        });
+      }
+
+      // Enter to send comment
+      var commentInput = card.querySelector('.comment-input');
+      if (commentInput) {
+        commentInput.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') {
+            card.querySelector('.comment-send').click();
+          }
+        });
+      }
+    }
 
     // ========== AUTH STATE ==========
     var authButtons = document.getElementById('authButtons');
