@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Centro de Ayuda - Fox Net</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #000000;
+      --surface: #0a0a0a;
+      --surface-2: #111111;
+      --surface-3: #161616;
+      --red: #ff003c;
+      --red-dim: rgba(255, 0, 60, 0.08);
+      --silver: #6b6b6b;
+      --silver-light: #a0a0a0;
+      --white: #f0f0f0;
+      --line: rgba(255, 255, 255, 0.06);
+      --font-heading: 'Cinzel', serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--silver-light);
+      min-height: 100vh;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .help-header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+      padding: 24px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .help-header-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .help-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--white);
+    }
+
+    .help-logo-icon { font-size: 28px; }
+
+    .help-logo-text {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      font-weight: 900;
+    }
+
+    .help-back {
+      font-size: 13px;
+      color: var(--silver-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .help-back:hover { color: var(--white); }
+
+    .help-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 48px 20px 80px;
+    }
+
+    .help-title {
+      font-family: var(--font-heading);
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .help-subtitle {
+      font-size: 16px;
+      color: var(--silver-light);
+      margin-bottom: 40px;
+    }
+
+    .help-search {
+      position: relative;
+      margin-bottom: 40px;
+    }
+
+    .help-search input {
+      width: 100%;
+      padding: 16px 20px 16px 48px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      color: var(--white);
+      font-size: 15px;
+      font-family: var(--font-body);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .help-search input:focus { border-color: var(--red); }
+
+    .help-search input::placeholder { color: var(--silver); }
+
+    .help-search-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18px;
+      color: var(--silver);
+    }
+
+    .help-section {
+      margin-bottom: 32px;
+    }
+
+    .help-section-title {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .help-section-title .icon {
+      font-size: 20px;
+    }
+
+    .help-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .help-card-header {
+      padding: 16px 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.2s;
+    }
+
+    .help-card-header:hover {
+      background: var(--surface-2);
+    }
+
+    .help-card-question {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .help-card-arrow {
+      font-size: 14px;
+      color: var(--silver);
+      transition: transform 0.3s;
+    }
+
+    .help-card.open .help-card-arrow {
+      transform: rotate(180deg);
+    }
+
+    .help-card-body {
+      display: none;
+      padding: 0 20px 16px;
+      font-size: 14px;
+      color: var(--silver-light);
+      line-height: 1.7;
+    }
+
+    .help-card.open .help-card-body {
+      display: block;
+    }
+
+    .help-card-body a {
+      color: var(--red);
+      text-decoration: none;
+    }
+
+    .help-card-body a:hover {
+      text-decoration: underline;
+    }
+
+    .help-card-body ul {
+      padding-left: 20px;
+      margin: 8px 0;
+    }
+
+    .help-card-body li {
+      margin-bottom: 6px;
+    }
+
+    .help-card-body strong {
+      color: var(--white);
+    }
+
+    .help-highlight {
+      background: var(--surface-2);
+      border-left: 3px solid var(--red);
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      margin: 12px 0;
+      font-size: 13px;
+      color: var(--white);
+    }
+
+    .help-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .help-quick-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      color: var(--white);
+    }
+
+    .help-quick-card:hover {
+      border-color: var(--red);
+      background: var(--surface-2);
+    }
+
+    .help-quick-icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .help-quick-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .help-quick-desc {
+      font-size: 12px;
+      color: var(--silver);
+    }
+
+    .help-contact {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+      margin-top: 32px;
+    }
+
+    .help-contact h3 {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .help-contact p {
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    .help-contact-btn {
+      display: inline-block;
+      padding: 12px 28px;
+      background: var(--red);
+      color: #fff;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .help-contact-btn:hover {
+      background: #e60035;
+      box-shadow: 0 4px 20px rgba(255, 0, 60, 0.4);
+    }
+
+    .help-footer {
+      text-align: center;
+      padding: 32px 20px;
+      border-top: 1px solid var(--line);
+      font-size: 12px;
+      color: var(--silver);
+    }
+
+    .help-footer a {
+      color: var(--silver-light);
+      text-decoration: none;
+    }
+
+    .help-footer a:hover { color: var(--white); }
+
+    @media (max-width: 600px) {
+      .help-content { padding: 32px 16px 60px; }
+      .help-title { font-size: 24px; }
+      .help-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="help-header">
+    <div class="help-header-inner">
+      <a href="index.html" class="help-logo">
+        <span class="help-logo-icon">🦊</span>
+        <span class="help-logo-text">FOX NET</span>
+      </a>
+      <a href="index.html" class="help-back">← Volver a Fox Net</a>
+    </div>
+  </header>
+
+  <main class="help-content">
+
+    <h1 class="help-title">Centro de Ayuda</h1>
+    <p class="help-subtitle">¿Tienes una pregunta? Encuentra respuestas aquí.</p>
+
+    <!-- Barra de búsqueda -->
+    <div class="help-search">
+      <span class="help-search-icon">🔍</span>
+      <input type="text" id="helpSearchInput" placeholder="Buscar en el centro de ayuda...">
+    </div>
+
+    <!-- Accesos rápidos -->
+    <div class="help-grid">
+      <div class="help-quick-card" onclick="scrollToSection('cuenta')">
+        <div class="help-quick-icon">👤</div>
+        <div class="help-quick-title">Mi Cuenta</div>
+        <div class="help-quick-desc">Registro, login y perfil</div>
+      </div>
+      <div class="help-quick-card" onclick="scrollToSection('publicaciones')">
+        <div class="help-quick-icon">📝</div>
+        <div class="help-quick-title">Publicaciones</div>
+        <div class="help-quick-desc">Crear, compartir y comentar</div>
+      </div>
+      <div class="help-quick-card" onclick="scrollToSection('historias')">
+        <div class="help-quick-icon">📸</div>
+        <div class="help-quick-title">Historias</div>
+        <div class="help-quick-desc">Crear y ver historias</div>
+      </div>
+      <div class="help-quick-card" onclick="scrollToSection('chat')">
+        <div class="help-quick-icon">💬</div>
+        <div class="help-quick-title">Mensajes</div>
+        <div class="help-quick-desc">Chat privado entre fans</div>
+      </div>
+      <div class="help-quick-card" onclick="scrollToSection('seguridad')">
+        <div class="help-quick-icon">🔒</div>
+        <div class="help-quick-title">Seguridad</div>
+        <div class="help-quick-desc">Privacidad y protección</div>
+      </div>
+      <div class="help-quick-card" onclick="scrollToSection('general')">
+        <div class="help-quick-icon">🦊</div>
+        <div class="help-quick-title">General</div>
+        <div class="help-quick-desc">Preguntas frecuentes</div>
+      </div>
+    </div>
+
+    <!-- Mi Cuenta -->
+    <div class="help-section" id="cuenta">
+      <h2 class="help-section-title"><span class="icon">👤</span> Mi Cuenta</h2>
+
+      <div class="help-card">
+        <div class="help-card-header" onclick="toggleCard(this)">
+          <span class="help-card-question">¿Cómo creo una cuenta en Fox Net?</span>
+          <span class="help-card-arrow">▼</span>
+        </div>
+        <div class="help-card-body">
+          <p>Sigue estos pasos:</p>
+          <ul>
+            <li>Haz clic en <strong>"Registrarse"</strong> en la parte superior de la página.</li>
+            <li>Completa tu nombre, correo electrónico y contraseña.</li>
+            <li>Ingresa el código de verificación de 6 dígitos que recibirás por correo.</li>
+            <li>¡Listo! Ya puedes usar Fox Net.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="help-card">
+        <div class="help-card-header" onclick="toggleCard(this)">
+          <span class="help-card-question">¿Cómo inicio sesión?</span>
+          <span class="help-card-arrow">▼</span>
+        </div>
+        <div class="help-card-body">
+          <p>Haz clic en <strong>"Iniciar Sesión"</strong> en la parte superior. Puedes usar tu <strong>correo electrónico</strong> o tu <strong>nombre de usuario</strong> para acceder.</p>
+        </div>
+      </div>
+
+      <div class="help-card">
+        <div class="help-card-header" onclick="toggleCard(this)">
+          <span class="help-card-question">¿Cómo cambio mi foto de perfil?</span>
+          <span class="help-card-arrow">▼</span>
+        </div>
+        <div class="help-card-body">
+          <p>Haz clic en tu <strong>avatar</strong> (la imagen del zorro 🦊) en la tarjeta de perfil del lado izquierdo. Se abrirá un modal donde podrás seleccionar una nueva foto desde tu dispositivo.</p>
+          <p>Formatos aceptados: JPG, PNG o GIF. Tamaño máximo: 2MB.</p>
+        </div>
+      </div>
+
+      <div class="help-card">
+        <div class="help-card-header" onclick="toggleCard(this)">
+          <span class="help-card-question">¿Cómo cierro sesión?</span>
+          <span class="help-card-arrow">▼</span>
+        </div>
+        <div class="help-card-body">
+          <p>Haz clic en tu nombre de usuario en la parte superior derecha para abrir el menú desplegable. Luego selecciona <strong>"Cerrar sesión"</strong>. También puedes cerrar sesión desde el menú lateral derecho.</p>
+        </div>
+      </div>
+
+      <div class="help-card">
+        <div class="help-card-header" onclick="toggleCard(this)">
+          <span class="help-card-question">¿Cómo elimino mi cuenta?</span>
+          <span class="help-card-arrow">▼</span>
+        </div>
+        <div class="help-card-body">
+          <p>Si deseas eliminar tu cuenta, contáctanos a través de <a href="mailto:ayuda@foxnet.com">ayuda@foxnet.com</a> con tu solicitud. Eliminaremos tus datos de forma permanente dentro de los 30 días.</p>
+          <div class="help-highlight">⚠️ La eliminación de cuenta es irreversible. Se borrarán todas tus publicaciones, historias y mensajes.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Publicaciones -->
+    <div class="help-section" id="publicaciones">
+      <h2 class="help-section-title"><span class="icon">📝</span> Publicaciones</h2>
+
+      <div class="help-card">
+        <div class="help-card-header" onclick="toggleCard(this)">
+          <span class="help-card-question">¿Cómo creo una publicación?</span>
+          <span class="help-card-arrow">▼</span>
+        </div>
+        <div class="help-card-body">
+          <p>En el feed principal verás una caja que dice <strong>"¿Qué está pasando en la Metal Resistance?"</strong>. Haz clic en ella, escribe tu mensaje y compártelo. Puedes agregar texto sobre BABYMETAL, opiniones, fotos o cualquier cosa relacionada con la comunidad.</p>
+        </div>
+      </div>
+
+      <div class="help-card">
+        <div class="help-card-header" onclick="toggleCard(this)">
+          <span class="help-card-question">¿Cómo doy "Me gusta" a una publicación?</span>
+          <span class="help-card-arrow">▼</span>
+        </div>
+        <div class="help-card-body">
+          <p>Haz clic en el botón <strong>"🤍 Me gusta"</strong> debajo de cualquier publicación. El corazón se pondrá rojo. Para quitar el like, haz clic nuevamente.</p>
+          <p>Necesitas estar iniciado sesión para dar likes.</p>
+        </div>
+      </div>
+
+      <div class="help-card">
+        <div class="help-card-header" onclick="toggleCard(this)">
+          <span class="help-card-question">¿Cómo comento una publicación?</span>
+          <span class="help-card-arrow">▼</span>
+        </div>
+        <div class="help-card-body">
+          <p>Haz clic en el botón <strong>"💬 Comentar"</strong> debajo de la publicación. Se abrirá una sección donde podrás escribir tu comentario y enviarlo con el botón <strong>"➤"</strong>.</p>
+        </div>
+      </div>
+
+      <div class="help-card">
+        <div class="help-card-header" onclick="toggleCard(this)">
+          <span class="help-card-question">¿Cómo comparto una publicación?</span>
+          <span class="help-card-arrow">▼</span>
+        </div>
+        <div class="help-card-body">
+          <p>Haz clic en el botón <strong>"🔄 Compartir"</strong>. El contador de compartidos aumentará en 1. Haz clic nuevamente para deshacer.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Historias -->
+    <div class="help-section" id="historias">
+      <h2 class="help-section-title"><span class="icon">📸</span> Historias</h2>
+
+      <div class="help-card">
+        <div class="help-card-header" onclick="toggleCard(this)">
+          <span class="help-card-question">¿Cómo creo una historia?</span>
+          <span class="help-card-arrow">▼</span>
+        </div>
+        <div class="help-card-body">
+          <p>En la sección de historias (arriba del feed), haz clic en <strong>"Tu historia"</strong> con el botón <strong>+</strong>. Se abrirá un modal donde podrás:</p>
+          <ul>
+            <li>Subir una foto desde tu dispositivo</li>
+            <li>Escribir un texto descriptivo</li>
+            <li>Hacer clic en <strong>"Compartir Historia"</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="help-card">
+        <div class="help-card-header" onclick="toggleCard(this)">
+          <span class="help-card-question">¿Cuánto tiempo dura una historia?</span>
+          <span class="help-card-arrow">▼</span>
+        </div>
+        <div class="help-card-body">
+          <p>Las historias duran <strong>24 horas</strong>. Después de ese tiempo, se eliminan automáticamente de la plataforma.</p>
+        </div>
+      </div>
+
+      <div class="help-card">
+        <div class="help-card-header" onclick="toggleCard(this)">
+          <span class="help-card-question">¿Cómo veo las historias de otros usuarios?</span>
+          <span class="help-card-arrow">▼</span>
+        </div>
+        <div class="help-card-body">
+          <p>Haz clic en el avatar de cualquier historia en la sección de historias. Se abrirá el visor en pantalla completa. Puedes navegar con:</p>
+          <ul>
+            <li><strong>Flechas del teclado</strong> ← →</li>
+            <li><strong>Clic izquierdo/derecho</strong> en la pantalla</li>
+            <li><strong>Espacio</strong> para avanzar</li>
+          </ul>
+          <p>Las historias vistas tendrán el borde gris. Las no vistas tendrán el borde rojo.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mensajes -->
+    <div class="help-section" id="chat">
+      <h2 class="help-section-title"><span class="icon">💬</span> Mensajes Privados</h2>
+
+      <div class="help-card">
+        <div class="help-card-header" onclick="toggleCard(this)">
+          <span class="help-card-question">¿Cómo envío un mensaje privado?</span>
+          <span class="help-card-arrow">▼</span>
+        </div>
+        <div class="help-card-body">
+          <p>Los mensajes privados están disponibles para chatear con otros fans. Se abrirá una ventana de chat donde podrás escribir y enviar mensajes en tiempo real.</p>
+          <p>Tus conversaciones se guardan localmente en tu navegador y son privadas.</p>
+        </div>
+      </div>
+
+      <div class="help-card">
+        <div class="help-card-header" onclick="toggleCard(this)">
+          <span class="help-card-question">¿Mis mensajes son privados?</span>
+          <span class="help-card-arrow">▼</span>
+        </div>
+        <div class="help-card-body">
+          <p>Sí. Los mensajes se almacenan únicamente en el <strong>localStorage</strong> de tu navegador. No se envían a ningún servidor externo. Solo tú puedes ver tus conversaciones desde tu dispositivo.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Seguridad -->
+    <div class="help-section" id="seguridad">
+      <h2 class="help-section-title"><span class="icon">🔒</span> Seguridad y Privacidad</h2>
+
+      <div class="help-card">
+        <div class="help-card-header" onclick="toggleCard(this)">
+          <span class="help-card-question">¿Fox Net comparte mis datos?</span>
+          <span class="help-card-arrow">▼</span>
+        </div>
+        <div class="help-card-body">
+          <p>No. <strong>Fox Net no vende, alquila ni comparte tu información personal con terceros.</strong> Consulta nuestra <a href="privacidad.html">Política de Privacidad</a> para más detalles.</p>
+        </div>
+      </div>
+
+      <div class="help-card">
+        <div class="help-card-header" onclick="toggleCard(this)">
+          <span class="help-card-question">¿Cómo protegen mi contraseña?</span>
+          <span class="help-card-arrow">▼</span>
+        </div>
+        <div class="help-card-body">
+          <p>Las contraseñas se almacenan de forma <strong>encriptada</strong>. Nunca accedemos a tu contraseña en texto plano. Recomendamos usar una contraseña segura y única.</p>
+        </div>
+      </div>
+
+      <div class="help-card">
+        <div class="help-card-header" onclick="toggleCard(this)">
+          <span class="help-card-question">¿Fox Net usa cookies?</span>
+          <span class="help-card-arrow">▼</span>
+        </div>
+        <div class="help-card-body">
+          <p>Fox Net utiliza únicamente <strong>localStorage</strong> del navegador para guardar tu sesión y preferencias. No utilizamos cookies de rastreo publicitario.</p>
+        </div>
+      </div>
+
+      <div class="help-card">
+        <div class="help-card-header" onclick="toggleCard(this)">
+          <span class="help-card-question">¿Soy mayor de edad para usar Fox Net?</span>
+          <span class="help-card-arrow">▼</span>
+        </div>
+        <div class="help-card-body">
+          <p>Fox Net está disponible para personas mayores de <strong>13 años</strong>. Si eres menor de 18 años, te recomendamos que un padre o tutor revise nuestros <a href="terminos.html">Términos y Condiciones</a>.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- General -->
+    <div class="help-section" id="general">
+      <h2 class="help-section-title"><span class="icon">🦊</span> Preguntas Generales</h2>
+
+      <div class="help-card">
+        <div class="help-card-header" onclick="toggleCard(this)">
+          <span class="help-card-question">¿Qué es Fox Net?</span>
+          <span class="help-card-arrow">▼</span>
+        </div>
+        <div class="help-card-body">
+          <p><strong>Fox Net</strong> es una red social de fans no oficial dedicada a la comunidad de BABYMETAL. Aquí puedes conectar con otros fans, compartir publicaciones, crear historias, chatear y mantenerte al día con todo lo relacionado con BABYMETAL.</p>
+          <div class="help-highlight">🦊 Fox Net no está afiliado ni avalado por BABYMETAL ni por sus empresas asociadas. Es un proyecto independiente creado por fans, para fans.</div>
+        </div>
+      </div>
+
+      <div class="help-card">
+        <div class="help-card-header" onclick="toggleCard(this)">
+          <span class="help-card-question">¿Qué es el Fox Bot?</span>
+          <span class="help-card-arrow">▼</span>
+        </div>
+        <div class="help-card-body">
+          <p>El <strong>Fox Bot</strong> es un asistente virtual integrado en Fox Net. Puedes preguntarle sobre:</p>
+          <ul>
+            <li>Miembros de BABYMETAL</li>
+            <li>Canciones y discografía</li>
+            <li>Historia del grupo</li>
+            <li>Conciertos y giras</li>
+            <li>Y mucho más</li>
+          </ul>
+          <p>Haz clic en el botón 🦊 rojo en la esquina inferior derecha para abrir el chat.</p>
+        </div>
+      </div>
+
+      <div class="help-card">
+        <div class="help-card-header" onclick="toggleCard(this)">
+          <span class="help-card-question">¿Qué son los puntos del Ranking de Fans?</span>
+          <span class="help-card-arrow">▼</span>
+        </div>
+        <div class="help-card-body">
+          <p>Los puntos se ganan:</p>
+          <ul>
+            <li><strong>Publicando</strong> contenido en el feed</li>
+            <li><strong>Comentando</strong> en las publicaciones de otros fans</li>
+            <li><strong>Recibiendo likes</strong> en tus publicaciones</li>
+          </ul>
+          <p>El ranking muestra a los fans más activos de la comunidad. ¡Compite por llegar a la cima! 🏆</p>
+        </div>
+      </div>
+
+      <div class="help-card">
+        <div class="help-card-header" onclick="toggleCard(this)">
+          <span class="help-card-question">¿Fox Net funciona en el celular?</span>
+          <span class="help-card-arrow">▼</span>
+        </div>
+        <div class="help-card-body">
+          <p>Sí. Fox Net está diseñado para funcionar en <strong>computadoras</strong>, <strong>tablets</strong> y <strong>celulares</strong>. El diseño es responsive y se adapta a cualquier tamaño de pantalla.</p>
+        </div>
+      </div>
+
+      <div class="help-card">
+        <div class="help-card-header" onclick="toggleCard(this)">
+          <span class="help-card-question">¿Puedo buscar usuarios o hashtags?</span>
+          <span class="help-card-arrow">▼</span>
+        </div>
+        <div class="help-card-body">
+          <p>Sí. Usa la <strong>barra de búsqueda</strong> en la parte superior para buscar usuarios (SU-METAL, MOAMETAL, etc.) o hashtags (#BABYMETAL, #MetalResistance, etc.).</p>
+        </div>
+      </div>
+
+      <div class="help-card">
+        <div class="help-card-header" onclick="toggleCard(this)">
+          <span class="help-card-question">¿Fox Net es gratuito?</span>
+          <span class="help-card-arrow">▼</span>
+        </div>
+        <div class="help-card-body">
+          <p>Sí. <strong>Fox Net es 100% gratuito</strong>. No hay planes de pago, no hay funciones premium y no se requiere tarjeta de crédito. Regístrate y disfruta.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contacto -->
+    <div class="help-contact">
+      <h3>¿No encontraste lo que buscabas?</h3>
+      <p>Contáctanos y te responderemos lo antes posible.</p>
+      <a href="mailto:ayuda@foxnet.com" class="help-contact-btn">📧 Enviar correo</a>
+    </div>
+
+  </main>
+
+  <footer class="help-footer">
+    <p>© 2026 Fox Net — La Red Social de la Metal Resistance</p>
+    <p style="margin-top:8px;">
+      <a href="ayuda.html">Centro de Ayuda</a> ·
+      <a href="terminos.html">Términos y Condiciones</a> ·
+      <a href="privacidad.html">Política de Privacidad</a> ·
+      <a href="index.html">Volver al inicio</a>
+    </p>
+  </footer>
+
+  <script>
+    // Toggle FAQ cards
+    function toggleCard(header) {
+      var card = header.parentElement;
+      card.classList.toggle('open');
+    }
+
+    // Search filter
+    var searchInput = document.getElementById('helpSearchInput');
+    searchInput.addEventListener('input', function() {
+      var query = searchInput.value.toLowerCase().trim();
+      var cards = document.querySelectorAll('.help-card');
+      var sections = document.querySelectorAll('.help-section');
+
+      if (!query) {
+        cards.forEach(function(c) { c.style.display = ''; });
+        sections.forEach(function(s) { s.style.display = ''; });
+        return;
+      }
+
+      sections.forEach(function(section) {
+        var sectionCards = section.querySelectorAll('.help-card');
+        var hasVisible = false;
+        sectionCards.forEach(function(card) {
+          var text = card.textContent.toLowerCase();
+          if (text.indexOf(query) !== -1) {
+            card.style.display = '';
+            hasVisible = true;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        section.style.display = hasVisible ? '' : 'none';
+      });
+    });
+
+    // Scroll to section
+    function scrollToSection(id) {
+      var el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  </script>
+
+</body>
+</html>
