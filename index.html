@@ -1022,6 +1022,147 @@
 
     #storyFileInput { display: none; }
 
+    /* Story Type Tabs */
+    .story-type-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .story-type-tab {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface-2);
+      color: var(--silver-light);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: var(--font-body);
+    }
+
+    .story-type-tab.active {
+      background: var(--red);
+      border-color: var(--red);
+      color: #fff;
+    }
+
+    .story-type-tab:hover:not(.active) {
+      border-color: var(--red);
+      color: var(--white);
+    }
+
+    /* Video preview */
+    .story-create-upload video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #000;
+    }
+
+    .story-create-upload-hint {
+      font-size: 11px;
+      color: var(--silver);
+      margin-top: 4px;
+    }
+
+    /* Text background picker */
+    .story-text-bg-picker {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+      justify-content: center;
+    }
+
+    .story-bg-option {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid var(--line);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .story-bg-option:hover {
+      transform: scale(1.15);
+    }
+
+    .story-bg-option.active {
+      border-color: var(--red);
+      box-shadow: 0 0 8px rgba(255, 0, 60, 0.4);
+    }
+
+    .story-text-big {
+      height: 140px !important;
+      font-size: 16px !important;
+      text-align: center;
+      line-height: 1.6 !important;
+    }
+
+    .story-text-counter {
+      text-align: right;
+      font-size: 11px;
+      color: var(--silver);
+      margin-top: 4px;
+      margin-bottom: 8px;
+    }
+
+    /* Quick templates */
+    .story-templates {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 14px;
+      align-items: center;
+    }
+
+    .story-templates-label {
+      font-size: 11px;
+      color: var(--silver);
+      width: 100%;
+      margin-bottom: 2px;
+    }
+
+    .story-template-btn {
+      padding: 6px 10px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--surface-2);
+      color: var(--silver-light);
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: var(--font-body);
+    }
+
+    .story-template-btn:hover {
+      border-color: var(--red);
+      color: var(--white);
+      background: var(--red-dim);
+    }
+
+    /* Video in viewer */
+    .story-viewer-video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #000;
+    }
+
+    /* Media section / Text section toggles */
+    .story-media-section.hidden,
+    .story-text-section.hidden {
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      .story-type-tabs { gap: 6px; }
+      .story-type-tab { font-size: 12px; padding: 8px 6px; }
+      .story-text-big { height: 120px !important; font-size: 14px !important; }
+    }
+
     /* Create Post */
     .create-post {
       background: var(--surface);
@@ -1813,23 +1954,60 @@
       <div class="story-create-modal" id="storyCreateModal">
         <div class="story-create-card">
           <div class="story-create-header">
-            <h3>Nueva Historia</h3>
+            <h3>🦊 Nueva Historia</h3>
             <button class="story-create-close" id="storyCreateClose">✕</button>
           </div>
           <div class="story-create-body">
-            <div class="story-create-upload" id="storyUploadArea">
-              <div id="storyUploadPlaceholder">
-                <div class="story-create-upload-icon">📸</div>
-                <div class="story-create-upload-text">Toca para subir una foto</div>
-              </div>
-              <img id="storyPreviewImg" style="display:none;">
+            <!-- Tabs: Foto/Video/Texto -->
+            <div class="story-type-tabs">
+              <button class="story-type-tab active" data-type="media">📸 Foto/Video</button>
+              <button class="story-type-tab" data-type="text">✏️ Solo Texto</button>
             </div>
-            <textarea class="story-create-textarea" id="storyTextInput" placeholder="Escribe algo sobre tu momento con BABYMETAL..."></textarea>
+
+            <!-- Media upload area -->
+            <div class="story-media-section" id="storyMediaSection">
+              <div class="story-create-upload" id="storyUploadArea">
+                <div id="storyUploadPlaceholder">
+                  <div class="story-create-upload-icon">📸</div>
+                  <div class="story-create-upload-text">Toca para subir una foto o video</div>
+                  <div class="story-create-upload-hint">JPG, PNG, GIF, MP4, WEBM (máx. 50MB)</div>
+                </div>
+                <img id="storyPreviewImg" style="display:none;">
+                <video id="storyPreviewVideo" style="display:none;" controls></video>
+              </div>
+              <input type="file" id="storyFileInput" accept="image/*,video/*">
+            </div>
+
+            <!-- Text-only section -->
+            <div class="story-text-section" id="storyTextSection" style="display:none;">
+              <div class="story-text-bg-picker">
+                <div class="story-bg-option active" data-bg="#000000" style="background:#000000;"></div>
+                <div class="story-bg-option" data-bg="#1a0008" style="background:#1a0008;"></div>
+                <div class="story-bg-option" data-bg="#0a1628" style="background:#0a1628;"></div>
+                <div class="story-bg-option" data-bg="#1a0a2e" style="background:#1a0a2e;"></div>
+                <div class="story-bg-option" data-bg="#2d1f0e" style="background:#2d1f0e;"></div>
+                <div class="story-bg-option" data-bg="#ff003c" style="background:linear-gradient(135deg,#ff003c,#cc0030);"></div>
+              </div>
+              <textarea class="story-create-textarea story-text-big" id="storyTextInputBig" placeholder="¿Qué momento de BABYMETAL quieres compartir? 🤘" maxlength="500"></textarea>
+              <div class="story-text-counter"><span id="storyTextCounter">0</span>/500</div>
+            </div>
+
+            <!-- Caption for media -->
+            <textarea class="story-create-textarea" id="storyTextInput" placeholder="Escribe un caption para tu historia... (opcional)" maxlength="300"></textarea>
+
+            <!-- Quick templates -->
+            <div class="story-templates">
+              <span class="story-templates-label">Ideas rápidas:</span>
+              <button class="story-template-btn" data-template="🎸 Mi experiencia en el concierto de BABYMETAL fue...">🎸 Concierto</button>
+              <button class="story-template-btn" data-template="🎵 Mi canción favorita de BABYMETAL es... porque...">🎵 Canción</button>
+              <button class="story-template-btn" data-template="🦊 Soy fan de BABYMETAL desde... y lo que más me gusta es...">🦊 Fan story</button>
+              <button class="story-template-btn" data-template="🤘 La Metal Resistance significa para mí...">🤘 Metal Resistance</button>
+            </div>
+
             <button class="story-create-btn" id="storySubmitBtn" disabled>Compartir Historia</button>
           </div>
         </div>
       </div>
-      <input type="file" id="storyFileInput" accept="image/*">
 
       <!-- Story Viewer -->
       <div class="story-viewer" id="storyViewer">
@@ -1844,6 +2022,7 @@
           </div>
           <button class="story-viewer-close" id="storyViewerClose">✕</button>
           <img class="story-viewer-image" id="storyViewerImage" src="">
+          <video class="story-viewer-video" id="storyViewerVideo" style="display:none;" playsinline></video>
           <div class="story-viewer-text" id="storyViewerText"></div>
           <div class="story-viewer-nav prev" id="storyNavPrev"></div>
           <div class="story-viewer-nav next" id="storyNavNext"></div>
@@ -2601,12 +2780,16 @@
     var storyUploadArea = document.getElementById('storyUploadArea');
     var storyFileInput = document.getElementById('storyFileInput');
     var storyPreviewImg = document.getElementById('storyPreviewImg');
+    var storyPreviewVideo = document.getElementById('storyPreviewVideo');
     var storyUploadPlaceholder = document.getElementById('storyUploadPlaceholder');
     var storyTextInput = document.getElementById('storyTextInput');
+    var storyTextInputBig = document.getElementById('storyTextInputBig');
+    var storyTextCounter = document.getElementById('storyTextCounter');
     var storySubmitBtn = document.getElementById('storySubmitBtn');
     var storyViewer = document.getElementById('storyViewer');
     var storyViewerClose = document.getElementById('storyViewerClose');
     var storyViewerImage = document.getElementById('storyViewerImage');
+    var storyViewerVideo = document.getElementById('storyViewerVideo');
     var storyViewerText = document.getElementById('storyViewerText');
     var storyViewerName = document.getElementById('storyViewerName');
     var storyViewerTime = document.getElementById('storyViewerTime');
@@ -2614,8 +2797,12 @@
     var storyProgress = document.getElementById('storyProgress');
     var storyNavPrev = document.getElementById('storyNavPrev');
     var storyNavNext = document.getElementById('storyNavNext');
+    var storyMediaSection = document.getElementById('storyMediaSection');
+    var storyTextSection = document.getElementById('storyTextSection');
 
-    var currentStoryImage = null;
+    var currentStoryMedia = null;
+    var currentStoryMediaType = null;
+    var currentStoryBg = '#000000';
     var allStories = [];
     var currentStoryIndex = 0;
     var currentUserStories = [];
@@ -2677,7 +2864,8 @@
         card.dataset.storyId = story.id;
         var seen = isStorySeen(story.id);
         var avatarContent = story.userAvatar ? '<img src="' + story.userAvatar + '">' : '🦊';
-        card.innerHTML = '<div class="story-ring' + (seen ? ' seen' : '') + '"><div class="story-avatar">' + avatarContent + '</div></div><div class="story-name">' + story.userName + '</div>';
+        var typeIcon = story.mediaType === 'video' ? '🎬' : (story.mediaType === 'text' ? '✏️' : '📸');
+        card.innerHTML = '<div class="story-ring' + (seen ? ' seen' : '') + '"><div class="story-avatar">' + avatarContent + '</div></div><div class="story-name">' + story.userName + ' ' + typeIcon + '</div>';
         card.addEventListener('click', function() { openStoryViewer(story.id); });
         storiesGrid.appendChild(card);
       });
@@ -2699,11 +2887,9 @@
       var userStories = getStories();
       allStories = userStories.concat(defaultStories);
 
-      // Find which stories belong to current user's batch
       currentUserStories = [];
       currentUserStoryIndex = 0;
 
-      // If it's a user story, show all user stories first
       var isUserStory = userStories.some(function(s) { return s.id === storyId; });
       if (isUserStory) {
         currentUserStories = userStories;
@@ -2722,18 +2908,55 @@
     function showStory(story) {
       storyViewerName.textContent = story.name;
       storyViewerTime.textContent = story.time || 'Ahora';
-      storyViewerText.textContent = story.text || '';
+
+      // Handle text-only stories with background
+      if (story.mediaType === 'text' && !story.image && !story.video) {
+        storyViewerText.textContent = story.text || '';
+        storyViewerText.style.background = story.bgColor || 'rgba(0,0,0,0.7)';
+        storyViewerText.style.padding = '20px';
+        storyViewerText.style.borderRadius = '12px';
+        storyViewerText.style.fontSize = '20px';
+        storyViewerText.style.fontWeight = '600';
+        storyViewerText.style.textAlign = 'center';
+        storyViewerImage.style.display = 'none';
+        storyViewerVideo.style.display = 'none';
+        storyViewerImage.src = '';
+        storyViewerVideo.src = '';
+      } else {
+        storyViewerText.textContent = story.text || '';
+        storyViewerText.style.background = '';
+        storyViewerText.style.padding = '';
+        storyViewerText.style.borderRadius = '';
+        storyViewerText.style.fontSize = '';
+        storyViewerText.style.fontWeight = '';
+        storyViewerText.style.textAlign = '';
+
+        // Video story
+        if (story.video) {
+          storyViewerImage.style.display = 'none';
+          storyViewerImage.src = '';
+          storyViewerVideo.src = story.video;
+          storyViewerVideo.style.display = 'block';
+          storyViewerVideo.play().catch(function() {});
+        }
+        // Image story
+        else if (story.image) {
+          storyViewerVideo.style.display = 'none';
+          storyViewerVideo.src = '';
+          storyViewerImage.src = story.image;
+          storyViewerImage.style.display = 'block';
+        }
+        // Default (no media)
+        else {
+          storyViewerImage.style.display = 'none';
+          storyViewerVideo.style.display = 'none';
+          storyViewerImage.src = '';
+          storyViewerVideo.src = '';
+        }
+      }
 
       var avatarContent = story.avatar && story.avatar.includes('/') ? '<img src="' + story.avatar + '">' : (story.avatar || '🦊');
       storyViewerAvatar.innerHTML = avatarContent;
-
-      if (story.image) {
-        storyViewerImage.src = story.image;
-        storyViewerImage.style.display = 'block';
-      } else {
-        storyViewerImage.style.display = 'none';
-        storyViewerImage.src = '';
-      }
 
       // Mark as seen
       markStorySeen(story.id);
@@ -2751,13 +2974,18 @@
         storyProgress.appendChild(bar);
       });
 
-      // Auto advance
+      // Auto advance (longer for videos)
       clearTimeout(storyTimer);
-      storyTimer = setTimeout(function() { nextStory(); }, 5000);
+      var delay = story.video ? 15000 : 5000;
+      storyTimer = setTimeout(function() { nextStory(); }, delay);
     }
 
     function nextStory() {
       clearTimeout(storyTimer);
+      // Pause video if playing
+      storyViewerVideo.pause();
+      storyViewerVideo.src = '';
+
       if (currentUserStoryIndex < currentUserStories.length - 1) {
         currentUserStoryIndex++;
         showStory(currentUserStories[currentUserStoryIndex]);
@@ -2768,6 +2996,9 @@
 
     function prevStory() {
       clearTimeout(storyTimer);
+      storyViewerVideo.pause();
+      storyViewerVideo.src = '';
+
       if (currentUserStoryIndex > 0) {
         currentUserStoryIndex--;
         showStory(currentUserStories[currentUserStoryIndex]);
@@ -2776,6 +3007,8 @@
 
     function closeStoryViewer() {
       clearTimeout(storyTimer);
+      storyViewerVideo.pause();
+      storyViewerVideo.src = '';
       storyViewer.classList.remove('active');
       document.body.style.overflow = '';
     }
@@ -2796,7 +3029,59 @@
       if (e.key === 'Escape') closeStoryViewer();
     });
 
-    // Create story
+    // ========== STORY TYPE TABS ==========
+    var storyTypeTabs = document.querySelectorAll('.story-type-tab');
+    storyTypeTabs.forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        storyTypeTabs.forEach(function(t) { t.classList.remove('active'); });
+        tab.classList.add('active');
+        var type = tab.dataset.type;
+        if (type === 'media') {
+          storyMediaSection.style.display = '';
+          storyTextSection.style.display = 'none';
+        } else {
+          storyMediaSection.style.display = 'none';
+          storyTextSection.style.display = '';
+        }
+        updateSubmitBtn();
+      });
+    });
+
+    // Background picker
+    var bgOptions = document.querySelectorAll('.story-bg-option');
+    bgOptions.forEach(function(opt) {
+      opt.addEventListener('click', function() {
+        bgOptions.forEach(function(o) { o.classList.remove('active'); });
+        opt.classList.add('active');
+        currentStoryBg = opt.dataset.bg;
+      });
+    });
+
+    // Text counter
+    if (storyTextInputBig) {
+      storyTextInputBig.addEventListener('input', function() {
+        storyTextCounter.textContent = storyTextInputBig.value.length;
+        updateSubmitBtn();
+      });
+    }
+
+    // Quick templates
+    var templateBtns = document.querySelectorAll('.story-template-btn');
+    templateBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var template = btn.dataset.template;
+        // Switch to text tab
+        storyTypeTabs.forEach(function(t) { t.classList.remove('active'); });
+        document.querySelector('.story-type-tab[data-type="text"]').classList.add('active');
+        storyMediaSection.style.display = 'none';
+        storyTextSection.style.display = '';
+        storyTextInputBig.value = template;
+        storyTextCounter.textContent = template.length;
+        updateSubmitBtn();
+      });
+    });
+
+    // ========== CREATE STORY ==========
     addStoryBtn.addEventListener('click', function() {
       var email = localStorage.getItem('foxnet_current');
       if (!email) {
@@ -2825,31 +3110,51 @@
     storyFileInput.addEventListener('change', function(e) {
       var file = e.target.files[0];
       if (!file) return;
+
+      var isVideo = file.type.startsWith('video/');
       var reader = new FileReader();
+
       reader.onload = function(ev) {
-        currentStoryImage = ev.target.result;
-        storyPreviewImg.src = currentStoryImage;
-        storyPreviewImg.style.display = 'block';
+        currentStoryMedia = ev.target.result;
+        currentStoryMediaType = isVideo ? 'video' : 'image';
+
+        if (isVideo) {
+          storyPreviewVideo.src = currentStoryMedia;
+          storyPreviewVideo.style.display = 'block';
+          storyPreviewImg.style.display = 'none';
+        } else {
+          storyPreviewImg.src = currentStoryMedia;
+          storyPreviewImg.style.display = 'block';
+          storyPreviewVideo.style.display = 'none';
+        }
         storyUploadPlaceholder.style.display = 'none';
         storyUploadArea.classList.add('has-image');
-        storySubmitBtn.disabled = false;
+        updateSubmitBtn();
       };
       reader.readAsDataURL(file);
     });
 
     storyTextInput.addEventListener('input', function() {
-      if (storyTextInput.value.trim() || currentStoryImage) {
-        storySubmitBtn.disabled = false;
-      } else {
-        storySubmitBtn.disabled = true;
-      }
+      updateSubmitBtn();
     });
+
+    function updateSubmitBtn() {
+      var isTextMode = document.querySelector('.story-type-tab[data-type="text"]').classList.contains('active');
+      if (isTextMode) {
+        storySubmitBtn.disabled = !storyTextInputBig.value.trim();
+      } else {
+        storySubmitBtn.disabled = !currentStoryMedia && !storyTextInput.value.trim();
+      }
+    }
 
     storySubmitBtn.addEventListener('click', function() {
       var email = localStorage.getItem('foxnet_current');
       var users = JSON.parse(localStorage.getItem('foxnet_users') || '{}');
       var user = users[email];
       if (!user) return;
+
+      var isTextMode = document.querySelector('.story-type-tab[data-type="text"]').classList.contains('active');
+      var text = isTextMode ? storyTextInputBig.value.trim() : storyTextInput.value.trim();
 
       var story = {
         id: 'user_' + Date.now(),
@@ -2858,8 +3163,11 @@
         userAvatar: null,
         name: user.name,
         avatar: '🦊',
-        image: currentStoryImage,
-        text: storyTextInput.value.trim(),
+        image: !isTextMode && currentStoryMediaType === 'image' ? currentStoryMedia : null,
+        video: !isTextMode && currentStoryMediaType === 'video' ? currentStoryMedia : null,
+        mediaType: isTextMode ? 'text' : (currentStoryMediaType || 'none'),
+        bgColor: isTextMode ? currentStoryBg : null,
+        text: text,
         time: 'Ahora',
         timestamp: Date.now()
       };
@@ -2871,13 +3179,27 @@
     });
 
     function resetStoryCreate() {
-      currentStoryImage = null;
+      currentStoryMedia = null;
+      currentStoryMediaType = null;
+      currentStoryBg = '#000000';
       storyPreviewImg.style.display = 'none';
+      storyPreviewVideo.style.display = 'none';
+      storyPreviewVideo.src = '';
       storyUploadPlaceholder.style.display = '';
       storyUploadArea.classList.remove('has-image');
       storyTextInput.value = '';
+      if (storyTextInputBig) storyTextInputBig.value = '';
+      if (storyTextCounter) storyTextCounter.textContent = '0';
       storySubmitBtn.disabled = true;
       storyFileInput.value = '';
+      // Reset to media tab
+      storyTypeTabs.forEach(function(t) { t.classList.remove('active'); });
+      document.querySelector('.story-type-tab[data-type="text"]').classList.remove('active');
+      document.querySelector('.story-type-tab[data-type="media"]').classList.add('active');
+      storyMediaSection.style.display = '';
+      storyTextSection.style.display = 'none';
+      bgOptions.forEach(function(o) { o.classList.remove('active'); });
+      bgOptions[0].classList.add('active');
     }
 
     // Init stories
