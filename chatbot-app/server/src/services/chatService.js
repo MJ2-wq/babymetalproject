@@ -1,6 +1,13 @@
 import { env } from "../config/env.js";
 import { query } from "../config/db.js";
-import { openai } from "../config/openai.js";
+
+let openai = null;
+try {
+  const mod = await import("../config/openai.js");
+  openai = mod.openai;
+} catch {
+  // OpenAI not configured
+}
 
 const SYSTEM_PROMPT = `
 Eres FOX BOT, un asistente de una comunidad fan no oficial de BABYMETAL.
@@ -9,6 +16,26 @@ Puedes hablar de musica, miembros, giras, historia, juegos fan y uso de la web.
 No afirmes ser representante oficial de BABYMETAL.
 Si no sabes una fecha oficial, dilo y sugiere verificar fuentes oficiales.
 `;
+
+// Fallback responses when OpenAI is not available
+const FALLBACK_RESPONSES = {
+  default: "¡Hola! Soy FOX BOT 🦊 Aún no tengo conexión con OpenAI para responder con inteligencia artificial. Mientras tanto, pregunta por giras, canciones, historia o integrantes de BABYMETAL y haré lo mejor que pueda.",
+  giras: "BABYMETAL ha tenido varias giras mundiales importantes:\n\n• 2013-2014: Babymetal World Tour\n• 2015: Babymetal Dark Night Circus\n• 2016: The Red Tour\n• 2017: Babymetal Awakens / The Five Fox Festival\n• 2018: The Five Fox Festival / Metal Galaxy\n• 2019-2020: Metal Galaxy World Tour\n• 2023-2024: The Other One Tour\n• 2025-2026: The Other One World Tour 2026 🦊",
+  quienes: "BABYMETAL es un grupo japonés de kawaii metal formado en 2010:\n\n🦊 SU-METAL (Suzuka Nakamoto) - Vocalista\n⭐ MOAMETAL (Moa Kikuchi) - Dance/Vocal\n🌸 MOMOMETAL (Momoko Okazaki) - Dance/Vocal\n\n¡Todas son increíbles! 🤘",
+  canciones: "Algunas canciones icónicas de BABYMETAL:\n\n🔥 Gimme Chocolate!!\n⚡ Karate\n🦊 Megitsune\n🌙 Road of Resistance\n🎸 KARATE\n💎 The One\n🎶 Distortion\n🦢 Pa Pa Ya!!\n🔥 Monochrome",
+  fox: "El Fox God (Kitsune-Sama) 🦊 es una figura mítica en el universo de BABYMETAL. Se dice que eligió a las chicas para ser las guerreras del metal. ¡Es el guía espiritual de la banda y de todos los fans!",
+  historia: "BABYMETAL nació en 2010 como un proyecto dentro de Sakura Gakuin. Su debut oficial fue en 2011 con 'Doki Doki Morning'. Desde entonces han revolucionado el metal mundial mezclando kawaii con potencia musical. 🤘🦊"
+};
+
+function getFallbackResponse(content) {
+  const lower = content.toLowerCase();
+  if (lower.includes("gira") || lower.includes("tour") || lower.includes("concierto")) return FALLBACK_RESPONSES.giras;
+  if (lower.includes("quien") || lower.includes("miembro") || lower.includes("integra")) return FALLBACK_RESPONSES.quienes;
+  if (lower.includes("cancion") || lower.includes("song") || lower.includes("tema")) return FALLBACK_RESPONSES.canciones;
+  if (lower.includes("fox") || lower.includes("dios") || lower.includes("kitsune")) return FALLBACK_RESPONSES.fox;
+  if (lower.includes("historia") || lower.includes("origen") || lower.includes("cuando")) return FALLBACK_RESPONSES.historia;
+  return FALLBACK_RESPONSES.default;
+}
 
 export async function getConversationForUser(conversationId, userId) {
   const rows = await query(
@@ -95,22 +122,36 @@ export async function sendChatMessage({ userId, conversationId, content }) {
   }
 
   await saveMessage(conversation.id, "user", content);
-  const allMessages = await listMessages(conversation.id);
-  const summary = await summarizeIfNeeded(conversation, allMessages);
-  const recentMessages = allMessages.slice(-env.MAX_CONTEXT_MESSAGES);
 
-  const input = [
-    { role: "system", content: SYSTEM_PROMPT },
-    ...(summary ? [{ role: "system", content: `Resumen de contexto previo:\n${summary}` }] : []),
-    ...recentMessages.map((message) => ({ role: message.role, content: message.content }))
-  ];
+  let answer;
 
-  const response = await openai.responses.create({
-    model: env.OPENAI_MODEL,
-    input
-  });
+  if (!openai || !env.OPENAI_API_KEY) {
+    // Fallback: respond without OpenAI
+    answer = getFallbackResponse(content);
+  } else {
+    try {
+      const allMessages = await listMessages(conversation.id);
+      const summary = await summarizeIfNeeded(conversation, allMessages);
+      const recentMessages = allMessages.slice(-env.MAX_CONTEXT_MESSAGES);
 
-  const answer = response.output_text || "No pude generar una respuesta en este momento.";
+      const input = [
+        { role: "system", content: SYSTEM_PROMPT },
+        ...(summary ? [{ role: "system", content: `Resumen de contexto previo:\n${summary}` }] : []),
+        ...recentMessages.map((message) => ({ role: message.role, content: message.content }))
+      ];
+
+      const response = await openai.responses.create({
+        model: env.OPENAI_MODEL,
+        input
+      });
+
+      answer = response.output_text || "No pude generar una respuesta en este momento.";
+    } catch (err) {
+      console.error("OpenAI error:", err.message);
+      answer = getFallbackResponse(content);
+    }
+  }
+
   await saveMessage(conversation.id, "assistant", answer);
   await query("UPDATE conversations SET updated_at = CURRENT_TIMESTAMP WHERE id = :id", { id: conversation.id });
 

@@ -2303,6 +2303,14 @@
         </div>
       </div>
 
+      <!-- Facebook-style Image Lightbox Modal -->
+      <div id="imageLightbox" class="lightbox-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.95); z-index:10000; align-items:center; justify-content:center;">
+        <button id="lightboxClose" style="position:absolute; top:20px; right:20px; font-size:30px; color:#fff; background:none; border:none; cursor:pointer; z-index:10100; text-shadow:0 2px 4px rgba(0,0,0,0.8); transition:color 0.2s;">✕</button>
+        <div class="lightbox-content" style="position:relative; width:90%; height:90%; display:flex; align-items:center; justify-content:center;">
+          <img id="lightboxImage" src="" alt="Vista previa" style="max-width:100%; max-height:100%; object-fit:contain; box-shadow:0 8px 32px rgba(0,0,0,0.8); user-select:none;">
+        </div>
+      </div>
+
       <!-- Create Post - Click to open modal -->
       <div class="create-post" id="createPostTrigger">
         <div class="create-post-top">
@@ -3928,6 +3936,49 @@
         window.location.href = 'register.html';
       });
     }
+
+    // ========== IMAGE LIGHTBOX (FACEBOOK STYLE) ==========
+    var lightbox = document.getElementById('imageLightbox');
+    var lightboxImg = document.getElementById('lightboxImage');
+    var lightboxClose = document.getElementById('lightboxClose');
+
+    // Delegation to handle clicking on any post image (including dynamically created ones)
+    document.addEventListener('click', function(e) {
+      var postImg = e.target.closest('.post-image img');
+      if (postImg) {
+        // Prevent default actions or selection
+        e.preventDefault();
+        // Load target src to Lightbox and show modal
+        lightboxImg.src = postImg.src;
+        lightbox.style.display = 'flex';
+        document.body.style.overflow = 'hidden'; // Lock scrolling
+      }
+    });
+
+    // Close Lightbox by clicking the close button
+    lightboxClose.addEventListener('click', function() {
+      lightbox.style.display = 'none';
+      lightboxImg.src = '';
+      document.body.style.overflow = ''; // Restore scrolling
+    });
+
+    // Close Lightbox by clicking outside the image
+    lightbox.addEventListener('click', function(e) {
+      if (e.target === lightbox || e.target.classList.contains('lightbox-content')) {
+        lightbox.style.display = 'none';
+        lightboxImg.src = '';
+        document.body.style.overflow = ''; // Restore scrolling
+      }
+    });
+
+    // Close Lightbox via Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && lightbox.style.display === 'flex') {
+        lightbox.style.display = 'none';
+        lightboxImg.src = '';
+        document.body.style.overflow = '';
+      }
+    });
 
     updateAuthUI();
   </script>

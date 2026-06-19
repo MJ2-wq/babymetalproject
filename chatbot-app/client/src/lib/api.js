@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
+const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:4000";
 
 export function getToken() {
   return localStorage.getItem("foxbot_token");
@@ -20,16 +20,28 @@ export function clearSession() {
 
 export async function api(path, options = {}) {
   const token = getToken();
-  const response = await fetch(`${API_URL}${path}`, {
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      ...(options.headers || {})
-    }
-  });
+  
+  let response;
+  try {
+    response = await fetch(`${API_URL}${path}`, {
+      ...options,
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        ...(options.headers || {})
+      }
+    });
+  } catch (err) {
+    console.error("Error de conexión:", err);
+    throw new Error(`No se pudo conectar al servidor. Asegúrate de que el backend esté corriendo en ${API_URL}`);
+  }
 
   const data = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Error(data.message || "Error de red");
+  if (!response.ok) {
+    throw new Error(data.message || `Error del servidor (${response.status})`);
+  }
+  
   return data;
 }
+
